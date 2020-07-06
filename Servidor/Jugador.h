@@ -11,6 +11,7 @@
 class Jugador {
 public:
     Jugador();
+    Jugador getJugador();
     void setmarcador(int num);
     int getmarcador();
     void setvida();
@@ -18,7 +19,7 @@ public:
     void ubicacion(int x, int y);
     
 private:
-
+    Jugador instance;
 };
 
 #endif	/* JUGADOR_H */

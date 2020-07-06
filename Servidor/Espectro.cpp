@@ -8,7 +8,7 @@
 #include "math.h"
 
 void Espectro::checkearVision(int map[10][10]){
-    //if jugador en rango de vision, llamar a breadcumming
+
     int r,c=10;
     for (int i=-vision/2;i<vision/2+1;i++){
         if(x+i<r && x+i>-1){
