@@ -26,6 +26,14 @@ void Jugador::setvida(){
     vida--;
 }
 
+int Jugador::getX(){
+    return x;
+}
+
+int Jugador::getY(){
+    return y;
+}
+
 int Jugador::getVida(){
     return vida;
           
