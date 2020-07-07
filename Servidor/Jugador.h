@@ -11,11 +11,13 @@
 class Jugador {
 public:
     Jugador();
-    Jugador getJugador();
+    static Jugador getJugador();
     void setmarcador(int num);
     int getmarcador();
     void setvida();
     int getVida();
+    int getX();
+    int getY();
     void ubicacion(int x, int y);
     
 private:

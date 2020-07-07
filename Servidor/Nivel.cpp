@@ -13,3 +13,19 @@ int* Nivel2::getMap() {
 int* Nivel3::getMap() {
     return (int *) (this->map);
 }
+
+TList<Raton> Nivel::getRatones() {
+    return ratones;
+}
+
+TList<Ojo> Nivel::getOjos() {
+    return ojos;
+}
+
+TList<Chuchu> Nivel::getChuchus() {
+    return chuchus;
+}
+
+TList<Espectro> Nivel::getEspectros() {
+    return espectros;
+}

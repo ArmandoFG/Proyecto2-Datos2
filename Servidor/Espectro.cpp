@@ -6,27 +6,19 @@
 #include "Espectro.h"
 #include "TList.h"
 #include "math.h"
-
-void Espectro::checkearVision(int map[10][10]){
-
+#include "Jugador.h"
+#include "math.h"
+bool Espectro::checkearVision(){
     int r,c=10;
-    for (int i=-vision/2;i<vision/2+1;i++){
-        if(x+i<r && x+i>-1){
-            for(int j=-vision/2;j<vision/2+1;j++){
-                if(y+j<c && y+j>-1){
-
-                }
-            }
-        }
-    }
-
+    Jugador j=Jugador::getJugador();
+    return sqrt(pow(x - j.getX(), 2) + pow(y - j.getY(), 2)) < vision;
 }
 
 double f(int xi, int yi, int xf, int yf, int currentSteps){
     return currentSteps+sqrt(pow(xf-xi,2) +pow(yf-yi,2));
 }
 
-string A(int xi, int yi, int xf, int yf, int map[10][10]){
+void Espectro::A(int xi, int yi, int xf, int yf, int map[10][10]){
     double min =std::numeric_limits<double>::max();
     double minTemp;
 
@@ -86,14 +78,18 @@ string A(int xi, int yi, int xf, int yf, int map[10][10]){
             while (!path.empty()){
                 indexPos=path.find_first_of(';');
                 xtemp=std::stoi(path.substr(0,indexPos));
+                nextX.addLast(xtemp);
+
                 path=path.substr(indexPos+1, path.length()-indexPos);
                 indexPos=path.find_first_of(';');
                 ytemp=std::stoi(path.substr(0,indexPos));
+                nextY.addLast(ytemp);
+
                 path=path.substr(indexPos+1, path.length()-indexPos);
+
                 map[xtemp][ytemp]=2;
             }
 
-            return path;
         } else{
             string nodeText;
             //Se analiza el vecindario del escogido
@@ -128,34 +124,15 @@ string A(int xi, int yi, int xf, int yf, int map[10][10]){
             steps.deletePos(parentPos);
         }
     }
-    return "null;null";
+    return;
 }
 
 void Espectro::perseguirA(int map[10][10]) {
-    string path;
-    int indexPos;
-    int xtemp;
-    int ytemp;
-
-    bool jugadorMoved=false;
-    bool ended=false;
-    //Crear funcion de chequeo
-    while(!ended && !jugadorMoved){
-        path = A(x, y, 2, 3, map);
-        indexPos=path.find_first_of(';');
-        xtemp=std::stoi(path.substr(0,indexPos));
-        path=path.substr(indexPos+1, path.length()-indexPos);
-        indexPos=path.find_first_of(';');
-        ytemp=std::stoi(path.substr(0,indexPos));
-        path=path.substr(indexPos+1, path.length()-indexPos);
-
-        x=xtemp;
-        y=ytemp;
-        ended=path.empty();
-    }
+    this->proceso=PersiguiendoA;
+    A(x, y, 2, 3, map);
 }
 
-void breadcumbing(int xi, int yi, int map[10][10] , Espectro e){
+void Espectro::breadcumbing(int xi, int yi, int map[10][10] ){
     int nextTrace=std::numeric_limits<int>::max();
     int nx;
     int ny;
@@ -169,8 +146,6 @@ void breadcumbing(int xi, int yi, int map[10][10] , Espectro e){
                             nextTrace=map[xi+i][yi+j];
                             nx=xi+i;
                             ny=yi+j;
-                            e.setX(nx);
-                            e.setY(ny);
                         }
                     }
                 }
@@ -182,8 +157,8 @@ void breadcumbing(int xi, int yi, int map[10][10] , Espectro e){
 }
 
 void Espectro::perseguirBread(int map[10][10]) {
-    //usar a* para llegar hasta punto actual de jugador
-    breadcumbing(x, y, map, *this);
+    this->proceso=PersiguiendoA;
+    breadcumbing(x, y, map);
 }
 
 /**
@@ -234,7 +209,7 @@ void unmark(int map[10][10], int mark){
  * @param done Boolean pointer that indicates if the goal has been reached
  * @return
  */
-void volverBacktrAux(int xi, int yi, int xf, int yf, int step,int map[10][10], bool* done)
+void Espectro::volverBacktrAux(int xi, int yi, int xf, int yf, int step,int map[10][10], bool* done)
 {
     int r,c=10;
     //If object is on goal, exists
@@ -247,6 +222,8 @@ void volverBacktrAux(int xi, int yi, int xf, int yf, int step,int map[10][10], b
     }else{
         //The possible steps from here are marked so that they won't be
         //reached by future calls
+        nextX.addLast(xi);
+        nextY.addLast(yi);
         mark(xi, yi, map, step, step);
         //Object tries every possible path
         for (int i=-1;i<2;i++)
@@ -260,6 +237,8 @@ void volverBacktrAux(int xi, int yi, int xf, int yf, int step,int map[10][10], b
                         if(*done){
                             //Unmarks all marks made by this step because of success
                             mark(xi, yi, map, 0, step);
+                            nextX.deletePos(nextX.largo-1);
+                            nextY.deletePos(nextY.largo-1);
                             //Marks the right path with a 2
                             map[xi][yi]=2;
                             return;
@@ -277,26 +256,11 @@ void volverBacktrAux(int xi, int yi, int xf, int yf, int step,int map[10][10], b
 void Espectro::devolverse(int map[10][10]){
     //Test Map (1's are walls)
     //Calling backtracking
-    int r,c=10;
+    this->proceso=Volviendo;
     bool* done = new bool(false) ;
     //Note: Steps starts from 3 because 1 and 2 are taken for walls and final path
     volverBacktrAux(x, y, 4, 6,3, map, done);
     //The results on the map are asigned to the espectro
-    while (x!=4 && y!=6) {
-        for (int i = -1; i < 2; i++) {
-            if (x + i < r && x + i > -1) {
-                for (int j = -1; j < 2; j++) {
-                    if (y + j < c && y + j > -1) {
-                        if (map[x + i][y + j] == 2) {
-                            map[x + i][y + j] =0;
-                            x += i;
-                            y += j;
-                        }
-                    }
-                }
-            }
-        }
-    }
 }
 
 void Espectro::setX(int x){
@@ -350,7 +314,47 @@ void Espectro::morir() {
     delete this;
 }
 
-void Espectro::iniciar() {
+void Espectro::mover() {
+    if(proceso==Normal){
+        patrullar();
+    }else if( nextX.largo>0) {
+        x = nextX.getFirst()->getValue();
+        nextX.deletePos(0);
+        x = nextY.getFirst()->getValue();
+        nextY.deletePos(0);
+    }
+}
+
+void Espectro::nextStep() {
+    bool found = false;
+    bool attack = false;
+
+    switch (proceso) {
+        case Normal:
+            found = checkearVision();
+            break;
+        case Volviendo:
+            found = checkearVision();
+            break;
+        case PersiguiendoA:
+            if(nextX.largo==2){
+                attack= true;
+            }
+            break;
+        case PersiguiendoBread:
+            if(nextX.largo==2){
+                attack=true;
+            }
+            break;
+    }
+
+    if(found){
+        this->perseguirA();
+    }else if(attack){
+        this->atacar();
+    }else{
+        mover();
+    }
 
 }
 

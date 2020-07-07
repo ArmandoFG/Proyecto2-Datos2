@@ -16,7 +16,7 @@ Jugador::Jugador() {
 }
 
 Jugador Jugador::getJugador(){
-    if(instance!=null_ptr){
+    if(instance!= nullptr){
         instance = new Jugador;
     }
     return instance;

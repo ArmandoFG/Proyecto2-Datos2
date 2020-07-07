@@ -10,11 +10,16 @@ using namespace std;
 #include <z3.h>
 #include <map>
 #include "string"
+#include "TList.h"
 
 
+enum Proceso{
+    Normal, PersiguiendoA, PersiguiendoBread,Volviendo
+};
 
 class Espectro {
     protected:
+        Proceso proceso;
         string tipo;
         int velocidadRuta;
         int velocidadPersecusion;
@@ -25,6 +30,12 @@ class Espectro {
         int vistay;
         int espectro;
         int patrullarFlag;
+        TList<int> nextX;
+        TList<int> nextY;
+    private:
+        void A(int xi, int yi, int xf, int yf, int map[10][10]);
+        void breadcumbing(int xi, int yi, int map[10][10] );
+        void volverBacktrAux(int xi, int yi, int xf, int yf, int step,int map[10][10], bool *done);
     public:
         virtual ~Espectro() {}
         void perseguirBread(int map[10][10]);
@@ -35,7 +46,7 @@ class Espectro {
         void morir();
         void iniciar();
         void patrullar(int map[10][10]);
-        void checkearVision(int map[10][10]);
+        bool checkearVision();
 
         virtual void habilidad();
 
@@ -44,6 +55,11 @@ class Espectro {
         int getX();
         int getY();
 
+    void nextStep();
+
+    void breadcumbing(int xi, int yi,);
+
+    void mover();
 };
 
 typedef Espectro* (__stdcall *CreateEspectroFn)(void);

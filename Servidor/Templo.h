@@ -7,13 +7,22 @@
 
 
 #include "Nivel.h"
+#include "Jugador.h"
 
 class Templo {
     private:
         Nivel Nivel1;
         Nivel Nivel2;
         Nivel Nivel3;
+        int nivel;
+        Jugador jugador;
+        TList<Raton> ratones;
+        TList<Ojo> ojos;
+        TList<Chuchu> chuchus;
+        TList<Espectro> espectros;
+        Nivel getNivel();
 
+    void nextNivel();
 };
 
 
