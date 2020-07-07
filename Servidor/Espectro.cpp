@@ -391,6 +391,10 @@ int Espectro::getVida() const {
     return vida;
 }
 
+int Espectro::getVision() const {
+    return vision;
+}
+
 
 void EspectroGris::habilidad() {
     //no tiene

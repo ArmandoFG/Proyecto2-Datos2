@@ -24,6 +24,8 @@ class Templo {
         Nivel getNivel();
 
     void nextNivel();
+
+    bool ratonCerca(int x, int y, int vision);
 };
 
 

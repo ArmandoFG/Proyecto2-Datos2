@@ -15,8 +15,9 @@ public:
     int GetPosX();
     int GetPosY();
     void movimiento();
+    bool checkearVision();
 private:
-
+    int vision;
 };
 
 #endif	/* OJO_H */

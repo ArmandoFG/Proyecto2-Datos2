@@ -33,7 +33,11 @@ protected:
         int velocidadRuta;
         int velocidadPersecusion;
         int vision;
-        int x;
+public:
+    int getVision() const;
+
+protected:
+    int x;
         int y;
         int vistax;
         int vistay;

@@ -8,6 +8,16 @@ void Templo::startCiclo(){
     Nivel lvl=getNivel();
     Espectro e;
     persiguiendo=false;
+
+    for(int i=0; i<ojos.largo;i++){
+        if(ojos.getNodoPos(i)->getValue().checkearVision()){
+            persiguiendo= true;
+            //Hacer sonido
+        }
+    }
+
+
+
     for(int i=0; i<espectros.largo;i++){
         e=espectros.getNodoPos(i)->getValue();
         if(e.getProceso()==PersiguiendoBread){
@@ -21,14 +31,20 @@ void Templo::startCiclo(){
                 e.perseguirA(lvl.getMap());
             }
         }
-
-        if(e.getVida()>0){
+        if(e.getVida()>0 && !ratonCerca(e.getX(),e.getY(),e.getVision())){
             e.nextStep();
         }
     }
+    //Si jugador en zona segura, volver
+}
 
-
-
+bool Templo::ratonCerca(int x, int y, int vision){
+    for(int i=0; i<ratones.largo;i++){
+        if(ratones.getNodoPos(i)->getValue().checkearVision(x, y, vision)){
+            return true;
+        }
+    }
+    return false;
 }
 
 void Templo::nextNivel(){
