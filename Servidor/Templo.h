@@ -14,6 +14,9 @@ class Templo {
         Nivel Nivel1;
         Nivel Nivel2;
         Nivel Nivel3;
+        Nivel Nivel4;
+        Nivel Nivel5;
+
         int nivel;
         bool persiguiendo;
         Jugador jugador;
@@ -21,11 +24,12 @@ class Templo {
         TList<Ojo> ojos;
         TList<Chuchu> chuchus;
         TList<Espectro> espectros;
+        TList<Fuego*> fuegos;
+
         Nivel getNivel();
+        bool ratonCerca(int x, int y, int vision);
 
     void nextNivel();
-
-    bool ratonCerca(int x, int y, int vision);
 };
 
 

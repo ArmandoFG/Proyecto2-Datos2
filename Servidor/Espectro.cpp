@@ -8,6 +8,7 @@
 #include "math.h"
 #include "Jugador.h"
 #include "math.h"
+
 bool Espectro::checkearVision(){
     Jugador j=Jugador::getJugador();
     return sqrt(pow(x - j.getX(), 2) + pow(y - j.getY(), 2)) < vision;
@@ -326,12 +327,24 @@ void Espectro::morir() {
 
 void Espectro::mover(int map[10][10]) {
     if(proceso==Normal){
-        patrullar(map);
+        if(timeUntilRuta==0){
+            timeUntilRuta=1000/velocidadRuta;
+            patrullar(map);
+        }else{
+            timeUntilRuta--;
+        }
     }else if( nextX.largo>0) {
-        x = nextX.getFirst()->getValue();
-        nextX.deletePos(0);
-        x = nextY.getFirst()->getValue();
-        nextY.deletePos(0);
+        if(timeUntilPersecusion==0){
+            timeUntilPersecusion=1000/velocidadPersecusion;
+
+            x = nextX.getFirst()->getValue();
+            nextX.deletePos(0);
+            x = nextY.getFirst()->getValue();
+            nextY.deletePos(0);
+
+        }else{
+            timeUntilPersecusion--;
+        }
     }else{
         if(proceso==Volviendo){
             proceso=Normal;
@@ -383,43 +396,64 @@ void Espectro::nextStep(int map[10][10]) {
 
 }
 
-Proceso Espectro::getProceso() const {
+Proceso Espectro::getProceso()  {
     return proceso;
 }
 
-int Espectro::getVida() const {
+int Espectro::getVida()  {
     return vida;
 }
 
-int Espectro::getVision() const {
+int Espectro::getVision()  {
     return vision;
 }
 
-
-void EspectroGris::habilidad() {
-    //no tiene
+ColorEspectro Espectro::getColor() const {
+    return color;
 }
 
-void EspectroRojo::habilidad() {
+Fuego* EspectroRojo::habilidad() {
     //Dispara fuego
-    int fuegox=x;
-    int fuegoy=y;
-    int direccionx = this->vistax;
-    int direcciony = this->vistay;
-    double flag=true;
-
-    int map[10][10];
-    while (flag){
-        if(map[fuegox][fuegoy]==1){
-            flag= false;
-            //Falta checkear por jugador
-        }else{
-            fuegox+=direccionx;
-            fuegoy+=direcciony;
-        }
+    if(timeUntilFuego==0) {
+        timeUntilFuego=frecuenciaFuego;
+        return new Fuego(x, y, vistax, vistay);
+    }else{
+        timeUntilFuego--;
+        return nullptr;
     }
 }
 
-void EspectroAzul::habilidad() {
-    //teletransportar a direccion de ojo espectral que ve a jugador
+void EspectroAzul::habilidad(int x, int y) {
+    this->x=x;
+    this->y=y;
 }
+
+Espectro::Espectro(ColorEspectro color, int velocidadRuta, int velocidadPersecusion, int vision
+                ,int x, int y, int numEspectro) {
+    proceso=Normal;
+    this->color=color;
+    vida=1;
+    this->velocidadRuta=velocidadRuta;
+    timeUntilRuta=0;
+    this->velocidadPersecusion=velocidadPersecusion;
+    timeUntilPersecusion=0;
+    this->vision=vision;
+    this->x=x;
+    this->y=y;
+    vistax=0;
+    vistay=1;
+    espectro=numEspectro;
+    nextX=*new TList<int>;
+    nextY=*new TList<int>;
+}
+
+EspectroGris::EspectroGris(int velocidadRuta, int velocidadPersecusion,
+        int vision, int x, int y, int numEspectro)
+        : Espectro(Gris, velocidadRuta, velocidadPersecusion, vision, x, y, numEspectro) {}
+
+EspectroRojo::EspectroRojo(int velocidadRuta, int velocidadPersecusion,
+                           int vision, int x, int y, int numEspectro)
+        : Espectro(Rojo, velocidadRuta, velocidadPersecusion, vision, x, y, numEspectro) {}
+EspectroAzul::EspectroAzul(int velocidadRuta, int velocidadPersecusion,
+                           int vision, int x, int y, int numEspectro)
+        : Espectro(Azul, velocidadRuta, velocidadPersecusion, vision, x, y, numEspectro) {}

@@ -15,9 +15,9 @@ int posicionY;
 Jugador::Jugador() {
 }
 
-Jugador Jugador::getJugador(){
+Jugador* Jugador::getJugador(){
     if(instance!= nullptr){
-        instance = new Jugador;
+        instance = new Jugador();
     }
     return instance;
 }

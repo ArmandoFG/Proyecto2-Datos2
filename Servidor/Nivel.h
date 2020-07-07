@@ -10,18 +10,23 @@
 #include "Chuchu.h"
 #include "Ojo.h"
 #include "Raton.h"
+#include "Jarron.h"
+#include "Cofre.h"
 
 using namespace std;
 
 class Nivel {
     protected:
-        int nivel;
-    //Objetos list
+        TList<Jarron> jarrones;
+        TList<Cofre> cofres;
         TList<Raton> ratones;
         TList<Ojo> ojos;
         TList<Chuchu> chuchus;
         TList<Espectro> espectros;
+        Nivel();
     public:
+        TList<Jarron> getJarrones();
+        TList<Cofre> getCofres();
         TList<Raton> getRatones();
         TList<Ojo> getOjos();
         TList<Chuchu> getChuchus();
@@ -42,9 +47,7 @@ class Nivel1: Nivel {
                                {0,0,1,0,1,0,0,0,0,0},
                                {0,0,1,1,1,1,1,0,0,0}};
     public:
-        Nivel1(){
-
-        }
+        Nivel1();
         int* getMap() override;
 };
 
@@ -61,9 +64,7 @@ private:
                            {0,0,1,0,1,0,0,0,0,0},
                            {0,0,1,1,1,1,1,0,0,0}};
 public:
-    Nivel2(){
-
-    }
+    Nivel2();
     int* getMap() override;
 };
 
@@ -81,9 +82,7 @@ private:
                            {0,0,1,0,1,0,0,0,0,0},
                            {0,0,1,1,1,1,1,0,0,0}};
 public:
-    Nivel3(){
-        Espectro* e= EspectroFactory::Get(Gris);
-    }
+    Nivel3();
     int* getMap() override;
 };
 
@@ -102,9 +101,7 @@ private:
                            {0,0,1,0,1,0,0,0,0,0},
                            {0,0,1,1,1,1,1,0,0,0}};
 public:
-    Nivel4(){
-        Espectro* e= EspectroFactory::Get(Gris);
-    }
+    Nivel4();
     int* getMap() override;
 };
 
@@ -121,9 +118,7 @@ private:
                            {0,0,1,0,1,0,0,0,0,0},
                            {0,0,1,1,1,1,1,0,0,0}};
 public:
-    Nivel5(){
-        Espectro* e= EspectroFactory::Get(Gris);
-    }
+    Nivel5();
     int* getMap() override;
 };
 

@@ -9,33 +9,44 @@ void Templo::startCiclo(){
     Espectro e;
     persiguiendo=false;
 
+
     for(int i=0; i<ojos.largo;i++){
-        if(ojos.getNodoPos(i)->getValue().checkearVision()){
+        Ojo ojo =ojos.getNodoPos(i)->getValue();
+        if(ojo.checkearVision()){
             persiguiendo= true;
+            for(int i=0; i<espectros.largo;i++){
+                e=espectros.getNodoPos(i)->getValue();
+                if(e.getColor()==Azul){
+                    e.setX(ojo.GetPosX());
+                    e.setY(ojo.GetPosY());
+                }
+            }
             //Hacer sonido
         }
     }
 
-
-
     for(int i=0; i<espectros.largo;i++){
+        //Si jugador en zona segura, volver
         e=espectros.getNodoPos(i)->getValue();
         if(e.getProceso()==PersiguiendoBread){
             persiguiendo=true;
         }
-    }
-    for(int i=0; i<espectros.largo;i++){
-        e=espectros.getNodoPos(i)->getValue();
+
         if(persiguiendo){
-            if(e.getProceso()!=PersiguiendoBread){
+            if(e.getProceso()!=PersiguiendoBread && e.getProceso()!=PersiguiendoA){
                 e.perseguirA(lvl.getMap());
+            }
+            if(e.getProceso()!=PersiguiendoBread && e.getColor()==Rojo){
+                Fuego* f=e.habilidad();
+                if(f== nullptr){
+                    fuegos.addLast(f);
+                }
             }
         }
         if(e.getVida()>0 && !ratonCerca(e.getX(),e.getY(),e.getVision())){
             e.nextStep();
         }
     }
-    //Si jugador en zona segura, volver
 }
 
 bool Templo::ratonCerca(int x, int y, int vision){

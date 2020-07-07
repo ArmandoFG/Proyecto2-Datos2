@@ -12,7 +12,9 @@
 
 int posX;
 int posY;
-Ojo::Ojo() {
+Ojo::Ojo(int x, int y) {
+    posX=x;
+    posY=y;
 }
 
 void Ojo::setPos(int x, int y){
