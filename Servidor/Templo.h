@@ -15,6 +15,7 @@ class Templo {
         Nivel Nivel2;
         Nivel Nivel3;
         int nivel;
+        bool persiguiendo;
         Jugador jugador;
         TList<Raton> ratones;
         TList<Ojo> ojos;

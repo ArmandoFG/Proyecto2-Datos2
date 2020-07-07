@@ -19,8 +19,16 @@ enum Proceso{
 
 class Espectro {
     protected:
-        Proceso proceso;
-        string tipo;
+public:
+    Proceso getProceso() const;
+
+protected:
+    Proceso proceso;
+public:
+    int getVida() const;
+
+protected:
+    string tipo;
         int vida;
         int velocidadRuta;
         int velocidadPersecusion;
@@ -40,7 +48,7 @@ class Espectro {
     public:
         virtual ~Espectro() {}
         void perseguirBread(int map[10][10]);
-        void perseguirA(int map[10][10]);
+        void perseguirA(int* map[10][10]);
         void devolverse(int map[10][10]);
         void recibirGolpe(bool esFrente, int map[10][10]);
         void atacar();

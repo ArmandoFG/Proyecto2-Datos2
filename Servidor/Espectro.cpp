@@ -126,7 +126,7 @@ void Espectro::A(int xi, int yi, int xf, int yf, int map[10][10]){
     return;
 }
 
-void Espectro::perseguirA(int map[10][10]) {
+void Espectro::perseguirA(int* map[10][10]) {
     this->proceso=PersiguiendoA;
     nextX=*new TList<int>;
     nextY=*new TList<int>;
@@ -161,6 +161,7 @@ void Espectro::breadcumbing(int xi, int yi, int map[10][10] ){
 }
 
 void Espectro::perseguirBread(int map[10][10]) {
+    //A* hasta ultimo trazo
     this->proceso=PersiguiendoBread;
     nextX=*new TList<int>;
     nextY=*new TList<int>;
@@ -381,6 +382,15 @@ void Espectro::nextStep(int map[10][10]) {
     }
 
 }
+
+Proceso Espectro::getProceso() const {
+    return proceso;
+}
+
+int Espectro::getVida() const {
+    return vida;
+}
+
 
 void EspectroGris::habilidad() {
     //no tiene

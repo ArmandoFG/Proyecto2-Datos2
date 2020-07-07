@@ -6,10 +6,29 @@
 
 void Templo::startCiclo(){
     Nivel lvl=getNivel();
-
+    Espectro e;
+    persiguiendo=false;
     for(int i=0; i<espectros.largo;i++){
-        //actualizarEspectro
+        e=espectros.getNodoPos(i)->getValue();
+        if(e.getProceso()==PersiguiendoBread){
+            persiguiendo=true;
+        }
     }
+    for(int i=0; i<espectros.largo;i++){
+        e=espectros.getNodoPos(i)->getValue();
+        if(persiguiendo){
+            if(e.getProceso()!=PersiguiendoBread){
+                e.perseguirA(lvl.getMap());
+            }
+        }
+
+        if(e.getVida()>0){
+            e.nextStep();
+        }
+    }
+
+
+
 }
 
 void Templo::nextNivel(){
