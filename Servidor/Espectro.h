@@ -21,6 +21,7 @@ class Espectro {
     protected:
         Proceso proceso;
         string tipo;
+        int vida;
         int velocidadRuta;
         int velocidadPersecusion;
         int vision;
@@ -54,12 +55,9 @@ class Espectro {
         void setX(int x);
         int getX();
         int getY();
-
-    void nextStep();
-
-    void breadcumbing(int xi, int yi,);
-
-    void mover();
+        void nextStep(int map[10][10]);
+        void breadcumbing(int xi, int yi);
+        void mover(int map [10][10]);
 };
 
 typedef Espectro* (__stdcall *CreateEspectroFn)(void);

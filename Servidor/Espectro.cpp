@@ -9,7 +9,6 @@
 #include "Jugador.h"
 #include "math.h"
 bool Espectro::checkearVision(){
-    int r,c=10;
     Jugador j=Jugador::getJugador();
     return sqrt(pow(x - j.getX(), 2) + pow(y - j.getY(), 2)) < vision;
 }
@@ -129,7 +128,10 @@ void Espectro::A(int xi, int yi, int xf, int yf, int map[10][10]){
 
 void Espectro::perseguirA(int map[10][10]) {
     this->proceso=PersiguiendoA;
-    A(x, y, 2, 3, map);
+    nextX=*new TList<int>;
+    nextY=*new TList<int>;
+
+    A(x, y, Jugador::getJugador().getX(), Jugador::getJugador().getY(), map);
 }
 
 void Espectro::breadcumbing(int xi, int yi, int map[10][10] ){
@@ -146,18 +148,22 @@ void Espectro::breadcumbing(int xi, int yi, int map[10][10] ){
                             nextTrace=map[xi+i][yi+j];
                             nx=xi+i;
                             ny=yi+j;
+                            nextX.addLast(nx);
+                            nextY.addLast(ny);
                         }
                     }
                 }
             }
         }
         //Move or something
-        breadcumbing( nx, ny, map, e);
+        breadcumbing( nx, ny, map);
     }
 }
 
 void Espectro::perseguirBread(int map[10][10]) {
-    this->proceso=PersiguiendoA;
+    this->proceso=PersiguiendoBread;
+    nextX=*new TList<int>;
+    nextY=*new TList<int>;
     breadcumbing(x, y, map);
 }
 
@@ -257,6 +263,8 @@ void Espectro::devolverse(int map[10][10]){
     //Test Map (1's are walls)
     //Calling backtracking
     this->proceso=Volviendo;
+    nextX=*new TList<int>;
+    nextY=*new TList<int>;
     bool* done = new bool(false) ;
     //Note: Steps starts from 3 because 1 and 2 are taken for walls and final path
     volverBacktrAux(x, y, 4, 6,3, map, done);
@@ -280,6 +288,7 @@ int Espectro::getY(){
 }
 
 void Espectro::atacar() {
+    Jugador::getJugador().setvida();
 }
 
 void Espectro::patrullar(int map[10][10]){
@@ -311,23 +320,28 @@ void Espectro::recibirGolpe(bool esFrente, int map[10][10]) {
 }
 
 void Espectro::morir() {
-    delete this;
+    vida=0;
 }
 
-void Espectro::mover() {
+void Espectro::mover(int map[10][10]) {
     if(proceso==Normal){
-        patrullar();
+        patrullar(map);
     }else if( nextX.largo>0) {
         x = nextX.getFirst()->getValue();
         nextX.deletePos(0);
         x = nextY.getFirst()->getValue();
         nextY.deletePos(0);
+    }else{
+        if(proceso==Volviendo){
+            proceso=Normal;
+        }
     }
 }
 
-void Espectro::nextStep() {
+void Espectro::nextStep(int map[10][10]) {
     bool found = false;
     bool attack = false;
+    Jugador j = Jugador::getJugador();
 
     switch (proceso) {
         case Normal:
@@ -337,23 +351,33 @@ void Espectro::nextStep() {
             found = checkearVision();
             break;
         case PersiguiendoA:
-            if(nextX.largo==2){
+            if(nextX.largo<2){
                 attack= true;
+            }else if(j.getX()!=nextX.getNodoPos(nextX.largo-1)->getValue() ||
+                    j.getY()!=nextY.getNodoPos(nextY.largo-1)->getValue()
+            ){
+              this->perseguirA(map);
             }
             break;
         case PersiguiendoBread:
-            if(nextX.largo==2){
+            if(nextX.largo<2){
                 attack=true;
+            }else if(j.getX()!=nextX.getNodoPos(nextX.largo-1)->getValue() ||
+                     j.getY()!=nextY.getNodoPos(nextY.largo-1)->getValue()
+                    ){
+                this->perseguirBread(map);
             }
             break;
     }
 
     if(found){
-        this->perseguirA();
+        nextX=*new TList<int>;
+        nextY=*new TList<int>;
+        this->perseguirA(map);
     }else if(attack){
         this->atacar();
     }else{
-        mover();
+        mover(map);
     }
 
 }
