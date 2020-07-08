@@ -10,7 +10,7 @@
 #include "math.h"
 
 bool Espectro::checkearVision(){
-    Jugador j=Jugador::getJugador();
+    Jugador j=*Jugador::getJugador();
     return sqrt(pow(x - j.getX(), 2) + pow(y - j.getY(), 2)) < vision;
 }
 
@@ -18,7 +18,7 @@ double f(int xi, int yi, int xf, int yf, int currentSteps){
     return currentSteps+sqrt(pow(xf-xi,2) +pow(yf-yi,2));
 }
 
-void Espectro::A(int xi, int yi, int xf, int yf, int map[10][10]){
+void Espectro::A(int xi, int yi, int xf, int yf, int** map){
     double min =std::numeric_limits<double>::max();
     double minTemp;
 
@@ -87,7 +87,7 @@ void Espectro::A(int xi, int yi, int xf, int yf, int map[10][10]){
 
                 path=path.substr(indexPos+1, path.length()-indexPos);
 
-                map[xtemp][ytemp]=2;
+                map[xtemp][ytemp]= 2;
             }
 
         } else{
@@ -127,15 +127,15 @@ void Espectro::A(int xi, int yi, int xf, int yf, int map[10][10]){
     return;
 }
 
-void Espectro::perseguirA(int* map[10][10]) {
+void Espectro::perseguirA(int** map) {
     this->proceso=PersiguiendoA;
     nextX=*new TList<int>;
     nextY=*new TList<int>;
 
-    A(x, y, Jugador::getJugador().getX(), Jugador::getJugador().getY(), map);
+    A(x, y, Jugador::getJugador()->getX(), Jugador::getJugador()->getY(), map);
 }
 
-void Espectro::breadcumbing(int xi, int yi, int map[10][10] ){
+void Espectro::breadcumbing(int xi, int yi, int** map ){
     int nextTrace=std::numeric_limits<int>::max();
     int nx;
     int ny;
@@ -161,7 +161,7 @@ void Espectro::breadcumbing(int xi, int yi, int map[10][10] ){
     }
 }
 
-void Espectro::perseguirBread(int map[10][10]) {
+void Espectro::perseguirBread(int** map) {
     //A* hasta ultimo trazo
     this->proceso=PersiguiendoBread;
     nextX=*new TList<int>;
@@ -180,7 +180,7 @@ void Espectro::perseguirBread(int map[10][10]) {
  * @param mark New mark
  * @param step Step creating the mark
  */
-void mark(int xi, int yi, int map[10][10], int mark, int step){
+void mark(int xi, int yi, int** map, int mark, int step){
     int tmp;
     int r,c=10;
     for (int i=-1;i<2;i++){
@@ -195,7 +195,7 @@ void mark(int xi, int yi, int map[10][10], int mark, int step){
     }
 }
 
-void unmark(int map[10][10], int mark){
+void unmark(int** map, int mark){
     int c,r=10;
     for(int i=0;i<r;i++){
         for(int j=0;j<c;j++){
@@ -217,7 +217,7 @@ void unmark(int map[10][10], int mark){
  * @param done Boolean pointer that indicates if the goal has been reached
  * @return
  */
-void Espectro::volverBacktrAux(int xi, int yi, int xf, int yf, int step,int map[10][10], bool* done)
+void Espectro::volverBacktrAux(int xi, int yi, int xf, int yf, int step,int** map, bool* done)
 {
     int r,c=10;
     //If object is on goal, exists
@@ -261,7 +261,7 @@ void Espectro::volverBacktrAux(int xi, int yi, int xf, int yf, int step,int map[
 }
 
 
-void Espectro::devolverse(int map[10][10]){
+void Espectro::devolverse(int** map){
     //Test Map (1's are walls)
     //Calling backtracking
     this->proceso=Volviendo;
@@ -290,10 +290,10 @@ int Espectro::getY(){
 }
 
 void Espectro::atacar() {
-    Jugador::getJugador().setvida();
+    Jugador::getJugador()->setvida();
 }
 
-void Espectro::patrullar(int map[10][10]){
+void Espectro::patrullar(int** map){
     int r,c=10;
     int lx;
     int ly;
@@ -313,7 +313,7 @@ void Espectro::patrullar(int map[10][10]){
     }
 }
 
-void Espectro::recibirGolpe(bool esFrente, int map[10][10]) {
+void Espectro::recibirGolpe(bool esFrente, int** map) {
     if(!esFrente){
         morir();
     } else{
@@ -325,26 +325,14 @@ void Espectro::morir() {
     vida=0;
 }
 
-void Espectro::mover(int map[10][10]) {
+void Espectro::mover(int** map) {
     if(proceso==Normal){
-        if(timeUntilRuta==0){
-            timeUntilRuta=1000/velocidadRuta;
-            patrullar(map);
-        }else{
-            timeUntilRuta--;
-        }
+        patrullar(map);
     }else if( nextX.largo>0) {
-        if(timeUntilPersecusion==0){
-            timeUntilPersecusion=1000/velocidadPersecusion;
-
-            x = nextX.getFirst()->getValue();
-            nextX.deletePos(0);
-            x = nextY.getFirst()->getValue();
-            nextY.deletePos(0);
-
-        }else{
-            timeUntilPersecusion--;
-        }
+        x = nextX.getFirst()->getValue();
+        nextX.deletePos(0);
+        x = nextY.getFirst()->getValue();
+        nextY.deletePos(0);
     }else{
         if(proceso==Volviendo){
             proceso=Normal;
@@ -352,10 +340,10 @@ void Espectro::mover(int map[10][10]) {
     }
 }
 
-void Espectro::nextStep(int map[10][10]) {
+void Espectro::nextStep(int** map) {
     bool found = false;
     bool attack = false;
-    Jugador j = Jugador::getJugador();
+    Jugador j =* Jugador::getJugador();
 
     switch (proceso) {
         case Normal:
@@ -393,7 +381,6 @@ void Espectro::nextStep(int map[10][10]) {
     }else{
         mover(map);
     }
-
 }
 
 Proceso Espectro::getProceso()  {

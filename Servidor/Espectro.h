@@ -43,20 +43,20 @@ protected:
     TList<int> nextX;
     TList<int> nextY;
 private:
-    void A(int xi, int yi, int xf, int yf, int map[10][10]);
-    void breadcumbing(int xi, int yi, int map[10][10] );
-    void volverBacktrAux(int xi, int yi, int xf, int yf, int step,int map[10][10], bool *done);
+    void A(int xi, int yi, int xf, int yf, int** map);
+    void breadcumbing(int xi, int yi, int** map );
+    void volverBacktrAux(int xi, int yi, int xf, int yf, int step, int** map, bool *done);
 public:
     Espectro(){};
     ColorEspectro getColor() const;
     int getVision();
-    void perseguirBread(int map[10][10]);
-    void perseguirA(int* map[10][10]);
-    void devolverse(int map[10][10]);
-    void recibirGolpe(bool esFrente, int map[10][10]);
+    void perseguirBread( int** map);
+    void perseguirA( int** map);
+    void devolverse( int** map);
+    void recibirGolpe(bool esFrente, int** map);
     void atacar();
     void morir();
-    void patrullar(int map[10][10]);
+    void patrullar(int** map);
     bool checkearVision();
     virtual void habilidad(int x, int y);
     virtual Fuego* habilidad();
@@ -67,8 +67,8 @@ public:
     void setX(int x);
     int getX();
     int getY();
-    void nextStep(int map[10][10]);
-    void mover(int map [10][10]);
+    void nextStep( int** map);
+    void mover( int** map);
 };
 
 

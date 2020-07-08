@@ -8,7 +8,7 @@ void Templo::startCiclo(){
     Nivel lvl=getNivel();
     Espectro e;
     persiguiendo=false;
-
+    //Falta recibir cuales espectros ya llegaron, para continuar
 
     for(int i=0; i<ojos.largo;i++){
         Ojo ojo =ojos.getNodoPos(i)->getValue();
@@ -44,7 +44,7 @@ void Templo::startCiclo(){
             }
         }
         if(e.getVida()>0 && !ratonCerca(e.getX(),e.getY(),e.getVision())){
-            e.nextStep();
+            e.nextStep(lvl.getMap());
         }
     }
 }

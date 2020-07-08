@@ -31,7 +31,7 @@ class Nivel {
         TList<Ojo> getOjos();
         TList<Chuchu> getChuchus();
         TList<Espectro> getEspectros();
-        virtual int* getMap();
+        virtual int** getMap();
 };
 
 class Nivel1: Nivel {
@@ -48,7 +48,7 @@ class Nivel1: Nivel {
                                {0,0,1,1,1,1,1,0,0,0}};
     public:
         Nivel1();
-        int* getMap() override;
+        int** getMap() override;
 };
 
 class Nivel2: Nivel {
@@ -65,7 +65,7 @@ private:
                            {0,0,1,1,1,1,1,0,0,0}};
 public:
     Nivel2();
-    int* getMap() override;
+    int** getMap() override;
 };
 
 class Nivel3: Nivel {
@@ -83,7 +83,7 @@ private:
                            {0,0,1,1,1,1,1,0,0,0}};
 public:
     Nivel3();
-    int* getMap() override;
+    int** getMap() override;
 };
 
 
@@ -102,7 +102,7 @@ private:
                            {0,0,1,1,1,1,1,0,0,0}};
 public:
     Nivel4();
-    int* getMap() override;
+    int** getMap() override;
 };
 
 class Nivel5: Nivel {
@@ -119,7 +119,7 @@ private:
                            {0,0,1,1,1,1,1,0,0,0}};
 public:
     Nivel5();
-    int* getMap() override;
+    int** getMap() override;
 };
 
 #endif //UNTITLED_NIVEL_H

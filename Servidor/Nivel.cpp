@@ -28,8 +28,8 @@ Nivel1::Nivel1():Nivel() {
 }
 
 
-int* Nivel2::getMap() {
-    return (int *) (this->map);
+int** Nivel2::getMap() {
+    return (int **) (this->map);
 }
 
 Nivel2::Nivel2():Nivel() {
@@ -43,8 +43,8 @@ Nivel2::Nivel2():Nivel() {
 
 }
 
-int* Nivel3::getMap() {
-    return (int *) (this->map);
+int** Nivel3::getMap() {
+    return (int **) (this->map);
 }
 
 Nivel3::Nivel3() {
