@@ -1,0 +1,36 @@
+{
+    "jugador": {
+        "posx" : "",
+        "posy" : "",
+        "vidas" : "",
+        "puntos" : ""
+    },
+    "espectro1" : {
+        "posx" : "",
+        "posy" : ""
+    },
+    "espectro2" : {
+        "posx" : "",
+        "posy" : ""
+    },
+    "espectro3" : {
+        "posx" : "",
+        "posy" : ""
+    },
+    "espectro4" : {
+        "posx" : "",
+        "posy" : ""
+    },
+    "chuchu" : {
+        "posx" : "",
+        "posy" : ""
+    },
+    "ojo" : {
+        "posx" : "",
+        "posy" : ""
+    },
+    "raton" : {
+        "posx" : "",
+        "posy" : ""
+    }
+}
