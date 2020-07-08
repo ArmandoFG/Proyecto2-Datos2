@@ -54,7 +54,7 @@ void bresen::Iniciar(int Bx1, int By1){
            if(map[y2][x2 + 1] == 5){
                x2++;
                y2;
-               cout << "Lo encontré" << endl;
+               cout << "Lo encontrï¿½" << endl;
 
                return Iniciar(x2, y2);
            }
@@ -63,7 +63,7 @@ void bresen::Iniciar(int Bx1, int By1){
            while(map[x2 + 1][y2] != 1){
                x2++;
                if(map[y2][x2] == 5){
-               cout << "Lo encontré" << endl;
+               cout << "Lo encontro" << endl;
                return Iniciar(x2, y2);
            }
                cout << "Encontre un muro aqui" << endl;
@@ -80,7 +80,7 @@ void bresen::Iniciar(int Bx1, int By1){
            if(map[y2 + 1][x2 + 1] == 5){
                x2++;
                y2++;
-               cout << "Lo encontré" << endl;
+               cout << "Lo encontro" << endl;
                return Iniciar(x2, y2);
 
            }
@@ -90,7 +90,7 @@ void bresen::Iniciar(int Bx1, int By1){
                x2++;
                y2++;
                if(map[y2][x2] == 5){
-               cout << "Lo encontré" << endl;
+               cout << "Lo encontrï¿½" << endl;
                return Iniciar(x2, y2);
 
            }
@@ -108,14 +108,14 @@ void bresen::Iniciar(int Bx1, int By1){
            if(map[y2 + 1][x2] == 5){
                y2++;
                return Iniciar(x2, y2);
-               cout << "Lo encontré" << endl;
+               cout << "Lo encontrï¿½" << endl;
            }
            y2++;
            while(map[y2 + 1][x2] != 1){
                y2++;
                if(map[y2][x2] == 5){
                return Iniciar(x2, y2);
-               cout << "Lo encontré" << endl;
+               cout << "Lo encontrï¿½" << endl;
            }
                cout << "Encontre un muro" << endl;
            }
@@ -131,7 +131,7 @@ void bresen::Iniciar(int Bx1, int By1){
            if(map[y2 + 1][x2 - 1] == 5){
                y2++;
                x2--;
-               cout << "Lo encontré" << endl;
+               cout << "Lo encontrï¿½" << endl;
                return Iniciar(x2, y2);
 
            }
@@ -141,7 +141,7 @@ void bresen::Iniciar(int Bx1, int By1){
                y2++;
                x2--;
                if(map[y2][x2] == 5){
-               cout << "Lo encontré" << endl;
+               cout << "Lo encontrï¿½" << endl;
                return Iniciar(x2, y2);
 
            }
@@ -158,7 +158,7 @@ void bresen::Iniciar(int Bx1, int By1){
        if(map[y2][x2 - 1] == 0){
            if(map[y2][x2 - 1] == 5){
                x2--;
-               cout << "Lo encontré" << endl;
+               cout << "Lo encontrï¿½" << endl;
                return Iniciar(x2, y2);
 
            }
@@ -167,7 +167,7 @@ void bresen::Iniciar(int Bx1, int By1){
                 x2--;
 
                if(map[y2][x2] == 5){
-               cout << "Lo encontré" << endl;
+               cout << "Lo encontrï¿½" << endl;
                return Iniciar(x2, y2);
 
            }
@@ -185,7 +185,7 @@ void bresen::Iniciar(int Bx1, int By1){
            if(map[y2 - 1][x2 - 1] == 5){
                x2--;
                y2--;
-               cout << "Lo encontré" << endl;
+               cout << "Lo encontrï¿½" << endl;
                return Iniciar(x2, y2);
 
            }
@@ -195,7 +195,7 @@ void bresen::Iniciar(int Bx1, int By1){
                y2--;
                x2--;
                if(map[y2][x2] == 5){
-               cout << "Lo encontré" << endl;
+               cout << "Lo encontrï¿½" << endl;
                return Iniciar(x2, y2);
 
            }
@@ -213,7 +213,7 @@ void bresen::Iniciar(int Bx1, int By1){
        if(map[y2 - 1][x2] == 0){
            if(map[y2 - 1][x2] == 5){
                y2--;
-               cout << "Lo encontré" << endl;
+               cout << "Lo encontrï¿½" << endl;
                return Iniciar(x2, y2);
 
            }
@@ -222,7 +222,7 @@ void bresen::Iniciar(int Bx1, int By1){
                 y2--;
 
                if(map[y2][x2] == 5){
-               cout << "Lo encontré" << endl;
+               cout << "Lo encontrï¿½" << endl;
                return Iniciar(x2, y2);
 
            }
@@ -240,7 +240,7 @@ void bresen::Iniciar(int Bx1, int By1){
            if(map[y2 - 1][x2 + 2] == 5){
                y2--;
                x2++;
-               cout << "Lo encontré" << endl;
+               cout << "Lo encontro" << endl;
                return Iniciar(x2, y2);
 
            }
@@ -250,7 +250,7 @@ void bresen::Iniciar(int Bx1, int By1){
                y2--;
                x2++;
                if(map[y2][x2] == 5){
-               cout << "Lo encontré" << endl;
+               cout << "Lo encontro" << endl;
                return Iniciar(x2, y2);
 
            }

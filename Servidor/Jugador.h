@@ -10,15 +10,20 @@
 
 class Jugador {
 public:
-    Jugador();
+    static Jugador* getJugador();
     void setmarcador(int num);
     int getmarcador();
     void setvida();
     int getVida();
+    int getX();
+    int getY();
     void ubicacion(int x, int y);
     
 private:
-
+    Jugador();
+    int x;
+    int y;
+    static Jugador* instance;
 };
 
 #endif	/* JUGADOR_H */

@@ -15,6 +15,13 @@ int posicionY;
 Jugador::Jugador() {
 }
 
+Jugador* Jugador::getJugador(){
+    if(instance!= nullptr){
+        instance = new Jugador();
+    }
+    return instance;
+}
+
 void Jugador::setmarcador(int num){
     marcador += num;
 }
@@ -24,6 +31,14 @@ int Jugador::getmarcador(){
 
 void Jugador::setvida(){
     vida--;
+}
+
+int Jugador::getX(){
+    return x;
+}
+
+int Jugador::getY(){
+    return y;
 }
 
 int Jugador::getVida(){

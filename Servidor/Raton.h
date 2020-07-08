@@ -15,8 +15,7 @@ public:
     int GetPosX();
     int GetPosY();
     void movimiento();
-private:
-
+    bool checkearVision(int x, int y, int vision);
 };
 
 #endif	/* RATON_H */

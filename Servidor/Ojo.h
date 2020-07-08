@@ -10,13 +10,14 @@
 
 class Ojo {
 public:
-    Ojo();
+    Ojo(int x, int y);
     void setPos(int x, int y);
     int GetPosX();
     int GetPosY();
     void movimiento();
+    bool checkearVision();
 private:
-
+    int vision;
 };
 
 #endif	/* OJO_H */
