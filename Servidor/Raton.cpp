@@ -40,3 +40,11 @@ bool Raton::checkearVision(int x, int y, int vision){
     return sqrt(pow(posY - x, 2) + pow(posY - y, 2)) < vision;
 }
 
+bool Raton::isVivo() const {
+    return vivo;
+}
+
+void Raton::setVivo(bool vivo) {
+    Raton::vivo = vivo;
+}
+

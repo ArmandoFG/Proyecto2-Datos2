@@ -13,7 +13,7 @@ public:
     static Jugador* getJugador();
     void setmarcador(int num);
     int getmarcador();
-    void setvida();
+    void setvida(int vida);
     int getVida();
     int getX();
     int getY();
@@ -23,6 +23,14 @@ private:
     Jugador();
     int x;
     int y;
+public:
+    void setX(int x);
+
+    void setY(int y);
+
+private:
+    int vida;
+    int marcador;
     static Jugador* instance;
 };
 

@@ -11,7 +11,8 @@
 int posX;
 int posY;
 
-Chuchu::Chuchu() {
+Chuchu::Chuchu(int chuchu) {
+    this->chuchu=chuchu;
 }
 
 void Chuchu::setPos(int x, int y){
@@ -29,6 +30,22 @@ int Chuchu::GetPosY(){
 
 void Chuchu::movimiento(){
     
+}
+
+bool Chuchu::isVivo() const {
+    return vivo;
+}
+
+void Chuchu::setVivo(bool vivo) {
+    Chuchu::vivo = vivo;
+}
+
+int Chuchu::getChuchu() const {
+    return chuchu;
+}
+
+void Chuchu::setChuchu(int chuchu) {
+    Chuchu::chuchu = chuchu;
 }
 
 

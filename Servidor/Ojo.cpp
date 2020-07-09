@@ -12,9 +12,11 @@
 
 int posX;
 int posY;
-Ojo::Ojo(int x, int y) {
+Ojo::Ojo(int x, int y, int ojo) {
     posX=x;
     posY=y;
+    this->ojo=ojo;
+    vivo=true;
 }
 
 void Ojo::setPos(int x, int y){
@@ -27,7 +29,7 @@ int Ojo::GetPosX(){
 }
 
 bool Ojo::checkearVision(){
-    Jugador j=Jugador::getJugador();
+    Jugador j= * Jugador::getJugador();
     return sqrt(pow(posY - j.getX(), 2) + pow(posY - j.getY(), 2)) < vision;
 }
 
@@ -38,6 +40,22 @@ int Ojo::GetPosY(){
 
 void Ojo::movimiento(){
     
+}
+
+bool Ojo::isVivo() const {
+    return vivo;
+}
+
+void Ojo::setVivo(bool vivo) {
+    Ojo::vivo = vivo;
+}
+
+int Ojo::getOjo() const {
+    return ojo;
+}
+
+void Ojo::setOjo(int ojo) {
+    Ojo::ojo = ojo;
 }
 
 

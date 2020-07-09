@@ -9,6 +9,13 @@
 #define	RATON_H
 
 class Raton {
+private:
+    bool vivo{true};
+public:
+    bool isVivo() const;
+
+    void setVivo(bool vivo);
+
 public:
     Raton();
     void setPos(int x, int y);

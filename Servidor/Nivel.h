@@ -10,23 +10,18 @@
 #include "Chuchu.h"
 #include "Ojo.h"
 #include "Raton.h"
-#include "Jarron.h"
-#include "Cofre.h"
 
 using namespace std;
 
 class Nivel {
     protected:
-        TList<Jarron> jarrones;
-        TList<Cofre> cofres;
         TList<Raton> ratones;
         TList<Ojo> ojos;
         TList<Chuchu> chuchus;
         TList<Espectro> espectros;
+        int** map;
         Nivel();
     public:
-        TList<Jarron> getJarrones();
-        TList<Cofre> getCofres();
         TList<Raton> getRatones();
         TList<Ojo> getOjos();
         TList<Chuchu> getChuchus();
@@ -34,7 +29,7 @@ class Nivel {
         virtual int** getMap();
 };
 
-class Nivel1: Nivel {
+class Nivel1: public Nivel {
     private:
         int const map[10][10]={{0,0,1,0,0,0,0,0,1,0},
                                {0,0,1,0,0,0,0,0,1,0},
@@ -51,7 +46,7 @@ class Nivel1: Nivel {
         int** getMap() override;
 };
 
-class Nivel2: Nivel {
+class Nivel2: public Nivel {
 private:
     int const map[10][10]={{0,0,1,0,0,0,0,0,1,0},
                            {0,0,1,0,0,0,0,0,1,0},
@@ -68,7 +63,7 @@ public:
     int** getMap() override;
 };
 
-class Nivel3: Nivel {
+class Nivel3: public Nivel {
 
 private:
     int const map[10][10]={{0,0,1,0,0,0,0,0,1,0},
@@ -87,7 +82,7 @@ public:
 };
 
 
-class Nivel4: Nivel {
+class Nivel4: public Nivel {
 
 private:
     int const map[10][10]={{0,0,1,0,0,0,0,0,1,0},
@@ -105,7 +100,7 @@ public:
     int** getMap() override;
 };
 
-class Nivel5: Nivel {
+class Nivel5: public Nivel {
 private:
     int const map[10][10]={{0,0,1,0,0,0,0,0,1,0},
                            {0,0,1,0,0,0,0,0,1,0},

@@ -7,12 +7,9 @@
 
 #include "Jugador.h"
 
-int marcador;
-int vida = 5;
-int posicionX;
-int posicionY;
 
 Jugador::Jugador() {
+    vida = 5;
 }
 
 Jugador* Jugador::getJugador(){
@@ -29,8 +26,8 @@ int Jugador::getmarcador(){
     return marcador;
 }
 
-void Jugador::setvida(){
-    vida--;
+void Jugador::setvida(int vida){
+    this->vida=vida;
 }
 
 int Jugador::getX(){
@@ -49,6 +46,14 @@ int Jugador::getVida(){
 void Jugador::ubicacion(int x, int y){
     posicionX = x;
     posicionY = y;
+}
+
+void Jugador::setX(int x) {
+    Jugador::x = x;
+}
+
+void Jugador::setY(int y) {
+    Jugador::y = y;
 }
 
 

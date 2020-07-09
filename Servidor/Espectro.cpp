@@ -289,10 +289,6 @@ int Espectro::getY(){
     return y;
 }
 
-void Espectro::atacar() {
-    Jugador::getJugador()->setvida();
-}
-
 void Espectro::patrullar(int** map){
     int r,c=10;
     int lx;
@@ -313,16 +309,9 @@ void Espectro::patrullar(int** map){
     }
 }
 
-void Espectro::recibirGolpe(bool esFrente, int** map) {
-    if(!esFrente){
-        morir();
-    } else{
-        perseguirBread(map);
-    }
-}
 
 void Espectro::morir() {
-    vida=0;
+
 }
 
 void Espectro::mover(int** map) {
@@ -342,8 +331,6 @@ void Espectro::mover(int** map) {
 
 void Espectro::nextStep(int** map) {
     bool found = false;
-    bool attack = false;
-    Jugador j =* Jugador::getJugador();
 
     switch (proceso) {
         case Normal:
@@ -353,22 +340,10 @@ void Espectro::nextStep(int** map) {
             found = checkearVision();
             break;
         case PersiguiendoA:
-            if(nextX.largo<2){
-                attack= true;
-            }else if(j.getX()!=nextX.getNodoPos(nextX.largo-1)->getValue() ||
-                    j.getY()!=nextY.getNodoPos(nextY.largo-1)->getValue()
-            ){
-              this->perseguirA(map);
-            }
+            this->perseguirA(map);
             break;
         case PersiguiendoBread:
-            if(nextX.largo<2){
-                attack=true;
-            }else if(j.getX()!=nextX.getNodoPos(nextX.largo-1)->getValue() ||
-                     j.getY()!=nextY.getNodoPos(nextY.largo-1)->getValue()
-                    ){
-                this->perseguirBread(map);
-            }
+            this->perseguirBread(map);
             break;
     }
 
@@ -376,8 +351,6 @@ void Espectro::nextStep(int** map) {
         nextX=*new TList<int>;
         nextY=*new TList<int>;
         this->perseguirA(map);
-    }else if(attack){
-        this->atacar();
     }else{
         mover(map);
     }
@@ -387,27 +360,12 @@ Proceso Espectro::getProceso()  {
     return proceso;
 }
 
-int Espectro::getVida()  {
-    return vida;
-}
-
 int Espectro::getVision()  {
     return vision;
 }
 
 ColorEspectro Espectro::getColor() const {
     return color;
-}
-
-Fuego* EspectroRojo::habilidad() {
-    //Dispara fuego
-    if(timeUntilFuego==0) {
-        timeUntilFuego=frecuenciaFuego;
-        return new Fuego(x, y, vistax, vistay);
-    }else{
-        timeUntilFuego--;
-        return nullptr;
-    }
 }
 
 void EspectroAzul::habilidad(int x, int y) {
@@ -419,11 +377,8 @@ Espectro::Espectro(ColorEspectro color, int velocidadRuta, int velocidadPersecus
                 ,int x, int y, int numEspectro) {
     proceso=Normal;
     this->color=color;
-    vida=1;
     this->velocidadRuta=velocidadRuta;
-    timeUntilRuta=0;
     this->velocidadPersecusion=velocidadPersecusion;
-    timeUntilPersecusion=0;
     this->vision=vision;
     this->x=x;
     this->y=y;
@@ -436,6 +391,14 @@ Espectro::Espectro(ColorEspectro color, int velocidadRuta, int velocidadPersecus
 
 int Espectro::getEspectro() const {
     return espectro;
+}
+
+bool Espectro::isVivo() const {
+    return vivo;
+}
+
+void Espectro::setVivo(bool vivo) {
+    Espectro::vivo = vivo;
 }
 
 EspectroGris::EspectroGris(int velocidadRuta, int velocidadPersecusion,

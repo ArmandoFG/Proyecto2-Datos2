@@ -29,11 +29,15 @@ protected:
 
     Proceso proceso;
     ColorEspectro color;
-    int vida;
+    bool vivo{true};
+public:
+    bool isVivo() const;
+
+    void setVivo(bool vivo);
+
+protected:
     int velocidadRuta;
-    int timeUntilRuta;
     int velocidadPersecusion;
-    int timeUntilPersecusion;
     int vision;
     int x;
     int y;
@@ -56,15 +60,11 @@ public:
     void perseguirBread( int** map);
     void perseguirA( int** map);
     void devolverse( int** map);
-    void recibirGolpe(bool esFrente, int** map);
-    void atacar();
     void morir();
     void patrullar(int** map);
     bool checkearVision();
     virtual void habilidad(int x, int y);
-    virtual Fuego* habilidad();
     Proceso getProceso() ;
-    int getVida();
 
     void setY(int y);
     void setX(int x);
@@ -89,7 +89,6 @@ public:
     EspectroRojo( int velocidadRuta, int velocidadPersecusion, int vision, int x, int y,
                   int numEspectro);
 
-    Fuego* habilidad() override;
 };
 
 class EspectroAzul : public Espectro{

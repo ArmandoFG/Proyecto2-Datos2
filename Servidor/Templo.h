@@ -11,11 +11,11 @@
 
 class Templo {
     private:
-        Nivel Nivel1;
-        Nivel Nivel2;
-        Nivel Nivel3;
-        Nivel Nivel4;
-        Nivel Nivel5;
+        Nivel nivel1;
+        Nivel nivel2;
+        Nivel nivel3;
+        Nivel nivel4;
+        Nivel nivel5;
 
         int nivel;
         bool persiguiendo;
@@ -30,6 +30,10 @@ class Templo {
         bool ratonCerca(int x, int y, int vision);
 
     void nextNivel();
+
+    Nivel restartNivel();
+
+    void startCiclo();
 };
 
 

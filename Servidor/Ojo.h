@@ -18,6 +18,16 @@ public:
     bool checkearVision();
 private:
     int vision;
+    bool vivo;
+    int ojo;
+public:
+    int getOjo() const;
+
+    void setOjo(int ojo);
+
+public:
+    bool isVivo() const;
+    void setVivo(bool vivo);
 };
 
 #endif	/* OJO_H */
