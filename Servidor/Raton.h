@@ -11,13 +11,16 @@
 class Raton {
 private:
     bool vivo{true};
+    int raton;
 public:
+    Raton(int raton);
+
+    int getRaton() const;
+
+    void setRaton(int raton);
+
     bool isVivo() const;
-
     void setVivo(bool vivo);
-
-public:
-    Raton();
     void setPos(int x, int y);
     int GetPosX();
     int GetPosY();

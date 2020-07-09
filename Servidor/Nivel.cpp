@@ -21,10 +21,6 @@ Nivel1::Nivel1():Nivel() {
     espectros.addLast(*EspectroFactory::Get(Gris,200,400, 50, 8,9,0));
     espectros.addLast(*EspectroFactory::Get(Gris,200,400, 50, 8,9,0));
     espectros.addLast(*EspectroFactory::Get(Gris,200,400, 50, 8,9,0));
-    jarrones.addLast(*new Jarron(9,9));
-    jarrones.addLast(*new Jarron(9,9));
-    jarrones.addLast(*new Jarron(9,9));
-    jarrones.addLast(*new Jarron(9,9));
 }
 
 
@@ -36,10 +32,6 @@ Nivel2::Nivel2():Nivel() {
     espectros.addLast(*EspectroFactory::Get(Rojo,200,400, 50, 8,9,0));
     espectros.addLast(*EspectroFactory::Get(Rojo,200,400, 50, 8,9,0));
     espectros.addLast(*EspectroFactory::Get(Rojo,200,400, 50, 8,9,0));
-    jarrones.addLast(*new Jarron(9,9));
-    jarrones.addLast(*new Jarron(9,9));
-    jarrones.addLast(*new Jarron(9,9));
-    jarrones.addLast(*new Jarron(9,9));
 
 }
 
@@ -51,11 +43,7 @@ Nivel3::Nivel3() {
     espectros.addLast(*EspectroFactory::Get(Azul,200,400, 50, 8,9,0));
     espectros.addLast(*EspectroFactory::Get(Azul,200,400, 50, 8,9,0));
     espectros.addLast(*EspectroFactory::Get(Azul,200,400, 50, 8,9,0));
-    ojos.addLast(*new Ojo(9,9));
-    jarrones.addLast(*new Jarron(9,9));
-    jarrones.addLast(*new Jarron(9,9));
-    jarrones.addLast(*new Jarron(9,9));
-    jarrones.addLast(*new Jarron(9,9));
+    ojos.addLast(*new Ojo(9,9,1));
 
 }
 
@@ -63,10 +51,6 @@ Nivel4::Nivel4():Nivel() {
     espectros.addLast(*EspectroFactory::Get(Azul,200,400, 50, 8,9,0));
     espectros.addLast(*EspectroFactory::Get(Gris,200,400, 50, 8,9,0));
     espectros.addLast(*EspectroFactory::Get(Rojo,200,400, 50, 8,9,0));
-    jarrones.addLast(*new Jarron(9,9));
-    jarrones.addLast(*new Jarron(9,9));
-    jarrones.addLast(*new Jarron(9,9));
-    jarrones.addLast(*new Jarron(9,9));
 
 }
 
@@ -90,12 +74,5 @@ TList<Espectro> Nivel::getEspectros() {
     return espectros;
 }
 
-TList<Jarron> Nivel::getJarrones()  {
-    return jarrones;
-}
-
-TList<Cofre> Nivel::getCofres()  {
-    return cofres;
-}
 
 

@@ -31,11 +31,11 @@ void Templo::startCiclo(){
     for(int i=0; i<ojos.largo;i++){
 
         Ojo ojo =ojos.getNodoPos(i)->getValue();
-
-        ojo.setVivo(op->read("ojo", "vivo")=="true");
+        string name="ojo"+to_string(ojo.getOjo());
+        ojo.setVivo(op->read(name, "vivo")=="true");
 
         if(ojo.isVivo()){
-            ojo.setPos(stoi(op->read("ojo","posX")), stoi(op->read("ojo","posX")));
+            ojo.setPos(stoi(op->read(name,"posX")), stoi(op->read("ojo","posX")));
 
             if(ojo.checkearVision()){
                 persiguiendo= true;
@@ -45,7 +45,7 @@ void Templo::startCiclo(){
                     if(e.getColor()==Azul){
                         e.setX(ojo.GetPosX());
                         e.setY(ojo.GetPosY());
-                        op->WRITE("espectro"+to_string(e.getEspectro()), "teletransporte", "true");
+                        op->WRITE(name, "teletransporte", "true");
                     }
                 }
             }
@@ -87,22 +87,23 @@ void Templo::startCiclo(){
     }
     for(int i=0; i<ratones.largo;i++){
         Raton r =ratones.getNodoPos(i)->getValue();
-        r.setVivo(op->read("raton", "vivo")=="true");
+        string name= "raton"+to_string(r.getRaton());
+        r.setVivo(op->read(name,"vivo")=="true");
 
         if(r.isVivo()){
             r.movimiento();
-            op->WRITE("raton","posX",to_string(r.GetPosX()));
-            op->WRITE("raton","posY",to_string(r.GetPosY()));
+            op->WRITE(name,"posX",to_string(r.GetPosX()));
+            op->WRITE(name,"posY",to_string(r.GetPosY()));
         }
-
     }
     for(int i=0; i<chuchus.largo;i++){
         Chuchu c =chuchus.getNodoPos(i)->getValue();
-        c.setVivo(op->read("chuchu", "vivo")=="true");
+        string name= "chuchu"+to_string(c.getChuchu());
+        c.setVivo(op->read(name, "vivo")=="true");
         if(c.isVivo()){
             c.movimiento();
-            op->WRITE("chuchu","posX", to_string(c.GetPosX()));
-            op->WRITE("chuchu","posY", to_string(c.GetPosY()));
+            op->WRITE(name,"posX", to_string(c.GetPosX()));
+            op->WRITE(name,"posY", to_string(c.GetPosY()));
         }
     }
 

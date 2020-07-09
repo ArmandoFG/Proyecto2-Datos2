@@ -13,10 +13,9 @@
 int posX;
 int posY;
 
-Raton::Raton() {
+Raton::Raton(int raton) {
+    this->raton=raton;
 }
-
-
 
 void Raton::setPos(int x, int y){
     posX = x;
@@ -46,5 +45,13 @@ bool Raton::isVivo() const {
 
 void Raton::setVivo(bool vivo) {
     Raton::vivo = vivo;
+}
+
+int Raton::getRaton() const {
+    return raton;
+}
+
+void Raton::setRaton(int raton) {
+    Raton::raton = raton;
 }
 

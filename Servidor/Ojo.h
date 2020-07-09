@@ -10,7 +10,7 @@
 
 class Ojo {
 public:
-    Ojo(int x, int y);
+    Ojo(int x, int y, int ojo);
     void setPos(int x, int y);
     int GetPosX();
     int GetPosY();
