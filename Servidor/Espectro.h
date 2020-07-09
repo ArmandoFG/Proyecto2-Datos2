@@ -42,6 +42,9 @@ protected:
     int espectro;
     TList<int> nextX;
     TList<int> nextY;
+public:
+    int getEspectro() const;
+
 private:
     void A(int xi, int yi, int xf, int yf, int** map);
     void breadcumbing(int xi, int yi, int** map );

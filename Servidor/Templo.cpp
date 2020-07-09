@@ -3,6 +3,7 @@
 //
 
 #include "Templo.h"
+#include "Operaciones_Json.h"
 
 void Templo::startCiclo(){
     Nivel lvl=getNivel();
@@ -46,6 +47,8 @@ void Templo::startCiclo(){
         if(e.getVida()>0 && !ratonCerca(e.getX(),e.getY(),e.getVision())){
             e.nextStep(lvl.getMap());
         }
+        (new Operaciones_Json)->WRITE("espectro"+to_string(e.getEspectro()), "x", to_string(e.getX()));
+        (new Operaciones_Json)->WRITE("espectro"+to_string(e.getEspectro()), "y", to_string(e.getY()));
     }
 }
 

@@ -434,6 +434,10 @@ Espectro::Espectro(ColorEspectro color, int velocidadRuta, int velocidadPersecus
     nextY=*new TList<int>;
 }
 
+int Espectro::getEspectro() const {
+    return espectro;
+}
+
 EspectroGris::EspectroGris(int velocidadRuta, int velocidadPersecusion,
         int vision, int x, int y, int numEspectro)
         : Espectro(Gris, velocidadRuta, velocidadPersecusion, vision, x, y, numEspectro) {}

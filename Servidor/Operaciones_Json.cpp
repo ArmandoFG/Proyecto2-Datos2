@@ -41,7 +41,5 @@ void Operaciones_Json::WRITE(string individuo, string dato, string valor){
     OS.open("datos.json");
     OS << SW.write(obj);
     OS.close();
-
-    
 }
 
