@@ -12,7 +12,7 @@
 #include <stdio.h>
 #include<time.h>
 #include <math.h>
-
+#include "Matrix.h"
 using namespace std;
 
 void Iniciar(int Bx1, int By1);
@@ -20,24 +20,16 @@ void Iniciar(int Bx1, int By1);
 int x;
 int y;
 
-bresen::bresen() {
+bresen::bresen(int **map) {
+    this->map=map;
 }
 
 void bresen::Iniciar(int Bx1, int By1, bool listo){
     //srand(time(NULL));
-    
     int direccion = rand()%8;
-   int map[10][10]={{0,0,0,0,1,0,0,0,1,0},
-                     {0,0,0,0,1,0,0,0,1,0},
-                     {0,0,0,0,0,0,0,0,1,0},
-                     {0,0,0,0,0,0,1,1,1,0},
-                     {0,0,1,0,1,0,0,0,0,0},
-                     {0,0,1,0,0,1,1,0,0,0},
-                     {0,0,1,0,0,0,1,0,0,0},
-                     {0,0,1,0,1,0,1,0,0,0},
-                     {0,0,1,0,1,0,0,0,0,0},
-                     {0,0,1,1,1,1,1,0,0,0}};
 
+    int lineasEnMap= Matrix::SIZEX;
+    int columnasEnMap= Matrix::SIZEY;
 
    x=Bx1;
 

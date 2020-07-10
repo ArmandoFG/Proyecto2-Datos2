@@ -10,13 +10,13 @@
 
 class bresen {
 public:
-    bresen();
+    bresen(int** map);
     void Iniciar(int Bx1, int By1, bool listo);
     int getx();
     int gety();
 
 private:
-
+    int** map;
 };
 
 #endif	/* BRESEN_H */

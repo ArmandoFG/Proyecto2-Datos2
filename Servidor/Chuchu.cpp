@@ -11,8 +11,9 @@
 int posX;
 int posY;
 
-Chuchu::Chuchu(int chuchu) {
+Chuchu::Chuchu(int chuchu, int** map) {
     this->chuchu=chuchu;
+    this->map=map;
 }
 
 void Chuchu::setPos(int x, int y){
@@ -29,7 +30,7 @@ int Chuchu::GetPosY(){
 }
 
 void Chuchu::movimiento(){
-    bresen move = *new bresen();
+    bresen move = *new bresen(map);
     Operaciones_Json json = *new Operaciones_Json();
 
     move.Iniciar(GetPosX(),GetPosY(), false);

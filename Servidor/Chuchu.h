@@ -11,7 +11,7 @@
 class Chuchu {
 public:
     Chuchu();
-    explicit Chuchu(int chuchu);
+    explicit Chuchu(int chuchu, int**map);
     void setPos(int x, int y);
     bool isVivo() const;
     void setVivo(bool vivo);
@@ -21,6 +21,7 @@ public:
     bool vivo{true};
 private:
     int chuchu;
+    int** map;
 public:
     int getChuchu() const;
 
