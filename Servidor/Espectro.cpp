@@ -7,7 +7,9 @@
 #include "TList.h"
 #include "math.h"
 #include "Jugador.h"
-#include "math.h"
+#include "Matrix.h"
+
+
 
 bool Espectro::checkearVision(){
     Jugador j=*Jugador::getJugador();
@@ -22,7 +24,6 @@ void Espectro::A(int xi, int yi, int xf, int yf, int** map){
     double min =std::numeric_limits<double>::max();
     double minTemp;
 
-    int r,c =10;
 
     int xmin;
     int ymin;
@@ -95,9 +96,9 @@ void Espectro::A(int xi, int yi, int xf, int yf, int** map){
             //Se analiza el vecindario del escogido
             //Los ifs verifican que no se haya salido de la cuadricula
             for (int i=-1;i<2;i++){
-                if(xmin+i<r && xmin+i>-1){
+                if(xmin+i<Matrix::SIZEX && xmin+i>-1){
                     for(int j=-1;j<2;j++){
-                        if(ymin+j<c && ymin+j>-1 ) {
+                        if(ymin+j<Matrix::SIZEY && ymin+j>-1 ) {
                             if(map[xmin + i][ymin + j] != 1) {
 
                                 //Si no se ha agregado el nodo entonces se agrega
@@ -124,7 +125,6 @@ void Espectro::A(int xi, int yi, int xf, int yf, int** map){
             steps.deletePos(parentPos);
         }
     }
-    return;
 }
 
 void Espectro::perseguirA(int** map) {
@@ -139,12 +139,11 @@ void Espectro::breadcumbing(int xi, int yi, int** map ){
     int nextTrace=std::numeric_limits<int>::max();
     int nx;
     int ny;
-    int r,c=10;
     if(map[xi][yi]!=0){
         for (int i=-1;i<2;i++){
-            if(xi+i<r && xi+i>-1){
+            if(xi+i<Matrix::SIZEX && xi+i>-1){
                 for(int j=-1;j<2;j++){
-                    if(yi+j<c && yi+j>-1 ){
+                    if(yi+j<Matrix::SIZEY && yi+j>-1 ){
                         if(map[xi+i][yi+j]<nextTrace){
                             nextTrace=map[xi+i][yi+j];
                             nx=xi+i;
@@ -182,12 +181,11 @@ void Espectro::perseguirBread(int** map) {
  */
 void mark(int xi, int yi, int** map, int mark, int step){
     int tmp;
-    int r,c=10;
     for (int i=-1;i<2;i++){
-        if(xi+i<r && xi+i>-1){
+        if(xi+i<Matrix::SIZEX && xi+i>-1){
             for(int j=-1;j<2;j++){
                 tmp= map[xi+i][yi+j];
-                if(yi+j<c && yi+j>-1 && (tmp==0 || tmp==step)){
+                if(yi+j<Matrix::SIZEY && yi+j>-1 && (tmp==0 || tmp==step)){
                     map[xi+i][yi+j]=mark;
                 }
             }
@@ -196,9 +194,8 @@ void mark(int xi, int yi, int** map, int mark, int step){
 }
 
 void unmark(int** map, int mark){
-    int c,r=10;
-    for(int i=0;i<r;i++){
-        for(int j=0;j<c;j++){
+    for(int i=0;i<Matrix::SIZEX;i++){
+        for(int j=0;j<Matrix::SIZEY;j++){
             if(map[i][j]==mark){
                 map[i][j]=0;
             }
@@ -219,7 +216,6 @@ void unmark(int** map, int mark){
  */
 void Espectro::volverBacktrAux(int xi, int yi, int xf, int yf, int step,int** map, bool* done)
 {
-    int r,c=10;
     //If object is on goal, exists
     if (xi==xf && yi==yf) {
         *done = true;
@@ -237,10 +233,10 @@ void Espectro::volverBacktrAux(int xi, int yi, int xf, int yf, int step,int** ma
         for (int i=-1;i<2;i++)
         {
             //Checking for border
-            if(xi+i<r && xi+i>-1){
+            if(xi+i<Matrix::SIZEX && xi+i>-1){
                 for(int j=-1;j<2;j++){
                     //Checking for border, checking it's not gonna enter walls or previous marks
-                    if((yi+j<c && yi+j>-1)&&map[xi+i][yi+j]==step){
+                    if((yi+j<Matrix::SIZEY && yi+j>-1)&&map[xi+i][yi+j]==step){
                         volverBacktrAux(xi+i, yi+j, xf, yf, step+1,map, done);
                         if(*done){
                             //Unmarks all marks made by this step because of success
@@ -290,13 +286,12 @@ int Espectro::getY(){
 }
 
 void Espectro::patrullar(int** map){
-    int r,c=10;
     int lx;
     int ly;
     for (int i = -1; i < 2; i++) {
-        if (x + i < r && x + i > -1) {
+        if (x + i < Matrix::SIZEX && x + i > -1) {
             for (int j = -1; j < 2; j++) {
-                if (y + j < c && y + j > -1) {
+                if (y + j < Matrix::SIZEY && y + j > -1) {
                     if (map[x + i][y + j] == espectro && (lx!=(x + i) || ly!=(y + j)) ) {
                         lx=x;
                         ly=y;
@@ -374,7 +369,7 @@ void EspectroAzul::habilidad(int x, int y) {
 }
 
 Espectro::Espectro(ColorEspectro color, int velocidadRuta, int velocidadPersecusion, int vision
-                ,int x, int y, int numEspectro) {
+                ,int x, int y, int numEspectro, int** map) {
     proceso=Normal;
     this->color=color;
     this->velocidadRuta=velocidadRuta;
@@ -384,6 +379,7 @@ Espectro::Espectro(ColorEspectro color, int velocidadRuta, int velocidadPersecus
     this->y=y;
     vistax=0;
     vistay=1;
+    this->map=map;
     espectro=numEspectro;
     nextX=*new TList<int>;
     nextY=*new TList<int>;
@@ -402,12 +398,12 @@ void Espectro::setVivo(bool vivo) {
 }
 
 EspectroGris::EspectroGris(int velocidadRuta, int velocidadPersecusion,
-        int vision, int x, int y, int numEspectro)
-        : Espectro(Gris, velocidadRuta, velocidadPersecusion, vision, x, y, numEspectro) {}
+        int vision, int x, int y, int numEspectro, int** map)
+        : Espectro(Gris, velocidadRuta, velocidadPersecusion, vision, x, y, numEspectro, map) {}
 
 EspectroRojo::EspectroRojo(int velocidadRuta, int velocidadPersecusion,
-                           int vision, int x, int y, int numEspectro)
-        : Espectro(Rojo, velocidadRuta, velocidadPersecusion, vision, x, y, numEspectro) {}
+                           int vision, int x, int y, int numEspectro, int** map)
+        : Espectro(Rojo, velocidadRuta, velocidadPersecusion, vision, x, y, numEspectro, map) {}
 EspectroAzul::EspectroAzul(int velocidadRuta, int velocidadPersecusion,
-                           int vision, int x, int y, int numEspectro)
-        : Espectro(Azul, velocidadRuta, velocidadPersecusion, vision, x, y, numEspectro) {}
+                           int vision, int x, int y, int numEspectro, int** map)
+        : Espectro(Azul, velocidadRuta, velocidadPersecusion, vision, x, y, numEspectro, map) {}
