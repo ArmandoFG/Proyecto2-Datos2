@@ -20,6 +20,7 @@ class Nivel {
         TList<Chuchu> chuchus;
         TList<Espectro> espectros;
         int** map;
+        int** mapPatrullaje;
         Nivel();
     public:
         TList<Raton> getRatones();

@@ -277,17 +277,17 @@ int Espectro::getY(){
 }
 
 void Espectro::patrullar(){
-    int lx;
-    int ly;
     for (int i = -1; i < 2; i++) {
         if (x + i < Matrix::SIZEX && x + i > -1) {
             for (int j = -1; j < 2; j++) {
                 if (y + j < Matrix::SIZEY && y + j > -1) {
-                    if (map[x + i][y + j] == espectro && (lx!=(x + i) || ly!=(y + j)) ) {
+                    if (mapPatrullaje[x + i][y + j] == (espectro+1) && (lx!=(x + i) || ly!=(y + j)) &&(i!=0||j!=0) ) {
                         lx=x;
                         ly=y;
                         x += i;
                         y += j;
+                        nextX.addLast(x);
+                        nextY.addLast(y);
                     }
                 }
             }
@@ -360,7 +360,7 @@ void EspectroAzul::habilidad(int x, int y) {
 }
 
 Espectro::Espectro(ColorEspectro color, int velocidadRuta, int velocidadPersecusion, int vision
-                ,int x, int y, int numEspectro, int** map) {
+                ,int x, int y, int numEspectro, int** map, int** mapPatrullaje) {
     proceso=Normal;
     this->color=color;
     this->velocidadRuta=velocidadRuta;
@@ -371,6 +371,7 @@ Espectro::Espectro(ColorEspectro color, int velocidadRuta, int velocidadPersecus
     vistax=0;
     vistay=1;
     this->map=map;
+    this->mapPatrullaje=mapPatrullaje;
     espectro=numEspectro;
     nextX=*new TList<int>;
     nextY=*new TList<int>;
@@ -389,12 +390,12 @@ void Espectro::setVivo(bool vivo) {
 }
 
 EspectroGris::EspectroGris(int velocidadRuta, int velocidadPersecusion,
-        int vision, int x, int y, int numEspectro, int** map)
-        : Espectro(Gris, velocidadRuta, velocidadPersecusion, vision, x, y, numEspectro, map) {}
+        int vision, int x, int y, int numEspectro, int** map, int** mapPatrullaje)
+        : Espectro(Gris, velocidadRuta, velocidadPersecusion, vision, x, y, numEspectro, map, mapPatrullaje) {}
 
 EspectroRojo::EspectroRojo(int velocidadRuta, int velocidadPersecusion,
-                           int vision, int x, int y, int numEspectro, int** map)
-        : Espectro(Rojo, velocidadRuta, velocidadPersecusion, vision, x, y, numEspectro, map) {}
+                           int vision, int x, int y, int numEspectro, int** map, int** mapPatrullaje)
+        : Espectro(Rojo, velocidadRuta, velocidadPersecusion, vision, x, y, numEspectro, map, mapPatrullaje) {}
 EspectroAzul::EspectroAzul(int velocidadRuta, int velocidadPersecusion,
-                           int vision, int x, int y, int numEspectro, int** map)
-        : Espectro(Azul, velocidadRuta, velocidadPersecusion, vision, x, y, numEspectro, map) {}
+                           int vision, int x, int y, int numEspectro, int** map, int** mapPatrullaje)
+        : Espectro(Azul, velocidadRuta, velocidadPersecusion, vision, x, y, numEspectro, map, mapPatrullaje) {}

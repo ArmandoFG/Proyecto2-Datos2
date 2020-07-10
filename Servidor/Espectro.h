@@ -24,7 +24,7 @@ enum ColorEspectro{
 class Espectro {
 protected:
     Espectro(ColorEspectro color, int velocidadRuta, int velocidadPersecusion, int vision, int x, int y,
-             int numEspectro, int** map);
+             int numEspectro, int** map, int** mapPatrullaje);
 
     Proceso proceso;
     ColorEspectro color;
@@ -34,10 +34,13 @@ protected:
     int vision;
     int x;
     int y;
+    int lx{-1};
+    int ly{-1};
     int vistax;
     int vistay;
     int espectro;
     int** map;
+    int** mapPatrullaje;
     TList<int> nextX;
     TList<int> nextY;
 private:
@@ -71,7 +74,7 @@ public:
 class EspectroGris : public Espectro{
 public:
     EspectroGris( int velocidadRuta, int velocidadPersecusion, int vision, int x, int y,
-                 int numEspectro,int** map);
+                 int numEspectro,int** map, int** mapPatrullaje);
 };
 
 class EspectroRojo : public Espectro{
@@ -80,14 +83,14 @@ private:
     int timeUntilFuego{0};
 public:
     EspectroRojo( int velocidadRuta, int velocidadPersecusion, int vision, int x, int y,
-                  int numEspectro,int** map);
+                  int numEspectro,int** map,int** mapPatrullaje);
 
 };
 
 class EspectroAzul : public Espectro{
 public:
     EspectroAzul( int velocidadRuta, int velocidadPersecusion, int vision, int x, int y,
-                  int numEspectro, int** map);
+                  int numEspectro, int** map,int** mapPatrullaje);
     void habilidad(int x, int y) override;
 };
 
@@ -96,15 +99,15 @@ class EspectroFactory
 {
 public:
     static Espectro *Get(ColorEspectro color, int velocidadRuta, int velocidadPersecusion, int vision, int x, int y,
-                         int numEspectro, int** map)
+                         int numEspectro, int** map, int** mapPatrullaje)
     {
         switch (color) {
             case Gris:
-                return new EspectroGris( velocidadRuta, velocidadPersecusion, vision, x, y,numEspectro, map);
+                return new EspectroGris( velocidadRuta, velocidadPersecusion, vision, x, y,numEspectro, map, mapPatrullaje);
             case Azul:
-                return  new EspectroAzul( velocidadRuta, velocidadPersecusion, vision, x, y,numEspectro, map);
+                return  new EspectroAzul( velocidadRuta, velocidadPersecusion, vision, x, y,numEspectro, map, mapPatrullaje);
             case Rojo:
-                return new EspectroRojo( velocidadRuta, velocidadPersecusion, vision, x, y,numEspectro, map);
+                return new EspectroRojo( velocidadRuta, velocidadPersecusion, vision, x, y,numEspectro, map, mapPatrullaje);
         }
     }
 };
