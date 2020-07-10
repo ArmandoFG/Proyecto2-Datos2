@@ -1,36 +1,45 @@
 {
-    "jugador": {
-        "posx" : "",
-        "posy" : "",
-        "vidas" : "",
-        "puntos" : ""
-    },
-    "espectro1" : {
-        "posx" : "",
-        "posy" : ""
-    },
-    "espectro2" : {
-        "posx" : "",
-        "posy" : ""
-    },
-    "espectro3" : {
-        "posx" : "",
-        "posy" : ""
-    },
-    "espectro4" : {
-        "posx" : "",
-        "posy" : ""
-    },
-    "chuchu" : {
-        "posx" : "",
-        "posy" : ""
-    },
-    "ojo" : {
-        "posx" : "",
-        "posy" : ""
-    },
-    "raton" : {
-        "posx" : "",
-        "posy" : ""
-    }
+   "Personajes" : [
+      {
+         "name" : "chuchu",
+         "posx" : "3",
+         "posy" : "3"
+      },
+      {
+         "name" : "espectro1",
+         "posx" : "",
+         "posy" : ""
+      },
+      {
+         "name" : "espectro2",
+         "posx" : "",
+         "posy" : ""
+      },
+      {
+         "name" : "espectro3",
+         "posx" : "",
+         "posy" : ""
+      },
+      {
+         "name" : "jugador",
+         "posx" : "",
+         "posy" : ""
+      },
+      {
+         "name" : "ojo",
+         "posx" : "",
+         "posy" : ""
+      },
+      {
+         "name" : "raton",
+         "posx" : "",
+         "posy" : ""
+      }
+   ],
+   "juego" : [
+      {
+         "puntos" : "",
+         "vida" : ""
+      }
+   ]
 }

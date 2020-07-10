@@ -29,17 +29,19 @@ string Operaciones_Json::read(string individuo, string dato){
     Dato = read_obj[individuo][dato].asString();  
     return Dato;
 }
-void Operaciones_Json::WRITE(string individuo, string dato, string valor){
+void Operaciones_Json::WRITE(string individuo, int fila, string dato, string valor){
     ifstream ifs("datos.json");
     Json::Reader reader;
     Json::Value obj;
     reader.parse(ifs, obj); 
     ifs.close();
-    obj[individuo][dato]= valor;
+    obj[individuo][fila][dato]= valor;
     Json::StyledWriter SW;
     ofstream OS;
     OS.open("datos.json");
     OS << SW.write(obj);
     OS.close();
+
+    
 }
 

@@ -18,7 +18,7 @@ class Operaciones_Json {
 public:
     Operaciones_Json();
     string read(string individuo, string dato);
-    void WRITE(string individuo, string dato, string valor);
+    void WRITE(string individuo, int fila, string dato, string valor);
 
 private:
 

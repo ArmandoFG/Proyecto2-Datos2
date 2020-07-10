@@ -16,9 +16,13 @@
 #include <fcntl.h>
 #include <fstream>
 #include <sstream>
+#include <thread>
+
 
 
 using namespace std;
+
+int ListenForData();
 
 int strf(char **rbuf, const char *path);
 string tipo;
@@ -26,6 +30,8 @@ int DATO;
 string Operacion; 
 string dato;
 int newSd;
+int serverSd;
+char *rbuf;
 
 
 int main(void)
@@ -36,7 +42,7 @@ int main(void)
     servAddr.sin_family = AF_INET;
     servAddr.sin_addr.s_addr = htonl(INADDR_ANY);
     servAddr.sin_port = htons(puerto);
-    int serverSd = socket(AF_INET, SOCK_STREAM, 0);
+    serverSd = socket(AF_INET, SOCK_STREAM, 0);
     if(serverSd < 0)
     {
         cout << "Error al establecer el socket del servidor" << endl;
@@ -54,6 +60,7 @@ int main(void)
 
     sockaddr_in newSockAddr;
     socklen_t newSockAddrSize = sizeof(newSockAddr);
+    
 
     newSd = accept(serverSd, (sockaddr *)&newSockAddr, &newSockAddrSize);
     if(newSd < 0)
@@ -62,8 +69,18 @@ int main(void)
         exit(1);
     }
     cout << "Coneccion establecida con el cliente" << endl;
-    struct timeval start1, end1;
-    gettimeofday(&start1, NULL);
+
+    thread th(ListenForData);
+    
+    if(th.joinable()) {
+        th.join();
+    }
+    
+  
+
+}
+
+int ListenForData(){
     while(1)
     {
  
@@ -76,7 +93,7 @@ int main(void)
 
      recv(newSd,reinterpret_cast<char*>(&len), sizeof len, 0);
 
-     std::ofstream outfile ("datos.json",std::ofstream::binary);
+     std::ofstream outfile ("datosServer.json",std::ofstream::binary);
 
      pbuf = new char [len];
         
@@ -90,7 +107,7 @@ int main(void)
 
      delete [] pbuf;
 
-     char *rbuf;
+    
 
      int len2 = strf(&rbuf, "datos.json");
 
@@ -103,9 +120,7 @@ int main(void)
     close(newSd);
     close(serverSd);
     cout << "Coneccion cerrada" << endl;
-    verificar = false;
     return 0;
-  
 
 }
 

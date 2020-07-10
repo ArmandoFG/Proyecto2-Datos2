@@ -11,7 +11,7 @@
 class Chuchu {
 public:
     Chuchu();
-    explicit Chuchu(int chuchu, int**map);
+    explicit Chuchu(int chuchu, int**map, int x, int y);
     void setPos(int x, int y);
     bool isVivo() const;
     void setVivo(bool vivo);

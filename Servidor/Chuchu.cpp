@@ -11,9 +11,10 @@
 int posX;
 int posY;
 
-Chuchu::Chuchu(int chuchu, int** map) {
+Chuchu::Chuchu(int chuchu, int** map, int x, int y) {
     this->chuchu=chuchu;
     this->map=map;
+    setPos(x, y);
 }
 
 void Chuchu::setPos(int x, int y){
@@ -36,8 +37,8 @@ void Chuchu::movimiento(){
     move.Iniciar(GetPosX(),GetPosY(), false);
     setPos(move.getx(), move.gety());
 
-    json.WRITE("chuchu","posx", to_string(GetPosX()));
-    json.WRITE("chuchu","posy", to_string(GetPosY()));
+    json.WRITE("Personajes",0, "posx",to_string(GetPosX()));
+    json.WRITE("Personajes",0, "posy",to_string(GetPosY()));
     
 }
 
