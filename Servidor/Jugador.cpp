@@ -10,6 +10,7 @@
 
 Jugador::Jugador() {
     vida = 5;
+    movementNum=2;
 }
 
 Jugador* Jugador::getJugador(){
@@ -40,12 +41,13 @@ int Jugador::getY(){
 
 int Jugador::getVida(){
     return vida;
-          
 }
 
 void Jugador::ubicacion(int x, int y){
-    posicionX = x;
-    posicionY = y;
+    this->x = x;
+    this->y = y;
+    movementNum+=1;
+    tracesMap[x][y]=movementNum;
 }
 
 void Jugador::setX(int x) {
@@ -54,6 +56,18 @@ void Jugador::setX(int x) {
 
 void Jugador::setY(int y) {
     Jugador::y = y;
+}
+
+int **Jugador::getTracesMap() const {
+    return tracesMap;
+}
+
+void Jugador::setTracesMap(int **tracesMap) {
+    Jugador::tracesMap = tracesMap;
+}
+
+int Jugador::getMovementNum() const {
+    return movementNum;
 }
 
 

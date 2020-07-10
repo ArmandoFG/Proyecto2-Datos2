@@ -18,7 +18,14 @@ public:
     int getX();
     int getY();
     void ubicacion(int x, int y);
-    
+    int** tracesMap;
+    int movementNum;
+
+    int getMovementNum() const;
+
+    int **getTracesMap() const;
+    void setTracesMap(int **tracesMap);
+
 private:
     Jugador();
     int x;

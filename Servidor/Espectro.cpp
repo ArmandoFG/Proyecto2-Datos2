@@ -139,13 +139,14 @@ void Espectro::breadcumbing(int xi, int yi){
     int nextTrace=std::numeric_limits<int>::max();
     int nx;
     int ny;
-    if(map[xi][yi]!=0){
+    int** tracesMap=Jugador::getJugador()->getTracesMap();
+    if(tracesMap[xi][yi] >1){
         for (int i=-1;i<2;i++){
             if(xi+i<Matrix::SIZEX && xi+i>-1){
                 for(int j=-1;j<2;j++){
                     if(yi+j<Matrix::SIZEY && yi+j>-1 ){
-                        if(map[xi+i][yi+j]<nextTrace){
-                            nextTrace=map[xi+i][yi+j];
+                        if(tracesMap[xi + i][yi + j] < nextTrace){
+                            nextTrace=tracesMap[xi + i][yi + j];
                             nx=xi+i;
                             ny=yi+j;
                             nextX.addLast(nx);
@@ -155,16 +156,15 @@ void Espectro::breadcumbing(int xi, int yi){
                 }
             }
         }
-        //Move or something
-        breadcumbing( nx, ny);
+    }else{
+        perseguirA();
     }
 }
 
 void Espectro::perseguirBread() {
-    //A* hasta ultimo trazo
-    this->proceso=PersiguiendoBread;
     nextX=*new TList<int>;
     nextY=*new TList<int>;
+    this->proceso=PersiguiendoBread;
     breadcumbing(x, y);
 }
 
