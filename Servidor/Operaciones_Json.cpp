@@ -20,13 +20,13 @@ using namespace std;
 Operaciones_Json::Operaciones_Json() {
 }
 
-string Operaciones_Json::read(string individuo, string dato){
+string Operaciones_Json::read(string individuo, int fila,string dato){
     ifstream ifs("datos.json");   
     Json::Value read_obj;      
     Json::Reader reader;
     reader.parse(ifs, read_obj);    
     string Dato;
-    Dato = read_obj[individuo][dato].asString();  
+    Dato = read_obj[individuo][fila][dato].asString();  
     return Dato;
 }
 void Operaciones_Json::WRITE(string individuo, int fila, string dato, string valor){

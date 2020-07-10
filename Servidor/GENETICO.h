@@ -15,8 +15,9 @@ public:
     void Iniciar_Poblacion();
     void insertar_individuo(int num, int fit);
     void insertar_atributo(int ATRIBUTO, int individuo);
-    void mostrar_grafo();
+    int retornarGen(int individuo, int gen);
     void seleccion();
+    void mostrar_grafo();
 };
 
 #endif // GENETICO_H

@@ -125,7 +125,7 @@ void agrega_atributo(Tnodo &aux, Tatributo &nuevo, int *Atbt)
     {   aux->ady=nuevo;
         *nuevo->datos= *Atbt;
 
-    } // si no esta vacía recorre todas las aristas hasta llegar a null
+    } // si no esta vacï¿½a recorre todas las aristas hasta llegar a null
     else
     {   q=aux->ady;
         while(q->sgte!=NULL)
@@ -219,8 +219,6 @@ void cruce(){
     srand(time(NULL));
     int genPadre = rand()%5;
     int genMadre = 4 - genPadre;
-    cout << "p: " << genPadre << endl;
-    cout << "m: " << genMadre << endl;
     Tnodo ptr;
     Tatributo ar;
     ptr=POBLACION;
@@ -269,10 +267,7 @@ void cruce(){
         
     }
     
-    cout << Genes[0] << endl;
-    cout << Genes[1] << endl;
-    cout << Genes[2] << endl;
-    cout << Genes[3] << endl;
+    
     int fitness = Genes[0] + Genes[1] + Genes[2]+ Genes[3];
     modificar_Poblacion(Muerto, fitness, Genes[0], Genes[1], Genes[2], Genes[3]);
 
@@ -329,6 +324,38 @@ void Modificar_Atributo(int gen1,  int gen2, int gen3, int gen4, Tnodo &aux){
 
 
 
+int Genetico::retornarGen(int individuo, int gen)
+{   Tnodo ptr;
+    Tatributo ar;
+    ptr=POBLACION;
+    int GEN;
+    int contador = 0;
+    while(ptr!=NULL)
+    {   
+        //cout<<"   "<<*ptr->individuo<<" Fitness:"<< *ptr->fitness << endl;
+        if(*ptr->individuo == individuo){
+            if(ptr->ady!=NULL)
+            {
+                ar=ptr->ady;
+                while(ar!=NULL)
+                {  
+
+                    if(contador == gen){
+                       GEN = *ar->datos;
+                    }
+                    //cout<<" "<<*ar->datos<< endl;
+                    ar=ar->sgte;
+                    contador++;
+                }
+
+            }
+    }
+    contador = 0;
+        ptr=ptr->sgte;
+        cout<<endl;
+    }
+    return GEN;
+}
 void Genetico::mostrar_grafo()
 {   Tnodo ptr;
     Tatributo ar;

@@ -8,9 +8,12 @@
 #include <cstdlib>
 #include <iostream>
 #include "GENETICO.h"
+#include "GENETICO.cpp"
 #include "bresen.h"
 #include "Operaciones_Json.h"
 #include "Operaciones_Json.cpp"
+#include "Chuchu.h"
+
 
 
 
@@ -18,11 +21,7 @@ using namespace std;
 
 int main() {
     /**
-    Genetico gen = *new Genetico();
-    gen.Iniciar_Poblacion();
-    gen.mostrar_grafo();
-    gen.seleccion();
-    gen.mostrar_grafo();
+    
     
     
     int map[10][10]={{0,0,1,0,0,0,0,0,1,0},
@@ -41,12 +40,16 @@ int main() {
     br.Iniciar(0,0);
     
     cout << "fin" << endl;
-     * */
-    
-    Operaciones_Json json = *new Operaciones_Json();
-    json.WRITE("jugador", "vidas", "4");
      
-    cout << "Hola" << endl;
+    
+    Chuchu chu = *new Chuchu(1,0,0);
+    chu.movimiento();
+    * */
+    Genetico gen = *new Genetico();
+    gen.Iniciar_Poblacion();
+    gen.mostrar_grafo();
+    int dato = gen.retornarGen(2,3);
+    cout << "Este es el gen: " << dato << endl;
     return 0;
 
 }
