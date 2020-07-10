@@ -4,7 +4,7 @@
 
 #include "Nivel.h"
 #include "Matrix.h"
-
+#include "GENETICO.h"
 int** Nivel::getMap() {
    return (int **) (this->map);
 }
@@ -17,37 +17,54 @@ Nivel::Nivel() {
 }
 
 Nivel1::Nivel1():Nivel() {
+    g = *new Genetico;
+    g.Iniciar_Poblacion();
     map=Matrix::generateMatrix1();
     mapPatrullaje=Matrix::generateMatrix1();
-    espectros.addLast(*EspectroFactory::Get(Gris,200,400, 50, 8,9,0, map, mapPatrullaje));
-    espectros.addLast(*EspectroFactory::Get(Gris,200,400, 50, 8,9,0, map, mapPatrullaje));
-    espectros.addLast(*EspectroFactory::Get(Gris,200,400, 50, 8,9,0, map, mapPatrullaje));
+    espectros.addLast(*EspectroFactory::Get(Gris,    g.retornarGen(0,0)
+        ,g.retornarGen(0,1), g.retornarGen(0,2), 8,9,1, map, mapPatrullaje));
+    espectros.addLast(*EspectroFactory::Get(Gris,    g.retornarGen(0,0)
+            ,g.retornarGen(0,1), g.retornarGen(0,2), 8,9,2, map, mapPatrullaje));
+    espectros.addLast(*EspectroFactory::Get(Gris,    g.retornarGen(0,0)
+            ,g.retornarGen(0,1), g.retornarGen(0,2), 8,9,3, map, mapPatrullaje));
 }
 
 
 Nivel2::Nivel2():Nivel() {
     map=Matrix::generateMatrix2();
+    g.seleccion();
     mapPatrullaje=Matrix::generateMatrix2();
-    espectros.addLast(*EspectroFactory::Get(Rojo,200,400, 50, 8,9,0, map, mapPatrullaje));
-    espectros.addLast(*EspectroFactory::Get(Rojo,200,400, 50, 8,9,0, map, mapPatrullaje));
-    espectros.addLast(*EspectroFactory::Get(Rojo,200,400, 50, 8,9,0, map, mapPatrullaje));
+    espectros.addLast(*EspectroFactory::Get(Rojo,    g.retornarGen(0,0)
+            ,g.retornarGen(0,1), g.retornarGen(0,2), 8,9,1, map, mapPatrullaje));
+    espectros.addLast(*EspectroFactory::Get(Rojo,    g.retornarGen(0,0)
+            ,g.retornarGen(0,1), g.retornarGen(0,2), 8,9,2, map, mapPatrullaje));
+    espectros.addLast(*EspectroFactory::Get(Rojo,    g.retornarGen(0,0)
+            ,g.retornarGen(0,1), g.retornarGen(0,2), 8,9,3, map, mapPatrullaje));
 }
 
 Nivel3::Nivel3() {
     map=Matrix::generateMatrix3();
     mapPatrullaje=Matrix::generateMatrix3();
-    espectros.addLast(*EspectroFactory::Get(Azul,200,400, 50, 8,9,0, map, mapPatrullaje));
-    espectros.addLast(*EspectroFactory::Get(Azul,200,400, 50, 8,9,0, map, mapPatrullaje));
-    espectros.addLast(*EspectroFactory::Get(Azul,200,400, 50, 8,9,0, map, mapPatrullaje));
+    g.seleccion();
+    espectros.addLast(*EspectroFactory::Get(Azul,    g.retornarGen(0,0)
+            ,g.retornarGen(0,1), g.retornarGen(0,2), 8,9,1, map, mapPatrullaje));
+    espectros.addLast(*EspectroFactory::Get(Azul,    g.retornarGen(0,0)
+            ,g.retornarGen(0,1), g.retornarGen(0,2), 8,9,2, map, mapPatrullaje));
+    espectros.addLast(*EspectroFactory::Get(Azul,    g.retornarGen(0,0)
+            ,g.retornarGen(0,1), g.retornarGen(0,2), 8,9,3, map, mapPatrullaje));
     ojos.addLast(*new Ojo(9,9,1));
 }
 
 Nivel4::Nivel4():Nivel() {
     map=Matrix::generateMatrix4();
     mapPatrullaje=Matrix::generateMatrix4();
-    espectros.addLast(*EspectroFactory::Get(Azul,200,400, 50, 8,9,0, map, mapPatrullaje));
-    espectros.addLast(*EspectroFactory::Get(Gris,200,400, 50, 8,9,0, map, mapPatrullaje));
-    espectros.addLast(*EspectroFactory::Get(Rojo,200,400, 50, 8,9,0, map, mapPatrullaje));
+    g.seleccion();
+    espectros.addLast(*EspectroFactory::Get(Azul,    g.retornarGen(0,0)
+            ,g.retornarGen(0,1), g.retornarGen(0,2), 8,9,1, map, mapPatrullaje));
+    espectros.addLast(*EspectroFactory::Get(Gris,    g.retornarGen(0,0)
+            ,g.retornarGen(0,1), g.retornarGen(0,2), 8,9,2, map, mapPatrullaje));
+    espectros.addLast(*EspectroFactory::Get(Rojo,    g.retornarGen(0,0)
+            ,g.retornarGen(0,1), g.retornarGen(0,2), 8,9,3, map, mapPatrullaje));
 }
 
 Nivel5::Nivel5(): Nivel(){

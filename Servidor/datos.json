@@ -3,43 +3,63 @@
       {
          "name" : "chuchu",
          "posx" : "3",
-         "posy" : "3"
+         "posy" : "3",
+         "vivo" : "true",
+         "completoUltimoPaso" : "true"
       },
       {
          "name" : "espectro1",
          "posx" : "",
-         "posy" : ""
+         "posy" : "",
+         "posx" : "",
+         "posy" : "",
+         "teletransporte": "true",
+         "vivo" : "true",
+         "completoUltimoPaso": "true",
+         "estado" : "paralizado/Normal/Volviendo/PersiguiendoBread/PersiguiendoA"
       },
       {
          "name" : "espectro2",
          "posx" : "",
-         "posy" : ""
+         "posy" : "",
+         "teletransporte": "false",
+         "vivo" : "true",
+         "completoUltimoPaso": "true",
+         "estado" : "paralizado/Normal/Volviendo/PersiguiendoBread/PersiguiendoA"
       },
       {
          "name" : "espectro3",
          "posx" : "",
-         "posy" : ""
+         "posy" : "",
+         "teletransporte": "true",
+         "vivo" : "true",
+         "completoUltimoPaso": "true",
+         "estado" : "paralizado/Normal/Volviendo/PersiguiendoBread/PersiguiendoA"
       },
       {
          "name" : "jugador",
          "posx" : "",
-         "posy" : ""
+         "posy" : "",
+         "zonasegura " : "true"
       },
       {
          "name" : "ojo",
          "posx" : "",
-         "posy" : ""
+         "posy" : "",
+         "vivo" : "true"
       },
       {
          "name" : "raton",
          "posx" : "",
-         "posy" : ""
+         "posy" : "",
+         "vivo" : "false"
       }
    ],
    "juego" : [
       {
          "puntos" : "",
-         "vida" : ""
+         "vida" : "",
+         "nivel" : ""
       }
    ]
 }

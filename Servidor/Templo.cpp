@@ -12,11 +12,18 @@ void Templo::startCiclo(){
     auto* op=new Operaciones_Json;
     persiguiendo=false;
 
+
+    if(nivel!=stoi(op->read("juego", "nivel"))){
+        this->nextNivel();
+        nivel++;
+        lvl= this->getNivel();
+    }
+
     Jugador j=*Jugador::getJugador();
-    j.setvida(stoi(op->read("jugador", "vida")));
-    j.setmarcador(stoi(op->read("jugador", "marcador")));
-    float x=stof(op->read("jugador", "posX"));
-    float y=stof(op->read("jugador", "posY"));
+    j.setvida(stoi(op->read("juego", "vida")));
+    j.setmarcador(stoi(op->read("juego", "puntos")));
+    float x=stof(op->read("jugador", "posx"));
+    float y=stof(op->read("jugador", "posy"));
 
 
     j.ubicacion(Matrix::toMatrixPosition(x,y,this->nivel));
@@ -24,9 +31,17 @@ void Templo::startCiclo(){
     if(j.getVida()==0){
         lvl=restartNivel();
         j.setvida(5);
-        j.setmarcador(0);
+        j.setmarcador(0);}
+    for(int i=0; i<chuchus.largo;i++){
+        Chuchu c =chuchus.getNodoPos(i)->getValue();
+        string name= "chuchu"+to_string(c.getChuchu());
+        c.setVivo(op->read(name, "vivo")=="true");
+        if(c.isVivo() && "true"==op->read("espectro"+to_string(e.getEspectro()), "completoUltimoPaso")){
+            c.movimiento();
+            op->WRITE(name,"posx", to_string(c.GetPosX()));
+            op->WRITE(name,"posy", to_string(c.GetPosY()));
+        }
     }
-
     for(int i=0; i<espectros.largo;i++) {
         op->WRITE("espectro"+to_string(espectros.getNodoPos(i)->getValue().getEspectro())
                 , "teletransporte", "false");
@@ -38,7 +53,7 @@ void Templo::startCiclo(){
         ojo.setVivo(op->read(name, "vivo")=="true");
 
         if(ojo.isVivo()){
-            ojo.setPos(stoi(op->read(name,"posX")), stoi(op->read("ojo","posX")));
+            ojo.setPos(stoi(op->read(name,"posx")), stoi(op->read("ojo","posy")));
 
             if(ojo.checkearVision()){
                 persiguiendo= true;
@@ -48,7 +63,7 @@ void Templo::startCiclo(){
                     if(e.getColor()==Azul){
                         e.setX(ojo.GetPosX());
                         e.setY(ojo.GetPosY());
-                        op->WRITE(name, "teletransporte", "true");
+                        op->WRITE("espectro"+to_string(e.getEspectro()), "teletransporte", "true");
                     }
                 }
             }
@@ -83,9 +98,9 @@ void Templo::startCiclo(){
             }else if(completoUltimoPaso=="true"){
                 op->WRITE("espectro" + to_string(e.getEspectro()), "estado", to_string(e.getProceso()));
                 e.nextStep();
-            }
-            op->WRITE("espectro" + to_string(e.getEspectro()), "posX", to_string(e.getX()));
-            op->WRITE("espectro" + to_string(e.getEspectro()), "posY", to_string(e.getY()));
+            }//OJo a esto
+            op->WRITE("espectro" + to_string(e.getEspectro()), "posx", to_string(e.getX()));
+            op->WRITE("espectro" + to_string(e.getEspectro()), "posy", to_string(e.getY()));
         }
     }
     for(int i=0; i<ratones.largo;i++){
@@ -95,18 +110,8 @@ void Templo::startCiclo(){
 
         if(r.isVivo()){
             r.movimiento();
-            op->WRITE(name,"posX",to_string(r.GetPosX()));
-            op->WRITE(name,"posY",to_string(r.GetPosY()));
-        }
-    }
-    for(int i=0; i<chuchus.largo;i++){
-        Chuchu c =chuchus.getNodoPos(i)->getValue();
-        string name= "chuchu"+to_string(c.getChuchu());
-        c.setVivo(op->read(name, "vivo")=="true");
-        if(c.isVivo()){
-            c.movimiento();
-            op->WRITE(name,"posX", to_string(c.GetPosX()));
-            op->WRITE(name,"posY", to_string(c.GetPosY()));
+            op->WRITE(name,"posx",to_string(r.GetPosX()));
+            op->WRITE(name,"posy",to_string(r.GetPosY()));
         }
     }
 

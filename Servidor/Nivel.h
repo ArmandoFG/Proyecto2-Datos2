@@ -10,6 +10,7 @@
 #include "Chuchu.h"
 #include "Ojo.h"
 #include "Raton.h"
+#include "GENETICO.h"
 
 using namespace std;
 
@@ -22,7 +23,9 @@ class Nivel {
         int** map;
         int** mapPatrullaje;
         Nivel();
-    public:
+        static Genetico g;
+
+public:
         TList<Raton> getRatones();
         TList<Ojo> getOjos();
         TList<Chuchu> getChuchus();
