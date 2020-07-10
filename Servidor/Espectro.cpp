@@ -5,13 +5,13 @@
 #include <limits>
 #include "Espectro.h"
 #include "TList.h"
-#include "math.h"
+#include <cmath>
 #include "Jugador.h"
 #include "Matrix.h"
 
 
 
-bool Espectro::checkearVision(){
+bool Espectro::checkearVision() const{
     Jugador j=*Jugador::getJugador();
     return sqrt(pow(x - j.getX(), 2) + pow(y - j.getY(), 2)) < vision;
 }
@@ -20,7 +20,7 @@ double f(int xi, int yi, int xf, int yf, int currentSteps){
     return currentSteps+sqrt(pow(xf-xi,2) +pow(yf-yi,2));
 }
 
-void Espectro::A(int xi, int yi, int xf, int yf, int** map){
+void Espectro::A(int xi, int yi, int xf, int yf){
     double min =std::numeric_limits<double>::max();
     double minTemp;
 
@@ -127,15 +127,15 @@ void Espectro::A(int xi, int yi, int xf, int yf, int** map){
     }
 }
 
-void Espectro::perseguirA(int** map) {
+void Espectro::perseguirA() {
     this->proceso=PersiguiendoA;
     nextX=*new TList<int>;
     nextY=*new TList<int>;
 
-    A(x, y, Jugador::getJugador()->getX(), Jugador::getJugador()->getY(), map);
+    A(x, y, Jugador::getJugador()->getX(), Jugador::getJugador()->getY());
 }
 
-void Espectro::breadcumbing(int xi, int yi, int** map ){
+void Espectro::breadcumbing(int xi, int yi){
     int nextTrace=std::numeric_limits<int>::max();
     int nx;
     int ny;
@@ -156,16 +156,16 @@ void Espectro::breadcumbing(int xi, int yi, int** map ){
             }
         }
         //Move or something
-        breadcumbing( nx, ny, map);
+        breadcumbing( nx, ny);
     }
 }
 
-void Espectro::perseguirBread(int** map) {
+void Espectro::perseguirBread() {
     //A* hasta ultimo trazo
     this->proceso=PersiguiendoBread;
     nextX=*new TList<int>;
     nextY=*new TList<int>;
-    breadcumbing(x, y, map);
+    breadcumbing(x, y);
 }
 
 /**
@@ -193,15 +193,6 @@ void mark(int xi, int yi, int** map, int mark, int step){
     }
 }
 
-void unmark(int** map, int mark){
-    for(int i=0;i<Matrix::SIZEX;i++){
-        for(int j=0;j<Matrix::SIZEY;j++){
-            if(map[i][j]==mark){
-                map[i][j]=0;
-            }
-        }
-    }
-}
 
 /**
  *
@@ -214,7 +205,7 @@ void unmark(int** map, int mark){
  * @param done Boolean pointer that indicates if the goal has been reached
  * @return
  */
-void Espectro::volverBacktrAux(int xi, int yi, int xf, int yf, int step,int** map, bool* done)
+void Espectro::volverBacktrAux(int xi, int yi, int xf, int yf, int step, bool* done)
 {
     //If object is on goal, exists
     if (xi==xf && yi==yf) {
@@ -237,7 +228,7 @@ void Espectro::volverBacktrAux(int xi, int yi, int xf, int yf, int step,int** ma
                 for(int j=-1;j<2;j++){
                     //Checking for border, checking it's not gonna enter walls or previous marks
                     if((yi+j<Matrix::SIZEY && yi+j>-1)&&map[xi+i][yi+j]==step){
-                        volverBacktrAux(xi+i, yi+j, xf, yf, step+1,map, done);
+                        volverBacktrAux(xi+i, yi+j, xf, yf, step+1, done);
                         if(*done){
                             //Unmarks all marks made by this step because of success
                             mark(xi, yi, map, 0, step);
@@ -257,7 +248,7 @@ void Espectro::volverBacktrAux(int xi, int yi, int xf, int yf, int step,int** ma
 }
 
 
-void Espectro::devolverse(int** map){
+void Espectro::devolverse(){
     //Test Map (1's are walls)
     //Calling backtracking
     this->proceso=Volviendo;
@@ -265,7 +256,7 @@ void Espectro::devolverse(int** map){
     nextY=*new TList<int>;
     bool* done = new bool(false) ;
     //Note: Steps starts from 3 because 1 and 2 are taken for walls and final path
-    volverBacktrAux(x, y, 4, 6,3, map, done);
+    volverBacktrAux(x, y, 4, 6,3, done);
     //The results on the map are asigned to the espectro
 }
 
@@ -285,7 +276,7 @@ int Espectro::getY(){
     return y;
 }
 
-void Espectro::patrullar(int** map){
+void Espectro::patrullar(){
     int lx;
     int ly;
     for (int i = -1; i < 2; i++) {
@@ -306,12 +297,12 @@ void Espectro::patrullar(int** map){
 
 
 void Espectro::morir() {
-
+    this->setVivo(false);
 }
 
-void Espectro::mover(int** map) {
+void Espectro::mover() {
     if(proceso==Normal){
-        patrullar(map);
+        patrullar();
     }else if( nextX.largo>0) {
         x = nextX.getFirst()->getValue();
         nextX.deletePos(0);
@@ -324,7 +315,7 @@ void Espectro::mover(int** map) {
     }
 }
 
-void Espectro::nextStep(int** map) {
+void Espectro::nextStep() {
     bool found = false;
 
     switch (proceso) {
@@ -335,19 +326,19 @@ void Espectro::nextStep(int** map) {
             found = checkearVision();
             break;
         case PersiguiendoA:
-            this->perseguirA(map);
+            this->perseguirA();
             break;
         case PersiguiendoBread:
-            this->perseguirBread(map);
+            this->perseguirBread();
             break;
     }
 
     if(found){
         nextX=*new TList<int>;
         nextY=*new TList<int>;
-        this->perseguirA(map);
+        this->perseguirA();
     }else{
-        mover(map);
+        mover();
     }
 }
 

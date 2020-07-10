@@ -8,10 +8,10 @@
 
 class Matrix {
 private:
-    static float xMin[4];
-    static float yMin[4];
-    static float xMax[4];
-    static float yMax[4];
+    static float xMin[5];
+    static float yMin[5];
+    static float xMax[5];
+    static float yMax[5];
 public:
     static const int SIZEY = 100;
     static const int SIZEX = 100;

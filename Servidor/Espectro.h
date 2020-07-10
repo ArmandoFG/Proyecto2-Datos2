@@ -11,7 +11,6 @@ using namespace std;
 #include <map>
 #include "string"
 #include "TList.h"
-#include "Fuego.h"
 
 
 enum Proceso{
@@ -42,9 +41,9 @@ protected:
     TList<int> nextX;
     TList<int> nextY;
 private:
-    void A(int xi, int yi, int xf, int yf, int** map);
-    void breadcumbing(int xi, int yi, int** map );
-    void volverBacktrAux(int xi, int yi, int xf, int yf, int step, int** map, bool *done);
+    void A(int xi, int yi, int xf, int yf);
+    void breadcumbing(int xi, int yi );
+    void volverBacktrAux(int xi, int yi, int xf, int yf, int step, bool *done);
 public:
     Espectro(){};
     bool isVivo() const;
@@ -52,19 +51,19 @@ public:
     int getEspectro() const;
     ColorEspectro getColor() const;
     int getVision();
-    void perseguirBread( int** map);
-    void perseguirA( int** map);
-    void devolverse( int** map);
+    void perseguirBread();
+    void perseguirA();
+    void devolverse();
     void morir();
-    void patrullar(int** map);
-    bool checkearVision();
+    void patrullar();
+    bool checkearVision() const;
     Proceso getProceso() ;
     void setY(int y);
     void setX(int x);
     int getX();
     int getY();
-    void nextStep( int** map);
-    void mover( int** map);
+    void nextStep();
+    void mover();
     virtual void habilidad(int x, int y);
 };
 
