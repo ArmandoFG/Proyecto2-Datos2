@@ -17,24 +17,26 @@ using namespace std;
 
 void Iniciar(int Bx1, int By1);
 
+int x;
+int y;
+
 bresen::bresen() {
 }
 
-void bresen::Iniciar(int Bx1, int By1){
+void bresen::Iniciar(int Bx1, int By1, bool listo){
     //srand(time(NULL));
-    int x;
-    int y;
+    
     int direccion = rand()%8;
    int map[10][10]={{0,0,0,0,1,0,0,0,1,0},
                      {0,0,0,0,1,0,0,0,1,0},
                      {0,0,0,0,0,0,0,0,1,0},
                      {0,0,0,0,0,0,1,1,1,0},
-                     {0,0,1,0,0,0,0,0,0,0},
+                     {0,0,1,0,1,0,0,0,0,0},
                      {0,0,1,0,0,1,1,0,0,0},
                      {0,0,1,0,0,0,1,0,0,0},
                      {0,0,1,0,1,0,1,0,0,0},
                      {0,0,1,0,1,0,0,0,0,0},
-                     {0,0,1,1,1,1,1,0,0,5}};
+                     {0,0,1,1,1,1,1,0,0,0}};
 
 
    x=Bx1;
@@ -45,227 +47,144 @@ void bresen::Iniciar(int Bx1, int By1){
    int y2;
    
    
-   if(map[y][x] != 5){
+   if(listo != true){
+       int contador = 4;
+       int contadorAux = 0;
        x2 = x;
        y2 = y;
-       cout << direccion << endl;
+       cout << "Esta es la direccion: " << direccion << endl;
        if(direccion == 0){
-       if(map[y2][x2 + 1] == 0 || map[y2][x2 + 1] == 5){
-           if(map[y2][x2 + 1] == 5){
-               x2++;
-               y2;
-               cout << "Lo encontr�" << endl;
-
-               return Iniciar(x2, y2);
-           }
-           x2++;
-           y2 = y;
-           while(map[x2 + 1][y2] != 1){
-               x2++;
-               if(map[y2][x2] == 5){
-               cout << "Lo encontro" << endl;
-               return Iniciar(x2, y2);
-           }
-               cout << "Encontre un muro aqui" << endl;
-           }
+       if(map[y2][x2 + 1] == 0){
            
-            return Iniciar(x2, y2);
+           while(map[x2 + 1][y2] != 1 && contador != contadorAux){
+               x2++;
+               contadorAux++;
+           }
+            cout << "Encontre un muro aqui o limite" << endl;
+
+            return Iniciar(x2, y2, true);
            
        }else{
-       return Iniciar(x2, y2);
+       return Iniciar(x2, y2, false);
        }
        }
        if(direccion == 1){
-       if(map[y2 + 1][x2 + 1] == 0 || map[y2 + 1][x2 + 1] == 5){
-           if(map[y2 + 1][x2 + 1] == 5){
+       if(map[y2 + 1][x2 + 1] == 0 ){
+
+           while(map[y2 + 1][x2 + 1] != 1 && contador != contadorAux){
                x2++;
                y2++;
-               cout << "Lo encontro" << endl;
-               return Iniciar(x2, y2);
+                contadorAux++;
 
            }
-           x2++;
-           y2++;
-           while(map[y2 + 1][x2 + 1] != 1){
-               x2++;
-               y2++;
-               if(map[y2][x2] == 5){
-               cout << "Lo encontr�" << endl;
-               return Iniciar(x2, y2);
+            cout << "Encontre un muro aqui o limite" << endl;
 
-           }
-               cout << "Encontre un muro" << endl;
-           }
-           
-            return Iniciar(x2, y2);
+            return Iniciar(x2, y2, true);
            
        }else{
-       return Iniciar(x2, y2);
+       return Iniciar(x2, y2, false);
        }
        }
        if(direccion == 2){
-       if(map[y2 + 1][x2] == 0 || map[y2 + 1][x2] == 5){
-           if(map[y2 + 1][x2] == 5){
-               y2++;
-               return Iniciar(x2, y2);
-               cout << "Lo encontr�" << endl;
-           }
-           y2++;
-           while(map[y2 + 1][x2] != 1){
-               y2++;
-               if(map[y2][x2] == 5){
-               return Iniciar(x2, y2);
-               cout << "Lo encontr�" << endl;
-           }
-               cout << "Encontre un muro" << endl;
-           }
+       if(map[y2 + 1][x2] == 0){
            
-            return Iniciar(x2, y2);
+           
+           while(map[y2 + 1][x2] != 1 && contador != contadorAux){
+               y2++;
+               contadorAux++;
+           }
+            cout << "Encontre un muro aqui o limite" << endl;
+
+            return Iniciar(x2, y2, true);
            
        }else{
-       return Iniciar(x2, y2);
+       return Iniciar(x2, y2, false);
        }
        }
        if(direccion == 3){
-       if(map[y2 + 1][x2 - 1] == 0 || map[y2 + 1][x2 - 1] == 5){
-           if(map[y2 + 1][x2 - 1] == 5){
+       if(map[y2 + 1][x2 - 1] == 0){
+          
+           while(map[y2 + 1][x2 - 1] != 1 && contador != contadorAux){
                y2++;
-               x2--;
-               cout << "Lo encontr�" << endl;
-               return Iniciar(x2, y2);
+               x2--;  
+               contadorAux++;             
+           }
+            cout << "Encontre un muro aqui o limite" << endl;
 
-           }
-           y2++;
-           x2--;
-           while(map[y2 + 1][x2 - 1] != 1){
-               y2++;
-               x2--;
-               if(map[y2][x2] == 5){
-               cout << "Lo encontr�" << endl;
-               return Iniciar(x2, y2);
-
-           }
-               cout << "Encontre un muro" << endl;
-           }
-           
-            return Iniciar(x2, y2);
+            return Iniciar(x2, y2, true);
            
        }else{
-       return Iniciar(x2, y2);
+       return Iniciar(x2, y2, false);
        }
        }
        if(direccion == 4){
        if(map[y2][x2 - 1] == 0){
-           if(map[y2][x2 - 1] == 5){
-               x2--;
-               cout << "Lo encontr�" << endl;
-               return Iniciar(x2, y2);
-
-           }
-           x2--;
-           while(map[y2][x2 - 1] != 1){
+          
+           while(map[y2][x2 - 1] != 1 && contador != contadorAux){
                 x2--;
-
-               if(map[y2][x2] == 5){
-               cout << "Lo encontr�" << endl;
-               return Iniciar(x2, y2);
-
+                contadorAux++;
            }
-               cout << "Encontre un muro" << endl;
-           }
-           
-            return Iniciar(x2, y2);
+            cout << "Encontre un muro aqui o limite" << endl;
+            return Iniciar(x2, y2, true);
            
        }else{
-       return Iniciar(x2, y2);
+       return Iniciar(x2, y2, false);
        }
        }
        if(direccion == 5){
        if(map[y2 - 1][x2 - 1] == 0){
-           if(map[y2 - 1][x2 - 1] == 5){
-               x2--;
-               y2--;
-               cout << "Lo encontr�" << endl;
-               return Iniciar(x2, y2);
-
-           }
-           y2--;
-           x2--;
-           while(map[y2 - 1][x2 - 1] != 1){
-               y2--;
-               x2--;
-               if(map[y2][x2] == 5){
-               cout << "Lo encontr�" << endl;
-               return Iniciar(x2, y2);
-
-           }
-               
-               cout << "Encontre un muro" << endl;
-           }
            
-            return Iniciar(x2, y2);
+           while(map[y2 - 1][x2 - 1] != 1 && contador != contadorAux){
+               y2--;
+               x2--;
+               contadorAux++;
+           }
+            cout << "Encontre un muro aqui o limite" << endl;           
+            return Iniciar(x2, y2, true);
            
        }else{
-       return Iniciar(x2, y2);
+       return Iniciar(x2, y2, false);
        }
        }
        if(direccion == 6){
        if(map[y2 - 1][x2] == 0){
-           if(map[y2 - 1][x2] == 5){
-               y2--;
-               cout << "Lo encontr�" << endl;
-               return Iniciar(x2, y2);
-
-           }
-           y2--;
-           while(map[y2 - 1][x2] != 1){
-                y2--;
-
-               if(map[y2][x2] == 5){
-               cout << "Lo encontr�" << endl;
-               return Iniciar(x2, y2);
-
-           }
-               cout << "Encontre un muro" << endl;
-           }
            
-            return Iniciar(x2, y2);
+           while(map[y2 - 1][x2] != 1 && contador != contadorAux){
+                y2--;
+                contadorAux++;
+           }
+             cout << "Encontre un muro aqui o limite" << endl;          
+            return Iniciar(x2, y2, true);
            
        }else{
-       return Iniciar(x2, y2);
+       return Iniciar(x2, y2, false);
        }
        }
        if(direccion == 7){
-       if(map[y2 - 1][x2 + 1] = 0){
-           if(map[y2 - 1][x2 + 2] == 5){
-               y2--;
-               x2++;
-               cout << "Lo encontro" << endl;
-               return Iniciar(x2, y2);
-
-           }
-           y2--;
-           x2++;
-           while(map[y2 - 1][x2 + 1] != 1){
-               y2--;
-               x2++;
-               if(map[y2][x2] == 5){
-               cout << "Lo encontro" << endl;
-               return Iniciar(x2, y2);
-
-           }
-               
-               cout << "Encontre un muro" << endl;
-           }
+       if(map[y2 - 1][x2 + 1] == 0){
            
-            return Iniciar(x2, y2);
+           while(map[y2 - 1][x2 + 1] != 1 && contador != contadorAux){
+               y2--;
+               x2++;
+               contadorAux++;
+           }
+            cout << "Encontre un muro aqui o limite" << endl;           
+            return Iniciar(x2, y2, true);
            
        }else{
-       return Iniciar(x2, y2);
+       return Iniciar(x2, y2, false);
        }
        }
    }
-   cout << "Fue encontrado salga" << endl;
+   cout << "YA CAMINO" << endl;
  
+}
+
+int bresen::getx(){
+    return x;
+
+}
+int bresen::gety(){
+    return y;
 }
 

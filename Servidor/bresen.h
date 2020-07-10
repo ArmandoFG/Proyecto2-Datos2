@@ -11,7 +11,9 @@
 class bresen {
 public:
     bresen();
-    void Iniciar(int Bx1, int By1);
+    void Iniciar(int Bx1, int By1, bool listo);
+    int getx();
+    int gety();
 
 private:
 

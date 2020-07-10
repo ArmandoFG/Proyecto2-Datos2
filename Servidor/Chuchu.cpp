@@ -7,12 +7,18 @@
 
 #include "Chuchu.h"
 #include "bresen.h"
+#include "Operaciones_Json.h"
+
 
 int posX;
 int posY;
 
-Chuchu::Chuchu(int chuchu) {
-    this->chuchu=chuchu;
+void setPos(int x, int y);
+int GetPosX();
+int GetPosY();
+
+Chuchu::Chuchu(int x, int y) {
+    setPos(x,y);
 }
 
 void Chuchu::setPos(int x, int y){
@@ -29,23 +35,15 @@ int Chuchu::GetPosY(){
 }
 
 void Chuchu::movimiento(){
+    bresen move = *new bresen();
+    Operaciones_Json json = *new Operaciones_Json();
+
+    move.Iniciar(GetPosX(),GetPosY(), false);
+    setPos(move.getx(), move.gety());
+
+    json.WRITE("chuchu","posx", to_string(GetPosX()));
+    json.WRITE("chuchu","posy", to_string(GetPosY()));
     
-}
-
-bool Chuchu::isVivo() const {
-    return vivo;
-}
-
-void Chuchu::setVivo(bool vivo) {
-    Chuchu::vivo = vivo;
-}
-
-int Chuchu::getChuchu() const {
-    return chuchu;
-}
-
-void Chuchu::setChuchu(int chuchu) {
-    Chuchu::chuchu = chuchu;
 }
 
 

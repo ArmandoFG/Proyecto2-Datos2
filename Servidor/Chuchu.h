@@ -10,21 +10,13 @@
 
 class Chuchu {
 public:
-    Chuchu();
-    explicit Chuchu(int chuchu);
+    Chuchu(int x, int y);
     void setPos(int x, int y);
-    bool isVivo() const;
-    void setVivo(bool vivo);
     int GetPosX();
     int GetPosY();
     void movimiento();
-    bool vivo{true};
 private:
-    int chuchu;
-public:
-    int getChuchu() const;
 
-    void setChuchu(int chuchu);
 };
 
 #endif	/* CHUCHU_H */
