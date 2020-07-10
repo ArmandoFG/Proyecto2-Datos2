@@ -4,6 +4,7 @@
 
 #include "Templo.h"
 #include "Operaciones_Json.h"
+#include "Matrix.h"
 
 void Templo::startCiclo(){
     Nivel lvl=getNivel();
@@ -14,8 +15,11 @@ void Templo::startCiclo(){
     Jugador j=*Jugador::getJugador();
     j.setvida(stoi(op->read("jugador", "vida")));
     j.setmarcador(stoi(op->read("jugador", "marcador")));
-    j.setX(stoi(op->read("jugador", "posX")));
-    j.setY(stoi(op->read("jugador", "posY")));
+    float x=stof(op->read("jugador", "posX"));
+    float y=stof(op->read("jugador", "posY"));
+
+
+    j.ubicacion(Matrix::toMatrixPosition(x,y,this->nivel));
 
     if(j.getVida()==0){
         lvl=restartNivel();
@@ -23,11 +27,10 @@ void Templo::startCiclo(){
         j.setmarcador(0);
     }
 
-    op->WRITE("espectro1", "teletransporte", "false");
-    op->WRITE("espectro2", "teletransporte", "false");
-    op->WRITE("espectro3", "teletransporte", "false");
-    op->WRITE("espectro4", "teletransporte", "false");
-
+    for(int i=0; i<espectros.largo;i++) {
+        op->WRITE("espectro"+to_string(espectros.getNodoPos(i)->getValue().getEspectro())
+                , "teletransporte", "false");
+    }
     for(int i=0; i<ojos.largo;i++){
 
         Ojo ojo =ojos.getNodoPos(i)->getValue();
@@ -60,7 +63,7 @@ void Templo::startCiclo(){
             if(op->read("jugador", "zonasegura")=="true"){
                 persiguiendo=false;
                 if(e.getProceso() == PersiguiendoBread || e.getProceso() == PersiguiendoA){
-                    e.devolverse(lvl.getMap());
+                    e.devolverse();
                 }
             }
 
@@ -71,7 +74,7 @@ void Templo::startCiclo(){
 
             if (persiguiendo) {
                 if (e.getProceso() != PersiguiendoBread && e.getProceso() != PersiguiendoA) {
-                    e.perseguirA(lvl.getMap());
+                    e.perseguirA();
                 }
             }
 
@@ -79,7 +82,7 @@ void Templo::startCiclo(){
                 op->WRITE("espectro" + to_string(e.getEspectro()), "estado", "paralizado");
             }else if(completoUltimoPaso=="true"){
                 op->WRITE("espectro" + to_string(e.getEspectro()), "estado", to_string(e.getProceso()));
-                e.nextStep(lvl.getMap());
+                e.nextStep();
             }
             op->WRITE("espectro" + to_string(e.getEspectro()), "posX", to_string(e.getX()));
             op->WRITE("espectro" + to_string(e.getEspectro()), "posY", to_string(e.getY()));
@@ -129,16 +132,22 @@ void Templo::nextNivel(){
 
 Nivel Templo::restartNivel(){
     Nivel* lvl= nullptr;
+    Jugador j=*Jugador::getJugador();
     switch (nivel) {
         case 1:
+            j.setTracesMap(Matrix::generateMatrix1());
             lvl= new Nivel1;
         case 2:
+            j.setTracesMap(Matrix::generateMatrix2());
             lvl= new Nivel2;
         case 3:
+            j.setTracesMap(Matrix::generateMatrix3());
             lvl= new Nivel3;
         case 4:
+            j.setTracesMap(Matrix::generateMatrix4());
             lvl= new Nivel4;
         case 5:
+            j.setTracesMap(Matrix::generateMatrix5());
             lvl= new Nivel5;
     }
     ratones=lvl->getRatones();
@@ -151,14 +160,19 @@ Nivel Templo::restartNivel(){
 Nivel Templo::getNivel(){
     switch (nivel) {
         case 1:
+            Jugador::getJugador()->setTracesMap(Matrix::generateMatrix1());
             return nivel1;
         case 2:
+            Jugador::getJugador()->setTracesMap(Matrix::generateMatrix2());
             return nivel2;
         case 3:
+            Jugador::getJugador()->setTracesMap(Matrix::generateMatrix3());
             return nivel3;
         case 4:
+            Jugador::getJugador()->setTracesMap(Matrix::generateMatrix4());
             return nivel4;
         case 5:
+            Jugador::getJugador()->setTracesMap(Matrix::generateMatrix5());
             return nivel5;
     }
 }

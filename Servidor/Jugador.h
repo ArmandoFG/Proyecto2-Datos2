@@ -17,7 +17,7 @@ public:
     int getVida();
     int getX();
     int getY();
-    void ubicacion(int x, int y);
+    void ubicacion(std::pair<int, int> ubicacion);
     int** tracesMap;
     int movementNum;
 

@@ -5,8 +5,9 @@
  * Created on 1 de julio de 2020, 02:07 PM
  */
 
+#include <utility>
 #include "Jugador.h"
-
+using namespace std;
 
 Jugador::Jugador() {
     vida = 5;
@@ -43,9 +44,9 @@ int Jugador::getVida(){
     return vida;
 }
 
-void Jugador::ubicacion(int x, int y){
-    this->x = x;
-    this->y = y;
+void Jugador::ubicacion(std::pair<int, int> ubicacion){
+    this->x = ubicacion.first;
+    this->y = ubicacion.second;
     movementNum+=1;
     tracesMap[x][y]=movementNum;
 }
