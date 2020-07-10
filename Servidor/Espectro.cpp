@@ -16,7 +16,7 @@ bool Espectro::checkearVision() const{
     return sqrt(pow(x - j.getX(), 2) + pow(y - j.getY(), 2)) < vision;
 }
 
-double f(int xi, int yi, int xf, int yf, int currentSteps){
+double f(int xi, int yi, int xf, int yf, float currentSteps){
     return currentSteps+sqrt(pow(xf-xi,2) +pow(yf-yi,2));
 }
 
@@ -59,7 +59,7 @@ void Espectro::A(int xi, int yi, int xf, int yf){
             indexPos=nodeValue.find_first_of(';');
             xtemp=std::stoi(nodeValue.substr(0,indexPos));
             ytemp=std::stoi(nodeValue.substr(indexPos+1,nodeValue.length()-indexPos));
-            minTemp=f(xtemp, ytemp, xf, yf, stoi(steps.getNodoPos(i)->getValue()));
+            minTemp=f(xtemp, ytemp, xf, yf, stof(steps.getNodoPos(i)->getValue()));
 
             if(min>minTemp){
                 xmin=xtemp;
@@ -103,7 +103,7 @@ void Espectro::A(int xi, int yi, int xf, int yf){
 
                                 //Si no se ha agregado el nodo entonces se agrega
                                 nodeText = to_string(xmin + i) + ";" + to_string(ymin + j);
-                                int thisParentSteps = stoi(steps.getNodoPos(parentPos)->getValue())+1;
+                                float thisParentSteps = stof(steps.getNodoPos(parentPos)->getValue())+sqrt(i*i+j*j);
                                 if (open.getNodoVal(nodeText) == nullptr
                                     && close.getNodoVal(nodeText) == nullptr) {
 
