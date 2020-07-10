@@ -1,8 +1,11 @@
 //
 // Created by brayan on 9/7/20.
 //
+#include <cmath>
 #include <iostream>
 #include "Matrix.h"
+#include <cmath>
+
 int** Matrix::generateMatrix1() {
     float maxX=1.865802;
     float minX=-1.346433;
@@ -13,10 +16,21 @@ int** Matrix::generateMatrix1() {
     float posY;
 
     float const posXini=-1.506101;
+
     posX=posXini;
     posY=1.695585;
-    int const x=100;
-    int const y=100;
+
+    int const x=SIZEX;
+    int const y=SIZEY;
+
+    float stepX=(float )(1.945722-posX)/x;
+    float stepY=(float )-(0.9060332+posY)/y;
+
+
+    xMin[0]=posXini;
+    xMax[0]=1.945722;
+    yMin[0]=-0.9060332;
+    yMax[0]=posY;
 
     int **map= new int * [x];
 
@@ -26,9 +40,6 @@ int** Matrix::generateMatrix1() {
             map[i][j]=0;
         }
     }
-    float stepX=(float )(1.945722-posX)/x;
-    float stepY=(float )-(0.9060332+posY)/y;
-
 
     std::pair<std::pair<float, float>, std::pair<float, float>> lines[17];
 
@@ -92,8 +103,16 @@ int** Matrix::generateMatrix2() {
     posY=3.407662;
 
     posX=posXini;
-    int const x=100;
-    int const y=100;
+    int const x=SIZEX;
+    int const y=SIZEY;
+
+    float stepX=(float )(2.543712-posX)/x;
+    float stepY=(float )-(3.435781+posY)/y;
+
+    xMin[1]=posXini;
+    xMax[1]=2.543712;
+    yMin[1]=-3.435781;
+    yMax[1]=posY;
 
     int **map= new int * [x];
 
@@ -102,8 +121,7 @@ int** Matrix::generateMatrix2() {
         for ( size_t j = 0; j < y; j++ ) {
             map[i][j]=0;
         }
-    }    float stepX=(float )(2.543712-posX)/x;
-    float stepY=(float )-(3.435781+posY)/y;
+    }
 
     std::pair<std::pair<float, float>, std::pair<float, float>> boxes[18];
     boxes[0]=std::make_pair(std::make_pair(1.201707,2.25139),std::make_pair(1.405395,0.2905586));
@@ -189,8 +207,16 @@ int** Matrix::generateMatrix3() {
     posY=3.294635+0.2907295/2;
 
     posX=posXini;
-    int const x=100;
-    int const y=100;
+    int const x=SIZEX;
+    int const y=SIZEY;
+
+    float stepX=(float )(2.501808+0.1563845/2-posX)/x;
+    float stepY=(float )-(3.294635+0.2907293/2+posY)/y;
+
+    xMin[2]=posXini;
+    xMax[2]=2.501808+0.1563845/2;
+    yMin[2]=-3.294635-0.2907293/2;
+    yMax[2]=posY;
 
     int **map= new int * [x];
 
@@ -199,8 +225,7 @@ int** Matrix::generateMatrix3() {
         for ( size_t j = 0; j < y; j++ ) {
             map[i][j]=0;
         }
-    }    float stepX=(float )(2.501808+0.1563845/2-posX)/x;
-    float stepY=(float )-(3.294635+0.2907293/2+posY)/y;
+    }
 
     std::pair<std::pair<float, float>, std::pair<float, float>> boxes[13];
     boxes[0]=std::make_pair(std::make_pair(0,-3.294635),std::make_pair(5.16,0.2907293));
@@ -252,18 +277,26 @@ int** Matrix::generateMatrix4() {
     posY=3.429452;
 
     posX=posXini;
-    int const x=100;
-    int const y=100;
+    int const x=SIZEX;
+    int const y=SIZEY;
 
     int **map= new int * [x];
+
+    float stepX=(float )(2.426883-posX)/x;
+    float stepY=(float )-(3.098883+posY)/y;
+
+    xMin[3]=posXini;
+    xMax[3]=2.426883;
+    yMin[3]=-3.098883;
+    yMax[3]=posY;
+
 
     for ( size_t i = 0; i < x; i++ ) {
         map[i] = new int [y];
         for ( size_t j = 0; j < y; j++ ) {
             map[i][j]=0;
         }
-    }    float stepX=(float )(2.426883-posX)/x;
-    float stepY=(float )-(3.098883+posY)/y;
+    }
 
     std::pair<std::pair<float, float>, std::pair<float, float>> boxes[13];
     boxes[0]=std::make_pair(std::make_pair(-0.3769179,1.034334),std::make_pair(0.1987051,2.111545));
@@ -361,8 +394,6 @@ int** Matrix::generateMatrix4() {
 }
 
 int** Matrix::generateMatrix5() {
-    std::cout << "Hello, World!" << std::endl;
-
     float posX;
     float posY;
 
@@ -370,8 +401,17 @@ int** Matrix::generateMatrix5() {
     posY=3.413361+0.05327868/2;
 
     posX=posXini;
-    int const x=100;
-    int const y=100;
+    int const x=SIZEX;
+    int const y=SIZEY;
+
+    float stepX=(float )(2.559765+0.04047036/2-posX)/x;
+    float stepY=(float )-(3.413362+0.05327725/2+posY)/y;
+
+    xMin[4]=posXini;
+    xMax[4]=2.559765+0.04047036/2;
+    yMin[4]=-3.413362-0.05327725/2;
+    yMax[4]=posY;
+
 
     int **map= new int * [x];
 
@@ -380,8 +420,7 @@ int** Matrix::generateMatrix5() {
         for ( size_t j = 0; j < y; j++ ) {
             map[i][j]=0;
         }
-    }    float stepX=(float )(2.559765+0.04047036/2-posX)/x;
-    float stepY=(float )-(3.413362+0.05327725/2+posY)/y;
+    }
 
 
     std::pair<std::pair<float, float>, std::pair<float, float>> boxes[10];
@@ -466,4 +505,18 @@ int** Matrix::generateMatrix5() {
     }
 
     return map;
+}
+
+std::pair<float, float> Matrix::toPoint(int x, int y, int matrixNumber) {
+    int n=matrixNumber-1;
+    float xfinal=xMin[n]+(xMax[n]-xMin[n])*(float)x/SIZEX;
+    float yfinal=yMax[n]-(xMax[n]-xMin[n])*(float)y/SIZEY;
+    return {xfinal, yfinal};
+}
+
+std::pair<int, int> Matrix::toMatrixPosition(float x, float y, int matrixNumber) {
+    int n=matrixNumber-1;
+    int xfinal=(int)std::round((x-xMin[n])*SIZEX/(xMax[n]-xMin[n]));
+    int yfinal=(int)std::round((y-yMin[n])*SIZEY/(yMax[n]-yMin[n]));
+    return {xfinal, yfinal};
 }
