@@ -10,21 +10,22 @@
 #include "Jugador.h"
 
 class Templo {
+public:
+    Templo();
+
     private:
-        Nivel nivel1;
-        Nivel nivel2;
-        Nivel nivel3;
-        Nivel nivel4;
-        Nivel nivel5;
+        Nivel* nivel1;
+        Nivel* nivel2;
+        Nivel* nivel3;
+        Nivel* nivel4;
+        Nivel* nivel5;
 
         int nivel;
         bool persiguiendo;
-        Jugador jugador;
         TList<Raton> ratones;
         TList<Ojo> ojos;
         TList<Chuchu> chuchus;
         TList<Espectro> espectros;
-        TList<Fuego*> fuegos;
 
         Nivel getNivel();
         bool ratonCerca(int x, int y, int vision);
@@ -33,6 +34,7 @@ class Templo {
 
     Nivel restartNivel();
 
+public:
     void startCiclo();
 };
 

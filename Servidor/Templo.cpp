@@ -142,18 +142,28 @@ Nivel Templo::restartNivel(){
         case 1:
             j.setTracesMap(Matrix::generateMatrix1());
             lvl= new Nivel1;
+            nivel1=lvl;
+            break;
         case 2:
             j.setTracesMap(Matrix::generateMatrix2());
             lvl= new Nivel2;
+            nivel2=lvl;
+            break;
         case 3:
             j.setTracesMap(Matrix::generateMatrix3());
             lvl= new Nivel3;
+            nivel3=lvl;
+            break;
         case 4:
             j.setTracesMap(Matrix::generateMatrix4());
             lvl= new Nivel4;
+            nivel4=lvl;
+            break;
         case 5:
             j.setTracesMap(Matrix::generateMatrix5());
             lvl= new Nivel5;
+            nivel5=lvl;
+            break;
     }
     ratones=lvl->getRatones();
     ojos=lvl->getOjos();
@@ -166,18 +176,22 @@ Nivel Templo::getNivel(){
     switch (nivel) {
         case 1:
             Jugador::getJugador()->setTracesMap(Matrix::generateMatrix1());
-            return nivel1;
+            return *nivel1;
         case 2:
             Jugador::getJugador()->setTracesMap(Matrix::generateMatrix2());
-            return nivel2;
+            return *nivel2;
         case 3:
             Jugador::getJugador()->setTracesMap(Matrix::generateMatrix3());
-            return nivel3;
+            return *nivel3;
         case 4:
             Jugador::getJugador()->setTracesMap(Matrix::generateMatrix4());
-            return nivel4;
+            return *nivel4;
         case 5:
             Jugador::getJugador()->setTracesMap(Matrix::generateMatrix5());
-            return nivel5;
+            return *nivel5;
     }
+}
+
+Templo::Templo() {
+    nivel=1;
 }

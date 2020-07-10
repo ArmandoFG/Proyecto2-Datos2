@@ -17,7 +17,7 @@
 #include <fstream>
 #include <sstream>
 #include <thread>
-
+#include "Templo.h"
 
 
 using namespace std;
@@ -32,10 +32,11 @@ string dato;
 int newSd;
 int serverSd;
 char *rbuf;
-
+Templo* templo;
 
 int main(void)
 {
+    templo=new Templo;
     int puerto = 12345;
     sockaddr_in servAddr;
     bzero((char*)&servAddr, sizeof(servAddr));
@@ -107,7 +108,7 @@ int ListenForData(){
 
      delete [] pbuf;
 
-    
+     templo->startCiclo();
 
      int len2 = strf(&rbuf, "datos.json");
 
