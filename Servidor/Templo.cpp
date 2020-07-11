@@ -23,7 +23,7 @@ void Templo::startCiclo(){
     float x=stof(op->read("jugador",chuchus.largo+espectros.largo-1, "posx"));
     float y=stof(op->read("jugador", chuchus.largo+espectros.largo-1,"posy"));
 
-    j.ubicacion(Matrix::toMatrixPosition(x,y,this->nivel));
+    j.ubicacion(Matrix::toMatrixPosition(x,y,this->nivel, lvl.getMap()));
 
     if(j.getVida()==0){
         lvl=restartNivel();
@@ -38,7 +38,7 @@ void Templo::startCiclo(){
                                   "posx")),
                     stof(op->read("Personajes",c.getChuchu()-1,
                                   "posy")),
-                    nivel);
+                                    nivel, lvl.getMap());
             c.setPos(ubicacion.first,ubicacion.second);
             c.movimiento();
             std::pair<float,float> point = Matrix::toPoint(c.GetPosX(), c.GetPosY(), nivel);
@@ -62,7 +62,7 @@ void Templo::startCiclo(){
         if(ojo.isVivo()){
             std::pair<int, int> ubicacion=Matrix::toMatrixPosition(stof(op->read("Personajes",chuchus.largo+espectros.largo+ojo.getOjo(),"posx"))
                     , stof(op->read("Personajes",chuchus.largo+espectros.largo+ojo.getOjo(),"posy"))
-                    ,this->nivel);
+                    ,this->nivel, lvl.getMap());
             ojo.setPos(ubicacion.first, ubicacion.second);
             if(ojo.checkearVision()){
                 persiguiendo= true;
@@ -90,7 +90,7 @@ void Templo::startCiclo(){
         if(e.isVivo()){
 
             std::pair<int, int> posicionReal= Matrix::toMatrixPosition(stof(op->read("Personajes",chuchus.largo+e.getEspectro()-1, "posx")),
-                    stof(op->read("Personajes",chuchus.largo+e.getEspectro()-1, "posy")), nivel);
+                    stof(op->read("Personajes",chuchus.largo+e.getEspectro()-1, "posy")), nivel, lvl.getMap());
             e.setX(posicionReal.first);
             e.setY(posicionReal.second);
 
@@ -127,7 +127,7 @@ void Templo::startCiclo(){
                              "posx")),
                     stof(op->read("Personajes",chuchus.largo+espectros.largo+ojos.largo+r.getRaton(),
                              "posy")),
-                    nivel);
+                    nivel, lvl.getMap());
             r.setPos(ubicacion.first,ubicacion.second);
 
             //r.movimiento();

@@ -514,9 +514,40 @@ std::pair<float, float> Matrix::toPoint(int x, int y, int matrixNumber) {
     return {xfinal, yfinal};
 }
 
-std::pair<int, int> Matrix::toMatrixPosition(float x, float y, int matrixNumber) {
+std::pair<int, int> Matrix::toMatrixPosition(float x, float y, int matrixNumber, int** matrix) {
     int n=matrixNumber-1;
-    int xfinal=(int)std::round((x-xMin[n])*SIZEX/(xMax[n]-xMin[n]));
-    int yfinal=(int)std::round((y-yMin[n])*SIZEY/(yMax[n]-yMin[n]));
+    float xfinalf=((x-xMin[n])*SIZEX/(xMax[n]-xMin[n]));
+    float yfinalf=((y-yMin[n])*SIZEY/(yMax[n]-yMin[n]));
+    int xfinal = (int)std::round(xfinalf);
+    int yfinal = (int)std::round(yfinalf);
+
+    if(matrix[xfinal][yfinal]==1){
+        xfinal=(int)std::floor(xfinalf);
+        if(matrix[xfinal][yfinal]==1){
+            xfinal=(int)std::ceil(xfinalf);
+            if(matrix[xfinal][yfinal]==1){
+                xfinal=(int)std::round(xfinalf);
+                yfinal=(int)std::floor(yfinalf);
+                if(matrix[xfinal][yfinal]==1){
+                    yfinal=(int)std::ceil(yfinalf);
+                    if(matrix[xfinal][yfinal]==1){
+                        xfinal=(int)std::floor(xfinalf);
+                        yfinal=(int)std::floor(yfinalf);
+                        if(matrix[xfinal][yfinal]==1){
+                            xfinal=(int)std::ceil(xfinalf);
+                            yfinal=(int)std::ceil(yfinalf);
+                        }if(matrix[xfinal][yfinal]==1){
+                            xfinal=(int)std::ceil(xfinalf);
+                            yfinal=(int)std::floor(yfinalf);
+                            if(matrix[xfinal][yfinal]==1){
+                                xfinal=(int)std::floor(xfinalf);
+                                yfinal=(int)std::ceil(yfinalf);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
     return {xfinal, yfinal};
 }
