@@ -35,6 +35,13 @@ void Templo::startCiclo(){
         Chuchu c =chuchus.getNodoPos(i)->getValue();
         c.setVivo(op->read("Personajes",c.getChuchu()-1, "vivo")=="true");
         if(c.isVivo()){
+            std::pair<int, int> ubicacion = Matrix::toMatrixPosition(
+                    stof(op->read("Personajes",c.getChuchu()-1,
+                                  "posx")),
+                    stof(op->read("Personajes",c.getChuchu()-1,
+                                  "posy")),
+                    nivel);
+            c.setPos(ubicacion.first,ubicacion.second);
             c.movimiento();
             std::pair<float,float> point = Matrix::toPoint(c.GetPosX(), c.GetPosY(), nivel);
             op->WRITE("Personajes",c.getChuchu(),"posx", to_string(point.first));
@@ -119,12 +126,6 @@ void Templo::startCiclo(){
                 "vivo")=="true");
 
         if(r.isVivo()){
-            //r.movimiento();
-            //std::pair<float,float> point = Matrix::toPoint(r.GetPosX(),r.GetPosY(), nivel);
-            //op->WRITE("Personajes",chuchus.largo+espectros.largo+ojos.largo,
-            //        "posx",to_string(point.first));
-            //op->WRITE("Personajes",chuchus.largo+espectros.largo+ojos.largo,
-            //        "posy",to_string(point.second));
             std::pair<int, int> ubicacion = Matrix::toMatrixPosition(
                     stof(op->read("Personajes",chuchus.largo+espectros.largo+ojos.largo,
                              "posx")),
@@ -132,6 +133,13 @@ void Templo::startCiclo(){
                              "posy")),
                     nivel);
             r.setPos(ubicacion.first,ubicacion.second);
+
+            //r.movimiento();
+            //std::pair<float,float> point = Matrix::toPoint(r.GetPosX(),r.GetPosY(), nivel);
+            //op->WRITE("Personajes",chuchus.largo+espectros.largo+ojos.largo,
+            //        "posx",to_string(point.first));
+            //op->WRITE("Personajes",chuchus.largo+espectros.largo+ojos.largo,
+            //        "posy",to_string(point.second));
         }
     }
 
