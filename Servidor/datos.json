@@ -4,37 +4,25 @@
          "name" : "chuchu",
          "posx" : "3",
          "posy" : "3",
-         "vivo" : "true",
-         "completoUltimoPaso" : "true"
+         "vivo" : "true"
       },
       {
          "name" : "espectro1",
          "posx" : "",
          "posy" : "",
-         "posx" : "",
-         "posy" : "",
-         "teletransporte": "true",
-         "vivo" : "true",
-         "completoUltimoPaso": "true",
-         "estado" : "paralizado/Normal/Volviendo/PersiguiendoBread/PersiguiendoA"
+         "vivo" : "true"
       },
       {
          "name" : "espectro2",
          "posx" : "",
          "posy" : "",
-         "teletransporte": "false",
-         "vivo" : "true",
-         "completoUltimoPaso": "true",
-         "estado" : "paralizado/Normal/Volviendo/PersiguiendoBread/PersiguiendoA"
+         "vivo" : "true"
       },
       {
          "name" : "espectro3",
          "posx" : "",
          "posy" : "",
-         "teletransporte": "true",
-         "vivo" : "true",
-         "completoUltimoPaso": "true",
-         "estado" : "paralizado/Normal/Volviendo/PersiguiendoBread/PersiguiendoA"
+         "vivo" : "true"
       },
       {
          "name" : "jugador",

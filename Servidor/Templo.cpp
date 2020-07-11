@@ -42,10 +42,13 @@ void Templo::startCiclo(){
             op->WRITE(name,"posy", to_string(c.GetPosY()));
         }
     }
+    /**
+     * NOta: podria no ser necesario
     for(int i=0; i<espectros.largo;i++) {
         op->WRITE("espectro"+to_string(espectros.getNodoPos(i)->getValue().getEspectro())
                 , "teletransporte", "false");
     }
+     */
     for(int i=0; i<ojos.largo;i++){
 
         Ojo ojo =ojos.getNodoPos(i)->getValue();
@@ -58,14 +61,15 @@ void Templo::startCiclo(){
             if(ojo.checkearVision()){
                 persiguiendo= true;
 
-                for(int i=0; i<espectros.largo;i++){
-                    e=espectros.getNodoPos(i)->getValue();
+               /**  Nota: Esto podria no ser necesario porque ta esta resuelto del lado del client
+                    for(int m=0; m<espectros.largo;m++){
+                    e=espectros.getNodoPos(m)->getValue();
                     if(e.getColor()==Azul){
                         e.setX(ojo.GetPosX());
                         e.setY(ojo.GetPosY());
                         op->WRITE("espectro"+to_string(e.getEspectro()), "teletransporte", "true");
                     }
-                }
+                }*/
             }
         }
     }
@@ -73,7 +77,10 @@ void Templo::startCiclo(){
         e.setVivo(op->read("espectro"+to_string(e.getEspectro()), "vivo")=="true");
         if(e.isVivo()){
 
-            string completoUltimoPaso=op->read("espectro"+to_string(e.getEspectro()), "completoUltimoPaso");
+            std::pair<int, int> posicionReal= Matrix::toMatrixPosition(op->read("espectro"+to_string(e.getEspectro()), "posx"),
+                    op->read("espectro"+to_string(e.getEspectro()), "posy"), nivel);
+            e.setX(posicionReal.first);
+            e.setY(posicionReal.second);
 
             if(op->read("jugador", "zonasegura")=="true"){
                 persiguiendo=false;
@@ -93,12 +100,12 @@ void Templo::startCiclo(){
                 }
             }
 
+            bool paralizado= false;
             if(ratonCerca(e.getX(),e.getY(), e.getVision())){
-                op->WRITE("espectro" + to_string(e.getEspectro()), "estado", "paralizado");
-            }else if(completoUltimoPaso=="true"){
-                op->WRITE("espectro" + to_string(e.getEspectro()), "estado", to_string(e.getProceso()));
+                paralizado=true;
+            }else{
                 e.nextStep();
-            }//OJo a esto
+            }
             op->WRITE("espectro" + to_string(e.getEspectro()), "posx", to_string(e.getX()));
             op->WRITE("espectro" + to_string(e.getEspectro()), "posy", to_string(e.getY()));
         }
