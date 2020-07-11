@@ -10,8 +10,6 @@ void Templo::startCiclo(){
     Nivel lvl=getNivel();
     Espectro e;
     auto* op=new Operaciones_Json;
-    persiguiendo=false;
-
 
     if(nivel!=stoi(op->read("juego",0, "nivel"))){
         this->nextNivel();
@@ -81,7 +79,13 @@ void Templo::startCiclo(){
             }
         }
     }
+
+    if(op->read("Personajes",chuchus.largo+espectros.largo, "zonasegura")=="true"){
+        persiguiendo=false;
+    }
+
     for(int i=0; i<espectros.largo;i++){
+        e = espectros.getNodoPos(i)->getValue();
         e.setVivo(op->read("Personajes",chuchus.largo+e.getEspectro()-1, "vivo")=="true");
         if(e.isVivo()){
 
@@ -90,21 +94,13 @@ void Templo::startCiclo(){
             e.setX(posicionReal.first);
             e.setY(posicionReal.second);
 
-            if(op->read("Personajes",chuchus.largo+espectros.largo, "zonasegura")=="true"){
-                persiguiendo=false;
-                if(e.getProceso() == PersiguiendoBread || e.getProceso() == PersiguiendoA){
-                    e.devolverse();
-                }
-            }
-
-            e = espectros.getNodoPos(i)->getValue();
-            if (e.getProceso() == PersiguiendoBread) {
-                persiguiendo = true;
-            }
-
             if (persiguiendo) {
                 if (e.getProceso() != PersiguiendoBread && e.getProceso() != PersiguiendoA) {
                     e.perseguirA();
+                }
+            } else{
+                if(e.getProceso() == PersiguiendoBread || e.getProceso() == PersiguiendoA){
+                    e.devolverse();
                 }
             }
 
@@ -122,14 +118,14 @@ void Templo::startCiclo(){
     for(int i=0; i<ratones.largo;i++){
         Raton r =ratones.getNodoPos(i)->getValue();
         string name= "raton"+to_string(r.getRaton());
-        r.setVivo(op->read("Personajes",chuchus.largo+espectros.largo+ojos.largo,
+        r.setVivo(op->read("Personajes",chuchus.largo+espectros.largo+ojos.largo+r.getRaton(),
                 "vivo")=="true");
 
         if(r.isVivo()){
             std::pair<int, int> ubicacion = Matrix::toMatrixPosition(
-                    stof(op->read("Personajes",chuchus.largo+espectros.largo+ojos.largo,
+                    stof(op->read("Personajes",chuchus.largo+espectros.largo+ojos.largo+r.getRaton(),
                              "posx")),
-                    stof(op->read("Personajes",chuchus.largo+espectros.largo+ojos.largo,
+                    stof(op->read("Personajes",chuchus.largo+espectros.largo+ojos.largo+r.getRaton(),
                              "posy")),
                     nivel);
             r.setPos(ubicacion.first,ubicacion.second);

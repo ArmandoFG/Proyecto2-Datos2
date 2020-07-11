@@ -21,7 +21,7 @@ public:
         Nivel* nivel5;
 
         int nivel;
-        bool persiguiendo;
+        bool persiguiendo{false};
         TList<Raton> ratones;
         TList<Ojo> ojos;
         TList<Chuchu> chuchus;
