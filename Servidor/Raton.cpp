@@ -9,7 +9,7 @@
 #include "Raton.h"
 #include "bresen.h"
 #include "math.h"
-
+#include "Matrix.h"
 int posX;
 int posY;
 
@@ -30,9 +30,19 @@ int Raton::GetPosY(){
     return posY;
 }
 
-void Raton::movimiento(){
-    posX=posX-1+ rand() % 3;
-    posY=posY-1+ rand() % 3;
+void Raton::movimiento(int** map){
+    int newposX=posX-1+ rand() % 3;
+    int newposY=posY-1+ rand() % 3;
+    if(posY>=0 && posY<=Matrix::SIZEY && posX>=0 && posX<=Matrix::SIZEX){
+        if(map[newposX][newposY]!=0){
+            posX=newposX;
+            posY=newposY;
+        } else{
+            this->movimiento(map);
+        }
+    }else{
+        this->movimiento(map);
+    }
 }
 
 bool Raton::checkearVision(int x, int y, int vision){

@@ -24,7 +24,7 @@ public:
     void setPos(int x, int y);
     int GetPosX();
     int GetPosY();
-    void movimiento();
+    void movimiento(int** map);
     bool checkearVision(int x, int y, int vision);
 };
 
