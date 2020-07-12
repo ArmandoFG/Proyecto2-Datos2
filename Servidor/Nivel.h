@@ -16,20 +16,20 @@ using namespace std;
 
 class Nivel {
     protected:
-        TList<Raton> ratones;
-        TList<Ojo> ojos;
-        TList<Chuchu> chuchus;
-        TList<Espectro> espectros;
+        TList<Raton*>* ratones;
+        TList<Ojo*>* ojos;
+        TList<Chuchu*>* chuchus;
+        TList<Espectro*>* espectros;
         int** map;
         int** mapPatrullaje;
         Nivel();
         static Genetico* g;
 
 public:
-        TList<Raton> getRatones();
-        TList<Ojo> getOjos();
-        TList<Chuchu> getChuchus();
-        TList<Espectro> getEspectros();
+        TList<Raton*>* getRatones();
+        TList<Ojo*>* getOjos();
+        TList<Chuchu*>* getChuchus();
+        TList<Espectro*>* getEspectros();
         int** getMap();
 };
 

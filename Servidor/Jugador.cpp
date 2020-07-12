@@ -7,6 +7,8 @@
 
 #include <utility>
 #include "Jugador.h"
+
+Jugador* Jugador::instance= nullptr;
 using namespace std;
 
 Jugador::Jugador() {

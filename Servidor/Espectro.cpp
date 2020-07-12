@@ -389,6 +389,10 @@ void Espectro::setVivo(bool vivo) {
     Espectro::vivo = vivo;
 }
 
+void Espectro::habilidad(int x, int y) {
+
+}
+
 EspectroGris::EspectroGris(int velocidadRuta, int velocidadPersecusion,
         int vision, int x, int y, int numEspectro, int** map, int** mapPatrullaje)
         : Espectro(Gris, velocidadRuta, velocidadPersecusion, vision, x, y, numEspectro, map, mapPatrullaje) {}

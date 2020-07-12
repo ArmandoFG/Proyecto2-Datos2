@@ -4,6 +4,10 @@
 
 #include "TNode.h"
 #include "iostream"
+#include "Chuchu.h"
+#include "Raton.h"
+#include "Ojo.h"
+#include "Espectro.h"
 
 using namespace std;
 /**
@@ -44,3 +48,13 @@ template <class T>
 void TNode<T>::setValue(T data) {
     this->value = data;
 }
+
+template class TNode<std::pair<int, int>>;
+template class TNode<std::pair<float, float>>;
+template class TNode<int>;
+template class TNode<float>;
+template class TNode<string>;
+template class TNode<Espectro*>;
+template class TNode<Raton*>;
+template class TNode<Chuchu*>;
+template class TNode<Ojo*>;

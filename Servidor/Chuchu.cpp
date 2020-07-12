@@ -58,6 +58,10 @@ void Chuchu::setChuchu(int chuchu) {
     Chuchu::chuchu = chuchu;
 }
 
+Chuchu::Chuchu() {
+
+}
+
 
 
 

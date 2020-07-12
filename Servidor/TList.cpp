@@ -3,6 +3,10 @@
 //
 
 #include "TList.h"
+#include "Espectro.h"
+#include "Raton.h"
+#include "Chuchu.h"
+#include "Ojo.h"
 
 /**
  * Metodo constructor de la lista
@@ -127,14 +131,14 @@ void TList<T>::deletePos(int pos) {
  * Metodo para obtener string de la lista
  * @return String con toda la info de la lista
  */
-template <class T>
-string TList<T>::printList()
-{
-    TNode<T> *present = this->first;
-    string values;
-    while (present != nullptr) {
-        values+=present->getValue()+";";
-        present = present->next;
-    }
-    return values;
-}
+
+template class TList<std::pair<int, int>>;
+template class TList<std::pair<float, float>>;
+template class TList<int>;
+template class TList<float>;
+template class TList<string>;
+template class TList<Espectro*>;
+template class TList<Chuchu*>;
+template class TList<Ojo*>;
+template class TList<Raton*>;
+

@@ -48,7 +48,6 @@ private:
     void breadcumbing(int xi, int yi );
     void volverBacktrAux(int xi, int yi, int xf, int yf, int step, bool *done);
 public:
-    Espectro(){};
     bool isVivo() const;
     void setVivo(bool vivo);
     int getEspectro() const;

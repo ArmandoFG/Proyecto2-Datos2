@@ -8,7 +8,7 @@
 
 #include "Nivel.h"
 #include "Jugador.h"
-
+#include "TList.cpp"
 class Templo {
 public:
     Templo();
@@ -22,10 +22,10 @@ public:
 
         int nivel;
         bool persiguiendo{false};
-        TList<Raton> ratones;
-        TList<Ojo> ojos;
-        TList<Chuchu> chuchus;
-        TList<Espectro> espectros;
+        TList<Raton*>* ratones;
+        TList<Ojo*>* ojos;
+        TList<Chuchu*>* chuchus;
+        TList<Espectro*>* espectros;
 
         Nivel getNivel();
         bool ratonCerca(int x, int y, int vision);
