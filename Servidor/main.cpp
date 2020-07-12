@@ -8,10 +8,8 @@
 #include <cstdlib>
 #include <iostream>
 #include "GENETICO.h"
-#include "GENETICO.cpp"
 #include "bresen.h"
 #include "Operaciones_Json.h"
-#include "Operaciones_Json.cpp"
 #include "Chuchu.h"
 
 

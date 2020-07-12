@@ -172,7 +172,7 @@ void Genetico::insertar_atributo(int ATRIBUTO, int individuo)
     }
 }
 
- 
+
 void Genetico::seleccion(){
 
   Tnodo Temp = POBLACION;
