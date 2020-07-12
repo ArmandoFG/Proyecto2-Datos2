@@ -6,6 +6,12 @@
 #include "Matrix.h"
 #include <cmath>
 
+float Matrix::xMin[5];
+float Matrix::xMax[5];
+float Matrix::yMax[5];
+float Matrix::yMin[5];
+
+
 int** Matrix::generateMatrix1() {
     float maxX=1.865802;
     float minX=-1.346433;
