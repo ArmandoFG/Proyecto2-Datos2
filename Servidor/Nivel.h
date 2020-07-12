@@ -23,7 +23,7 @@ class Nivel {
         int** map;
         int** mapPatrullaje;
         Nivel();
-        static Genetico g;
+        static Genetico* g;
 
 public:
         TList<Raton> getRatones();
@@ -32,6 +32,7 @@ public:
         TList<Espectro> getEspectros();
         int** getMap();
 };
+
 
 class Nivel1: public Nivel {
 public:
