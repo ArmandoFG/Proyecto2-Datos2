@@ -207,10 +207,7 @@ void Genetico::seleccion(){
                pareja++;
            }
        }
-       
-   
-    
-    
+
    cruce();
     
 }

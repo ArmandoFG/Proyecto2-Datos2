@@ -10,8 +10,6 @@
 #include "Jugador.h"
 #include "math.h"
 
-int posX;
-int posY;
 Ojo::Ojo(int x, int y, int ojo) {
     posX=x;
     posY=y;

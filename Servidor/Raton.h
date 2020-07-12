@@ -12,6 +12,8 @@ class Raton {
 private:
     bool vivo{true};
     int raton;
+    int posX;
+    int posY;
 public:
     Raton(int raton);
 

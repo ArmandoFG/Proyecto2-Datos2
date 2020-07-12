@@ -7,6 +7,8 @@
 
 #ifndef JUGADOR_H
 #define	JUGADOR_H
+#include <utility>
+using namespace std;
 
 class Jugador {
 public:

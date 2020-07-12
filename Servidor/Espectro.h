@@ -109,6 +109,7 @@ public:
             case Rojo:
                 return new EspectroRojo( velocidadRuta, velocidadPersecusion, vision, x, y,numEspectro, map, mapPatrullaje);
         }
+        return nullptr;
     }
 };
 

@@ -10,8 +10,6 @@
 #include "bresen.h"
 #include "math.h"
 #include "Matrix.h"
-int posX;
-int posY;
 
 Raton::Raton(int raton) {
     this->raton=raton;

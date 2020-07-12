@@ -5,6 +5,8 @@
 #ifndef PROYECTO2_DATOS2_MATRIX_H
 #define PROYECTO2_DATOS2_MATRIX_H
 
+#include <utility>
+using namespace std;
 
 class Matrix {
 private:

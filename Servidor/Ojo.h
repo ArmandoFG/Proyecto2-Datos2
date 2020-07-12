@@ -20,6 +20,8 @@ private:
     int vision;
     bool vivo;
     int ojo;
+    int posX;
+    int posY;
 public:
     int getOjo() const;
 
