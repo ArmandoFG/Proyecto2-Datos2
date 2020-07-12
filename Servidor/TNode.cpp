@@ -49,6 +49,7 @@ void TNode<T>::setValue(T data) {
     this->value = data;
 }
 
+
 template class TNode<std::pair<int, int>>;
 template class TNode<std::pair<float, float>>;
 template class TNode<int>;

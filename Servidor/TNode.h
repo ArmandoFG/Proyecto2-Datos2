@@ -10,6 +10,7 @@ using namespace std;
 /**
  * Clase para guardar valores de una lista
  */
+
 template <class T>
 class TNode {
 private:
