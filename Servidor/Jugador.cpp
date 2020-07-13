@@ -17,7 +17,7 @@ Jugador::Jugador() {
 }
 
 Jugador* Jugador::getJugador(){
-    if(instance!= nullptr){
+    if(instance== nullptr){
         instance = new Jugador();
     }
     return instance;
@@ -70,7 +70,7 @@ int **Jugador::getTracesMap() const {
 }
 
 void Jugador::setTracesMap(int **tracesMap) {
-    Jugador::tracesMap = tracesMap;
+    this->tracesMap = tracesMap;
 }
 
 int Jugador::getMovementNum() const {

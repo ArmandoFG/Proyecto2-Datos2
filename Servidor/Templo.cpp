@@ -5,22 +5,64 @@
 #include "Templo.h"
 #include "Operaciones_Json.h"
 #include "Matrix.h"
+#include "iostream"
+#include "string"
+using namespace std;
+int getPos(string name){
+    if(name.compare("Player")==0){
+        return 0;
+    }else if(name.compare("Gris1")==0){
+        return 1;
+    }else if(name.compare("Gris2")==0){
+        return 2;
+    }else if(name.compare("Gris3")==0){
+        return 3;
+    }else if(name.compare("Ojo1")==0){
+        return 4;
+    }else if(name.compare("Ojo2")==0){
+        return 5;
+    }else if(name.compare("Ojo3")==0){
+        return 6;
+    }else if(name.compare("Rata1")==0){
+        return 7;
+    }else if(name.compare("Rata2")==0){
+        return 8;
+    }else if(name.compare("Chuchu")==0){
+        return 9;
+    }else if(name.compare("Rojo1")==0){
+        return 10;
+    }else if(name.compare("Rojo2")==0){
+        return 11;
+    }else if(name.compare("Rojo3")==0){
+        return 12;
+    }else if(name.compare("Azul1")==0){
+        return 13;
+    }else if(name.compare("Azul1")==0){
+        return 14;
+    }else if(name.compare("Azul1")==0){
+        return 15;
+    }else if(name.compare("EnemigoFinal")==0){
+        return 16;
+    }else if(name.compare("Nivel")==0){
+        return 17;
+    }
+}
 
 void Templo::startCiclo(){
     Nivel lvl=getNivel();
     auto* op=new Operaciones_Json;
 
-    if(nivel!=stoi(op->read("juego",0, "nivel"))){
+    if(nivel!=stoi(op->read(getPos("Nivel"), "level"))){
         this->nextNivel();
         nivel++;
         lvl= this->getNivel();
     }
 
     Jugador j=*Jugador::getJugador();
-    j.setvida(stoi(op->read("juego",0, "vida")));
-    j.setmarcador(stoi(op->read("juego",0, "puntos")));
-    float x=stof(op->read("jugador",chuchus->largo+espectros->largo-1, "posx"));
-    float y=stof(op->read("jugador", chuchus->largo+espectros->largo-1,"posy"));
+    j.setvida(stoi(op->read(getPos("Nivel"), "vida")));
+    j.setmarcador(stoi(op->read(getPos("Player"), "puntos")));
+    float x=stof(op->read(getPos("Player"), "posx"));
+    float y=stof(op->read( getPos("Player"),"posy"));
 
     j.ubicacion(Matrix::toMatrixPosition(x,y,this->nivel, lvl.getMap()));
 
@@ -30,19 +72,19 @@ void Templo::startCiclo(){
         j.setmarcador(0);}
     for(int i=0; i<chuchus->largo;i++){
         Chuchu* c =chuchus->getNodoPos(i)->getValue();
-        c->setVivo(op->read("Personajes",c->getChuchu()-1, "vivo")=="true");
+        c->setVivo(op->read(getPos("Chuchu"), "vivo")=="true");
         if(c->isVivo()){
             std::pair<int, int> ubicacion = Matrix::toMatrixPosition(
-                    stof(op->read("Personajes",c->getChuchu()-1,
+                    stof(op->read(getPos("Chuchu"),
                                   "posx")),
-                    stof(op->read("Personajes",c->getChuchu()-1,
+                    stof(op->read(getPos("Chuchu"),
                                   "posy")),
                                     nivel, lvl.getMap());
             c->setPos(ubicacion.first,ubicacion.second);
             c->movimiento();
             std::pair<float,float> point = Matrix::toPoint(c->GetPosX(), c->GetPosY(), nivel);
-            op->WRITE("Personajes",c->getChuchu(),"posx", to_string(point.first));
-            op->WRITE("Personajes",c->getChuchu(),"posy", to_string(point.second));
+            op->WRITE(getPos("Chuchu"),"posx", to_string(point.first));
+            op->WRITE(getPos("Chuchu"),"posy", to_string(point.second));
         }
     }
     /**
@@ -56,11 +98,11 @@ void Templo::startCiclo(){
 
         Ojo* ojo =ojos->getNodoPos(i)->getValue();
         string name="ojo"+to_string(ojo->getOjo());
-       ojo->setVivo(op->read("Personajes",chuchus->largo+espectros->largo+ojo->getOjo(), "vivo")=="true");
+        ojo->setVivo(op->read(getPos("Ojo"+to_string(i+1)), "vivo")=="true");
 
         if(ojo->isVivo()){
-            std::pair<int, int> ubicacion=Matrix::toMatrixPosition(stof(op->read("Personajes",chuchus->largo+espectros->largo+ojo->getOjo(),"posx"))
-                    , stof(op->read("Personajes",chuchus->largo+espectros->largo+ojo->getOjo(),"posy"))
+            std::pair<int, int> ubicacion=Matrix::toMatrixPosition(stof(op->read(getPos("Ojo"+to_string(i+1)),"posx"))
+                    , stof(op->read(getPos("Ojo"+to_string(i+1)),"posy"))
                     ,this->nivel, lvl.getMap());
            ojo->setPos(ubicacion.first, ubicacion.second);
             if(ojo->checkearVision()){
@@ -79,17 +121,17 @@ void Templo::startCiclo(){
         }
     }
 
-    if(op->read("Personajes",chuchus->largo+espectros->largo, "zonasegura")=="true"){
+    if(op->read(chuchus->largo+espectros->largo, "zonasegura")=="true"){
         persiguiendo=false;
     }
 
     for(int i=0; i<espectros->largo;i++){
         Espectro* e = espectros->getNodoPos(i)->getValue();
-        e->setVivo(op->read("Personajes",chuchus->largo+e->getEspectro()-1, "vivo")=="true");
+        e->setVivo(op->read(getPos(to_string(e->getColor())+to_string(i+1)), "vivo")=="true");
         if(e->isVivo()){
 
-            std::pair<int, int> posicionReal= Matrix::toMatrixPosition(stof(op->read("Personajes",chuchus->largo+e->getEspectro()-1, "posx")),
-                    stof(op->read("Personajes",chuchus->largo+e->getEspectro()-1, "posy")), nivel, lvl.getMap());
+            std::pair<int, int> posicionReal= Matrix::toMatrixPosition(stof(op->read(getPos(to_string(e->getColor())+to_string(i+1)), "posx")),
+                    stof(op->read(getPos(to_string(e->getColor())+to_string(i+1)), "posy")), nivel, lvl.getMap());
             e->setX(posicionReal.first);
             e->setY(posicionReal.second);
 
@@ -108,23 +150,23 @@ void Templo::startCiclo(){
             }
 
             std::pair<float,float> point = Matrix::toPoint(e->getX(), e->getY(), nivel);
-            op->WRITE("Personajes",chuchus->largo+e->getEspectro()-1, "posx",
+            op->WRITE(getPos(to_string(e->getColor())+to_string(i+1)), "posx",
                     to_string(point.first));
-            op->WRITE("Personajes",chuchus->largo+e->getEspectro()-1, "posy",
+            op->WRITE(getPos(to_string(e->getColor())+to_string(i+1)), "posy",
                     to_string(point.second));
         }
     }
     for(int i=0; i<ratones->largo;i++){
         Raton* r =ratones->getNodoPos(i)->getValue();
         string name= "raton"+to_string(r->getRaton());
-        r->setVivo(op->read("Personajes",chuchus->largo+espectros->largo+ojos->largo+r->getRaton(),
+        r->setVivo(op->read(getPos("Rata"+to_string(i+1)),
                 "vivo")=="true");
 
         if(r->isVivo()){
             std::pair<int, int> ubicacion = Matrix::toMatrixPosition(
-                    stof(op->read("Personajes",chuchus->largo+espectros->largo+ojos->largo+r->getRaton(),
+                    stof(op->read(getPos("Rata"+to_string(i+1)),
                              "posx")),
-                    stof(op->read("Personajes",chuchus->largo+espectros->largo+ojos->largo+r->getRaton(),
+                    stof(op->read(getPos("Rata"+to_string(i+1)),
                              "posy")),
                     nivel, lvl.getMap());
             r->setPos(ubicacion.first,ubicacion.second);

@@ -36,10 +36,6 @@ void Chuchu::movimiento(){
 
     move.Iniciar(GetPosX(),GetPosY(), false);
     setPos(move.getx(), move.gety());
-
-    json.WRITE(0, "posx",to_string(GetPosX()));
-    json.WRITE(0, "posy",to_string(GetPosY()));
-    
 }
 
 bool Chuchu::isVivo() const {

@@ -12,6 +12,16 @@ float Matrix::yMax[5];
 float Matrix::yMin[5];
 
 
+//int** Matrix::generateMatrix1Rutas() {
+//    int** matrix = generateMatrix1();
+
+//    float matrisPuntosDeRuta[4][3]={{5,5,5},
+//                                    {5,5,5},
+//                                    {5,5,5},
+//                                    {5,5,5}};
+//}
+
+
 int** Matrix::generateMatrix1() {
     float maxX=1.865802;
     float minX=-1.346433;

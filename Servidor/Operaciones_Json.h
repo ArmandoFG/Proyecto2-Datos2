@@ -17,8 +17,8 @@ using namespace std;
 class Operaciones_Json {
 public:
     Operaciones_Json();
-    string read(string individuo, int fila,string dato);
-    void WRITE(string individuo, int fila, string dato, string valor);
+    string read(int fila,string dato);
+    void WRITE( int fila, string dato, string valor);
 
 private:
 

@@ -14,11 +14,11 @@ public:
     Templo();
 
     private:
-        Nivel* nivel1;
-        Nivel* nivel2;
-        Nivel* nivel3;
-        Nivel* nivel4;
-        Nivel* nivel5;
+        Nivel* nivel1{new Nivel1};
+        Nivel* nivel2{new Nivel2};
+        Nivel* nivel3{new Nivel3};
+        Nivel* nivel4{new Nivel4};
+        Nivel* nivel5{new Nivel5};
 
         int nivel;
         bool persiguiendo{false};

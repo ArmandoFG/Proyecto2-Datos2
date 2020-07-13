@@ -43,6 +43,10 @@ void bresen::Iniciar(int Bx1, int By1, bool listo){
        int contadorAux = 0;
        x2 = x;
        y2 = y;
+
+       int lineasEnMap = Matrix::SIZEX;
+       int columnasEnMap = Matrix::SIZEY;
+
        cout << "Esta es la direccion: " << direccion << endl;
        if(direccion == 0){
        if(map[y2][x2 + 1] == 0 && lineasEnMap >= y2 >= 0 && columnasEnMap >= x2 >= 0){
