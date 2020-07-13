@@ -1,147 +1,109 @@
- 
-#include <iostream>
 #include <string>
-#include <stdio.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-#include <netdb.h>
-#include <sys/uio.h>
-#include <sys/time.h>
-#include <sys/wait.h>
-#include <fcntl.h>
-#include <fstream>
-#include <sstream>
-#include <thread>
-#include "Templo.h"
-#include "Matrix.h"
-
 using namespace std;
 
-int ListenForData();
+#include <unistd.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <cstring>
+#include <fstream>
+#include <sstream>
+#include <iostream>
+#include "Templo.h"
 
-int strf(char **rbuf, const char *path);
-string tipo;
-int DATO;
-string Operacion; 
-string dato;
-int newSd;
-int serverSd;
-char *rbuf;
-Templo* templo;
+#define PORT 12345
+int strf(char **rbuf);
+string DatosEnviar;
+Templo* templo=new Templo;
+/**
+ * @return void
+ * Method to manage the messages send by the client
+ */
+void manageCalls(int server_fd, struct sockaddr_in address, int addrlen){
+    int socket;
+    socket = accept(server_fd, (struct sockaddr *)&address,(socklen_t*)&addrlen);
 
-int main(void)
+    std::ofstream outfile ("datos.json",std::ofstream::binary);
+    char buffer[2048];
+    string message;
+    read(socket, buffer, 2048);
+    message = buffer;
+    int len = message.length();
+    outfile.write(buffer, len);
+    outfile.close();
+
+    templo->startCiclo();
+
+    char *rbuf;
+    int len2 = strf(&rbuf);
+    send(socket, rbuf, len2, 0);
+}
+
+
+
+/**
+ * Main method fro the program, initilices the server
+ */
+int main()
 {
-    templo=new Templo;
-    int puerto = 12345;
-    sockaddr_in servAddr;
-    bzero((char*)&servAddr, sizeof(servAddr));
-    servAddr.sin_family = AF_INET;
-    servAddr.sin_addr.s_addr = htonl(INADDR_ANY);
-    servAddr.sin_port = htons(puerto);
-    serverSd = socket(AF_INET, SOCK_STREAM, 0);
-    if(serverSd < 0)
+    int server_fd;
+    struct sockaddr_in address;
+    int opt = 1;
+    int addrlen = sizeof(address);
+
+    server_fd = socket(AF_INET, SOCK_STREAM, 0);
+    if (server_fd == 0)
     {
-        cout << "Error al establecer el socket del servidor" << endl;
-        exit(0);
+        perror("Socket has failed");
+        exit(EXIT_FAILURE);
     }
-    int bindStatus = bind(serverSd, (struct sockaddr*) &servAddr,
-        sizeof(servAddr));
-    if(bindStatus < 0)
+
+    bool socketToPort= setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT,&opt, sizeof(opt));
+    if (socketToPort)
     {
-        cout << "Error al vincular el socket a la dirección local" << endl;
-        exit(0);
+        perror("Port not asigned to the socket");
+        exit(EXIT_FAILURE);
     }
-    cout << "Esperando conexion del cliente" << endl;
-    listen(serverSd, 5);
 
-    sockaddr_in newSockAddr;
-    socklen_t newSockAddrSize = sizeof(newSockAddr);
-    
+    address.sin_family = AF_INET;
+    address.sin_addr.s_addr = INADDR_ANY;
+    address.sin_port = htons( PORT );
 
-    newSd = accept(serverSd, (sockaddr *)&newSockAddr, &newSockAddrSize);
-    if(newSd < 0)
+    int bindResult = bind(server_fd, (struct sockaddr *)&address,sizeof(address));
+    if (bindResult<0)
     {
-        cerr << "Error en la solicitud del cliente" << endl;
-        exit(1);
+        perror("Bind has failed");
+        exit(EXIT_FAILURE);
     }
-    cout << "Coneccion establecida con el cliente" << endl;
 
-    thread th(ListenForData);
-    
-    if(th.joinable()) {
-        th.join();
-    }
-    
-  
-
-}
-
-int ListenForData(){
-    while(1)
+    if (listen(server_fd, 3) < 0)
     {
- 
-    int len;
-    char *pbuf;
-
-    cout << "Esperando respuesta del cliente" << endl;
-        
-     
-
-     recv(newSd,reinterpret_cast<char*>(&len), sizeof len, 0);
-
-     std::ofstream outfile ("datosServer.json",std::ofstream::binary);
-
-     pbuf = new char [len];
-        
-     recv(newSd, pbuf, len, 0);
-
-     string sms_recv = pbuf;
-
-     outfile.write(pbuf, len);
-
-     outfile.close();
-
-     delete [] pbuf;
-
-     templo->startCiclo();
-
-     int len2 = strf(&rbuf, "datos.json");
-
-     send(newSd, reinterpret_cast<char*>(&len2), sizeof len2 , 0);
-
-     send(newSd, rbuf, len2, 0);
-    
-
+        perror("Listening has failed");
+        exit(EXIT_FAILURE);
     }
-    close(newSd);
-    close(serverSd);
-    cout << "Coneccion cerrada" << endl;
+    while (true) {
+        manageCalls(server_fd, address, addrlen);
+    }
     return 0;
-
 }
 
-int strf(char **rbuf, const char *path){
+/**
+ *
+ *
+ * @param rbuf Datos del json
+ * @return int tamaño del json
+ */
 
-    //Metodo para analizar tamaño de los datos del json
+int strf(char **rbuf){
 
-int len;
-
+    int len;
     std::ifstream is;
-    is.open (path, std::ios::binary );  // Archivo json
-
+    is.open ("datos.json", std::ios::binary);
     is.seekg (0, std::ios::end);
-    len = is.tellg();       // Tamaño del json
+    len = is.tellg();
     is.seekg (0, std::ios::beg);
-
-  
-    *rbuf = new char [len]; // Variable que almacena informacion del json
-    is.read (*rbuf, len);   // Obtener datos del json
+    *rbuf = new char [len];
+    is.read (*rbuf, len);
     is.close();
-
-return len; // Retornar valor del tamaño del json
+    return len;
 }
+
