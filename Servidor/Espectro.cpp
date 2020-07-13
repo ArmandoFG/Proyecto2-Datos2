@@ -409,6 +409,9 @@ int Espectro::getEspectro() const {
 }
 
 bool Espectro::isVivo() const {
+    map[Jugador::getJugador()->getX()][Jugador::getJugador()->getY()]=9;
+    map[x][y]=5;
+    Matrix::print(map);
     return vivo;
 }
 

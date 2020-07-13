@@ -22,6 +22,7 @@ public:
     static int **generateMatrix3();
     static int **generateMatrix4();
     static int **generateMatrix5();
+    static void print(int** matrix);
     static std::pair<float, float> toPoint(int x, int y, int matrixNumber);
     static std::pair<int, int> toMatrixPosition(float x, float y, int matrixNumber, int** matrix);
 };
