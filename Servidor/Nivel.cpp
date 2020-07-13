@@ -29,6 +29,10 @@ Nivel1::Nivel1():Nivel() {
             ,g->retornarGen(0,1), g->retornarGen(0,2), 8,9,2, map, mapPatrullaje));
     espectros->addLast(EspectroFactory::Get(Gris,    g->retornarGen(0,0)
             ,g->retornarGen(0,1), g->retornarGen(0,2), 8,9,3, map, mapPatrullaje));
+    ojos->addLast(new Ojo(9,9,1));
+    chuchus->addLast(new Chuchu(1, map, 0,0));
+    ratones->addLast(new Raton(1));
+
 }
 
 

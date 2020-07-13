@@ -135,14 +135,15 @@ void Templo::startCiclo(){
                     stof(op->read(getPos(to_string(e->getColor())+to_string(i+1)), "posy")), nivel, lvl.getMap());
             e->setX(posicionReal.first);
             e->setY(posicionReal.second);
-            e->perseguirA();
+
+            persiguiendo=true;
             if (persiguiendo) {
                 if (e->getProceso() != PersiguiendoBread && e->getProceso() != PersiguiendoA) {
-                    e->perseguirA();
+                    e->setProceso(PersiguiendoA);
                 }
             } else{
                 if(e->getProceso() == PersiguiendoBread || e->getProceso() == PersiguiendoA){
-                    e->devolverse();
+                    e->setProceso(Volviendo);
                 }
             }
 
@@ -244,19 +245,14 @@ Nivel Templo::restartNivel(){
 Nivel Templo::getNivel(){
     switch (nivel) {
         case 1:
-            Jugador::getJugador()->setTracesMap(Matrix::generateMatrix1());
             return *nivel1;
         case 2:
-            Jugador::getJugador()->setTracesMap(Matrix::generateMatrix2());
             return *nivel2;
         case 3:
-            Jugador::getJugador()->setTracesMap(Matrix::generateMatrix3());
             return *nivel3;
         case 4:
-            Jugador::getJugador()->setTracesMap(Matrix::generateMatrix4());
             return *nivel4;
         case 5:
-            Jugador::getJugador()->setTracesMap(Matrix::generateMatrix5());
             return *nivel5;
     }
 }

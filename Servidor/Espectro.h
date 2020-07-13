@@ -47,17 +47,19 @@ private:
     void A(int xi, int yi, int xf, int yf);
     void breadcumbing(int xi, int yi );
     void volverBacktrAux(int xi, int yi, int xf, int yf, int step, bool *done);
+    void perseguirBread();
+    void perseguirA();
+    void devolverse();
+    void patrullar();
 public:
     bool isVivo() const;
     void setVivo(bool vivo);
     int getEspectro() const;
     ColorEspectro getColor() const;
+
+    void setProceso(Proceso proceso);
+
     int getVision();
-    void perseguirBread();
-    void perseguirA();
-    void devolverse();
-    void morir();
-    void patrullar();
     bool checkearVision() const;
     Proceso getProceso() ;
     void setY(int y);

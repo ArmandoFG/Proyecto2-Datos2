@@ -149,6 +149,8 @@ void Espectro::perseguirA() {
     nextY=new TList<int>;
 
     A(x, y, Jugador::getJugador()->getX(), Jugador::getJugador()->getY());
+    nextX->deletePos(0);
+    nextY->deletePos(0);
 }
 
 void Espectro::breadcumbing(int xi, int yi){
@@ -273,8 +275,8 @@ void Espectro::devolverse(){
     bool* done = new bool(false) ;
     //Note: Steps starts from 3 because 1 and 2 are taken for walls and final path
     volverBacktrAux(x, y, 3, 3,3, done);
-    x= nextX->getFirst()->getValue();
-    y= nextY->getFirst()->getValue();
+    nextX->deletePos(0);
+    nextY->deletePos(0);
 
     /**for(int u=0;u<Matrix::SIZEX;u++){
         for(int p=0;p<Matrix::SIZEY;p++){
@@ -323,17 +325,15 @@ void Espectro::patrullar(){
 }
 
 
-void Espectro::morir() {
-    this->setVivo(false);
-}
-
 void Espectro::mover() {
-    if(proceso==Normal){
+    if(proceso==Normal) {
         patrullar();
+    } else if(proceso==Volviendo){
+        devolverse();
     }else if( nextX->largo>0) {
         x = nextX->getFirst()->getValue();
         nextX->deletePos(0);
-        x = nextY->getFirst()->getValue();
+        y = nextY->getFirst()->getValue();
         nextY->deletePos(0);
     }else{
         if(proceso==Volviendo){
@@ -364,6 +364,7 @@ void Espectro::nextStep() {
         nextX=new TList<int>;
         nextY=new TList<int>;
         this->perseguirA();
+
     }else{
         mover();
     }
@@ -409,9 +410,6 @@ int Espectro::getEspectro() const {
 }
 
 bool Espectro::isVivo() const {
-    map[Jugador::getJugador()->getX()][Jugador::getJugador()->getY()]=9;
-    map[x][y]=5;
-    Matrix::print(map);
     return vivo;
 }
 
@@ -421,6 +419,10 @@ void Espectro::setVivo(bool vivo) {
 
 void Espectro::habilidad(int x, int y) {
 
+}
+
+void Espectro::setProceso(Proceso proceso) {
+    Espectro::proceso = proceso;
 }
 
 EspectroGris::EspectroGris(int velocidadRuta, int velocidadPersecusion,

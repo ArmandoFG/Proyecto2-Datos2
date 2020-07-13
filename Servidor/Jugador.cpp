@@ -7,6 +7,7 @@
 
 #include <utility>
 #include "Jugador.h"
+#include "Matrix.h"
 
 Jugador* Jugador::instance= nullptr;
 using namespace std;
@@ -19,6 +20,7 @@ Jugador::Jugador() {
 Jugador* Jugador::getJugador(){
     if(instance== nullptr){
         instance = new Jugador();
+        instance->setTracesMap(Matrix::generateMatrix1());
     }
     return instance;
 }
