@@ -20,22 +20,22 @@ using namespace std;
 Operaciones_Json::Operaciones_Json() {
 }
 
-string Operaciones_Json::read(string individuo, int fila,string dato){
+string Operaciones_Json::read(int fila,string dato){
     ifstream ifs("datos.json");   
     Json::Value read_obj;      
     Json::Reader reader;
     reader.parse(ifs, read_obj);    
     string Dato;
-    Dato = read_obj[individuo][fila][dato].asString();  
+    Dato = read_obj[fila][dato].asString();  
     return Dato;
 }
-void Operaciones_Json::WRITE(string individuo, int fila, string dato, string valor){
+void Operaciones_Json::WRITE(int fila, string dato, string valor){
     ifstream ifs("datos.json");
     Json::Reader reader;
     Json::Value obj;
     reader.parse(ifs, obj); 
     ifs.close();
-    obj[individuo][fila][dato]= valor;
+    obj[fila][dato]= valor;
     Json::StyledWriter SW;
     ofstream OS;
     OS.open("datos.json");
