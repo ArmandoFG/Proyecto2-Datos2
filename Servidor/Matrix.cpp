@@ -524,48 +524,49 @@ int** Matrix::generateMatrix5() {
 }
 
 std::pair<float, float> Matrix::toPoint(int x, int y, int matrixNumber) {
+    int temp=x;
+    x=y;
+    y=temp;
     int n=matrixNumber-1;
-    float xfinal=xMin[n]+(xMax[n]-xMin[n])*(float)x/SIZEX;
-    float yfinal=yMax[n]-(yMax[n]-yMin[n])*(float)y/SIZEY;
+    float stepx=(xMax[n]-xMin[n])/(SIZEX);
+    float xfinal=xMin[n]+stepx/2+stepx*(float)(x);
+    float stepy=(yMax[n]-yMin[n])/(SIZEY);
+    float yfinal=yMax[n]-stepy/2-stepy*(float)(y);
     return {xfinal, yfinal};
 }
 
 std::pair<int, int> Matrix::toMatrixPosition(float x, float y, int matrixNumber, int** matrix) {
     int n=matrixNumber-1;
-    float xfinalf=((x-xMin[n])*SIZEX/(xMax[n]-xMin[n]));
-    float yfinalf=((-y+yMax[n])*SIZEY/(yMax[n]-yMin[n]));
-    int xfinal = (int)std::round(xfinalf);
-    int yfinal = (int)std::round(yfinalf);
+    float xfinalf=(x-xMin[n])*(SIZEX)/(xMax[n]-xMin[n]);
+    float yfinalf=(-y+yMax[n])*(SIZEY)/(yMax[n]-yMin[n]);
+    int xfinal = (int)std::floor(xfinalf);
+    int yfinal = (int)std::floor(yfinalf);
 
-    if(matrix[xfinal][yfinal]==1){
+    if(matrix[yfinal][xfinal]==1){
         xfinal=(int)std::floor(xfinalf);
-        if(matrix[xfinal][yfinal]==1){
-            xfinal=(int)std::ceil(xfinalf);
-            if(matrix[xfinal][yfinal]==1){
-                xfinal=(int)std::round(xfinalf);
-                yfinal=(int)std::floor(yfinalf);
-                if(matrix[xfinal][yfinal]==1){
-                    yfinal=(int)std::ceil(yfinalf);
-                    if(matrix[xfinal][yfinal]==1){
-                        xfinal=(int)std::floor(xfinalf);
-                        yfinal=(int)std::floor(yfinalf);
-                        if(matrix[xfinal][yfinal]==1){
-                            xfinal=(int)std::ceil(xfinalf);
-                            yfinal=(int)std::ceil(yfinalf);
-                        }if(matrix[xfinal][yfinal]==1){
-                            xfinal=(int)std::ceil(xfinalf);
-                            yfinal=(int)std::floor(yfinalf);
-                            if(matrix[xfinal][yfinal]==1){
-                                xfinal=(int)std::floor(xfinalf);
-                                yfinal=(int)std::ceil(yfinalf);
-                            }
-                        }
-                    }
+        yfinal=(int)std::ceil(yfinalf);
+        if(yfinal==SIZEY){
+            yfinal--;
+        }
+        if(matrix[yfinal][xfinal]==1) {
+            xfinal = (int) std::ceil(xfinalf);
+            yfinal = (int) std::floor(yfinalf);
+            if(xfinal==SIZEX){
+                xfinal--;
+            }
+            if (matrix[yfinal][xfinal] == 1) {
+                xfinal = (int) std::ceil(xfinalf);
+                yfinal = (int) std::ceil(yfinalf);
+                if(yfinal==SIZEY){
+                    yfinal--;
+                }
+                if(xfinal==SIZEX){
+                    xfinal--;
                 }
             }
         }
     }
-    return {xfinal, yfinal};
+    return {yfinal,xfinal};
 }
 
 void Matrix::print(int** matrix) {

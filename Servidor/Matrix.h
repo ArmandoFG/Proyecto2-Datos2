@@ -25,6 +25,7 @@ public:
     static void print(int** matrix);
     static std::pair<float, float> toPoint(int x, int y, int matrixNumber);
     static std::pair<int, int> toMatrixPosition(float x, float y, int matrixNumber, int** matrix);
+
 };
 
 

@@ -49,6 +49,8 @@ int getPos(string name){
 }
 
 void Templo::startCiclo(){
+
+
     Nivel lvl=getNivel();
     auto* op=new Operaciones_Json;
     cout<<op->read(getPos("Nivel"), "level").substr(6)<<endl;
@@ -65,6 +67,7 @@ void Templo::startCiclo(){
     j->setmarcador(stoi(op->read(getPos("Nivel"), "puntos")));
     float x=stof(op->read(getPos("Player"), "posx"));
     float y=stof(op->read( getPos("Player"),"posy"));
+
 
     j->ubicacion(Matrix::toMatrixPosition(x,y,this->nivel, lvl.getMap()));
 
