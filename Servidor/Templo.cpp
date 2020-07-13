@@ -51,16 +51,16 @@ int getPos(string name){
 void Templo::startCiclo(){
     Nivel lvl=getNivel();
     auto* op=new Operaciones_Json;
-
-    if(nivel!=stoi(op->read(getPos("Nivel"), "level"))){
+    cout<<op->read(getPos("Nivel"), "level").substr(6)<<endl;
+    if(nivel!=stoi(op->read(getPos("Nivel"), "level").substr(6))){
         this->nextNivel();
         nivel++;
         lvl= this->getNivel();
     }
 
     Jugador j=*Jugador::getJugador();
-    j.setvida(stoi(op->read(getPos("Nivel"), "vida")));
-    j.setmarcador(stoi(op->read(getPos("Player"), "puntos")));
+    j.setvida(stoi(op->read(getPos("Nivel"), "vidas")));
+    j.setmarcador(stoi(op->read(getPos("Nivel"), "puntos")));
     float x=stof(op->read(getPos("Player"), "posx"));
     float y=stof(op->read( getPos("Player"),"posy"));
 

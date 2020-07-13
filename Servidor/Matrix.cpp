@@ -526,14 +526,14 @@ int** Matrix::generateMatrix5() {
 std::pair<float, float> Matrix::toPoint(int x, int y, int matrixNumber) {
     int n=matrixNumber-1;
     float xfinal=xMin[n]+(xMax[n]-xMin[n])*(float)x/SIZEX;
-    float yfinal=yMax[n]-(xMax[n]-xMin[n])*(float)y/SIZEY;
+    float yfinal=yMax[n]-(yMax[n]-yMin[n])*(float)y/SIZEY;
     return {xfinal, yfinal};
 }
 
 std::pair<int, int> Matrix::toMatrixPosition(float x, float y, int matrixNumber, int** matrix) {
     int n=matrixNumber-1;
     float xfinalf=((x-xMin[n])*SIZEX/(xMax[n]-xMin[n]));
-    float yfinalf=((y-yMin[n])*SIZEY/(yMax[n]-yMin[n]));
+    float yfinalf=((-y+yMax[n])*SIZEY/(yMax[n]-yMin[n]));
     int xfinal = (int)std::round(xfinalf);
     int yfinal = (int)std::round(yfinalf);
 
