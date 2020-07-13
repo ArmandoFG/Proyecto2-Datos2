@@ -49,8 +49,12 @@ int Jugador::getVida(){
 void Jugador::ubicacion(std::pair<int, int> ubicacion){
     this->x = ubicacion.first;
     this->y = ubicacion.second;
-    movementNum+=1;
-    tracesMap[x][y]=movementNum;
+    movementNum++;
+    if(tracesMap[x][y]==movementNum-1){
+        movementNum--;
+    }else{
+        tracesMap[x][y]=movementNum;
+    };
 }
 
 void Jugador::setX(int x) {
