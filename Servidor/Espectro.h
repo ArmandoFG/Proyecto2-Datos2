@@ -41,8 +41,8 @@ protected:
     int espectro;
     int** map;
     int** mapPatrullaje;
-    TList<int> nextX;
-    TList<int> nextY;
+    TList<int>* nextX;
+    TList<int>* nextY;
 private:
     void A(int xi, int yi, int xf, int yf);
     void breadcumbing(int xi, int yi );

@@ -15,8 +15,8 @@ private:
     static float xMax[5];
     static float yMax[5];
 public:
-    static const int SIZEY = 100;
-    static const int SIZEX = 100;
+    static const int SIZEY = 50;
+    static const int SIZEX = 50;
     static int **generateMatrix1();
     static int **generateMatrix2();
     static int **generateMatrix3();

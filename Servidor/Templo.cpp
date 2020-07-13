@@ -130,8 +130,7 @@ void Templo::startCiclo(){
     for(int i=0; i<espectros->largo;i++){
         Espectro* e = espectros->getNodoPos(i)->getValue();
         e->setVivo(op->read(getPos(to_string(e->getColor())+to_string(i+1)), "vivo")=="true");
-        if(!e->isVivo()){
-        //Quitar el !!!
+        if(e->isVivo()){
             std::pair<int, int> posicionReal= Matrix::toMatrixPosition(stof(op->read(getPos(to_string(e->getColor())+to_string(i+1)), "posx")),
                     stof(op->read(getPos(to_string(e->getColor())+to_string(i+1)), "posy")), nivel, lvl.getMap());
             e->setX(posicionReal.first);

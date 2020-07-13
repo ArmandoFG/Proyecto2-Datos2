@@ -24,7 +24,7 @@ void Espectro::A(int xi, int yi, int xf, int yf){
     double min =std::numeric_limits<double>::max();
     double minTemp;
 
-    map[xf][yf]=9;
+    //map[xf][yf]=9;
 
     int xmin;
     int ymin;
@@ -88,12 +88,12 @@ void Espectro::A(int xi, int yi, int xf, int yf){
             while (!path.empty()){
                 indexPos=path.find_first_of(';');
                 xtemp=std::stoi(path.substr(0,indexPos));
-                nextX.addLast(xtemp);
+                nextX->addLast(xtemp);
 
                 path=path.substr(indexPos+1, path.length()-indexPos);
                 indexPos=path.find_first_of(';');
                 ytemp=std::stoi(path.substr(0,indexPos));
-                nextY.addLast(ytemp);
+                nextY->addLast(ytemp);
 
                 path=path.substr(indexPos+1, path.length()-indexPos);
 
@@ -129,7 +129,7 @@ void Espectro::A(int xi, int yi, int xf, int yf){
                                                   + ";" + nodeText);
                                     //Se agregan los steps que se llevan sumando los del padre
                                     steps.addLast(to_string(thisParentSteps));
-                                    map[xmin + i][ymin+j]=2;
+                                    //map[xmin + i][ymin+j]=2;
                                 }
                             }
                         }
@@ -145,8 +145,8 @@ void Espectro::A(int xi, int yi, int xf, int yf){
 
 void Espectro::perseguirA() {
     this->proceso=PersiguiendoA;
-    nextX=*new TList<int>;
-    nextY=*new TList<int>;
+    nextX=new TList<int>;
+    nextY=new TList<int>;
 
     A(x, y, Jugador::getJugador()->getX(), Jugador::getJugador()->getY());
 }
@@ -170,16 +170,16 @@ void Espectro::breadcumbing(int xi, int yi){
                 }
             }
         }
-        nextX.addLast(nx);
-        nextY.addLast(ny);
+        nextX->addLast(nx);
+        nextY->addLast(ny);
     }else{
         perseguirA();
     }
 }
 
 void Espectro::perseguirBread() {
-    nextX=*new TList<int>;
-    nextY=*new TList<int>;
+    nextX=new TList<int>;
+    nextY=new TList<int>;
     this->proceso=PersiguiendoBread;
     breadcumbing(x, y);
 }
@@ -223,18 +223,18 @@ void mark(int xi, int yi, int** map, int mark, int step){
  */
 void Espectro::volverBacktrAux(int xi, int yi, int xf, int yf, int step, bool* done)
 {
+
     //If object is on goal, exists
     if (xi==xf && yi==yf) {
         *done = true;
-        map[xi][yi]=2;
         return;
     } else if(map[xi][yi]==1){
         return;
     }else{
         //The possible steps from here are marked so that they won't be
         //reached by future calls
-        nextX.addLast(xi);
-        nextY.addLast(yi);
+        nextX->addLast(xi);
+        nextY->addLast(yi);
         mark(xi, yi, map, step, step);
         //Object tries every possible path
         for (int i=-1;i<2;i++)
@@ -248,10 +248,10 @@ void Espectro::volverBacktrAux(int xi, int yi, int xf, int yf, int step, bool* d
                         if(*done){
                             //Unmarks all marks made by this step because of success
                             mark(xi, yi, map, 0, step);
-                            nextX.deletePos(nextX.largo-1);
-                            nextY.deletePos(nextY.largo-1);
+                            nextX->deletePos(nextX->largo-1);
+                            nextY->deletePos(nextY->largo-1);
                             //Marks the right path with a 2
-                            map[xi][yi]=2;
+                            //map[xi][yi]=2;
                             return;
                         }
                     }
@@ -268,11 +268,22 @@ void Espectro::devolverse(){
     //Test Map (1's are walls)
     //Calling backtracking
     this->proceso=Volviendo;
-    nextX=*new TList<int>;
-    nextY=*new TList<int>;
+    nextX=new TList<int>;
+    nextY=new TList<int>;
     bool* done = new bool(false) ;
     //Note: Steps starts from 3 because 1 and 2 are taken for walls and final path
-    volverBacktrAux(x, y, 4, 6,3, done);
+    volverBacktrAux(x, y, 3, 3,3, done);
+    x= nextX->getFirst()->getValue();
+    y= nextY->getFirst()->getValue();
+
+    /**for(int u=0;u<Matrix::SIZEX;u++){
+        for(int p=0;p<Matrix::SIZEY;p++){
+            std::cout<<map[u][p];
+        }
+        std::cout<<"\n";
+    }
+     */
+
     //The results on the map are asigned to the espectro
 }
 
@@ -302,8 +313,8 @@ void Espectro::patrullar(){
                         ly=y;
                         x += i;
                         y += j;
-                        nextX.addLast(x);
-                        nextY.addLast(y);
+                        nextX->addLast(x);
+                        nextY->addLast(y);
                     }
                 }
             }
@@ -319,11 +330,11 @@ void Espectro::morir() {
 void Espectro::mover() {
     if(proceso==Normal){
         patrullar();
-    }else if( nextX.largo>0) {
-        x = nextX.getFirst()->getValue();
-        nextX.deletePos(0);
-        x = nextY.getFirst()->getValue();
-        nextY.deletePos(0);
+    }else if( nextX->largo>0) {
+        x = nextX->getFirst()->getValue();
+        nextX->deletePos(0);
+        x = nextY->getFirst()->getValue();
+        nextY->deletePos(0);
     }else{
         if(proceso==Volviendo){
             proceso=Normal;
@@ -350,8 +361,8 @@ void Espectro::nextStep() {
     }
 
     if(found){
-        nextX=*new TList<int>;
-        nextY=*new TList<int>;
+        nextX=new TList<int>;
+        nextY=new TList<int>;
         this->perseguirA();
     }else{
         mover();
@@ -389,8 +400,8 @@ Espectro::Espectro(ColorEspectro color, int velocidadRuta, int velocidadPersecus
     this->map=map;
     this->mapPatrullaje=mapPatrullaje;
     espectro=numEspectro;
-    nextX=*new TList<int>;
-    nextY=*new TList<int>;
+    nextX=new TList<int>;
+    nextY=new TList<int>;
 }
 
 int Espectro::getEspectro() const {
