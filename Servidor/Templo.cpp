@@ -60,18 +60,18 @@ void Templo::startCiclo(){
 
     this->setPersonajes();
 
-    Jugador j=*Jugador::getJugador();
-    j.setvida(stoi(op->read(getPos("Nivel"), "vidas")));
-    j.setmarcador(stoi(op->read(getPos("Nivel"), "puntos")));
+    Jugador* j=Jugador::getJugador();
+    j->setvida(stoi(op->read(getPos("Nivel"), "vidas")));
+    j->setmarcador(stoi(op->read(getPos("Nivel"), "puntos")));
     float x=stof(op->read(getPos("Player"), "posx"));
     float y=stof(op->read( getPos("Player"),"posy"));
 
-    j.ubicacion(Matrix::toMatrixPosition(x,y,this->nivel, lvl.getMap()));
+    j->ubicacion(Matrix::toMatrixPosition(x,y,this->nivel, lvl.getMap()));
 
-    if(j.getVida()==0){
+    if(j->getVida()==0){
         lvl=restartNivel();
-        j.setvida(5);
-        j.setmarcador(0);}
+        j->setvida(5);
+        j->setmarcador(0);}
     for(int i=0; i<chuchus->largo;i++){
         Chuchu* c =chuchus->getNodoPos(i)->getValue();
         c->setVivo(op->read(getPos("Chuchu"), "vivo")=="true");
@@ -130,13 +130,13 @@ void Templo::startCiclo(){
     for(int i=0; i<espectros->largo;i++){
         Espectro* e = espectros->getNodoPos(i)->getValue();
         e->setVivo(op->read(getPos(to_string(e->getColor())+to_string(i+1)), "vivo")=="true");
-        if(e->isVivo()){
+        if(!e->isVivo()){
         //Quitar el !!!
             std::pair<int, int> posicionReal= Matrix::toMatrixPosition(stof(op->read(getPos(to_string(e->getColor())+to_string(i+1)), "posx")),
                     stof(op->read(getPos(to_string(e->getColor())+to_string(i+1)), "posy")), nivel, lvl.getMap());
             e->setX(posicionReal.first);
             e->setY(posicionReal.second);
-
+            e->perseguirA();
             if (persiguiendo) {
                 if (e->getProceso() != PersiguiendoBread && e->getProceso() != PersiguiendoA) {
                     e->perseguirA();
@@ -207,30 +207,30 @@ void Templo::setPersonajes(){
 
 Nivel Templo::restartNivel(){
     Nivel* lvl= nullptr;
-    Jugador j=*Jugador::getJugador();
+    Jugador* j=Jugador::getJugador();
     switch (nivel) {
         case 1:
-            j.setTracesMap(Matrix::generateMatrix1());
+            j->setTracesMap(Matrix::generateMatrix1());
             lvl= new Nivel1;
             nivel1=lvl;
             break;
         case 2:
-            j.setTracesMap(Matrix::generateMatrix2());
+            j->setTracesMap(Matrix::generateMatrix2());
             lvl= new Nivel2;
             nivel2=lvl;
             break;
         case 3:
-            j.setTracesMap(Matrix::generateMatrix3());
+            j->setTracesMap(Matrix::generateMatrix3());
             lvl= new Nivel3;
             nivel3=lvl;
             break;
         case 4:
-            j.setTracesMap(Matrix::generateMatrix4());
+            j->setTracesMap(Matrix::generateMatrix4());
             lvl= new Nivel4;
             nivel4=lvl;
             break;
         case 5:
-            j.setTracesMap(Matrix::generateMatrix5());
+            j->setTracesMap(Matrix::generateMatrix5());
             lvl= new Nivel5;
             nivel5=lvl;
             break;

@@ -24,6 +24,7 @@ void Espectro::A(int xi, int yi, int xf, int yf){
     double min =std::numeric_limits<double>::max();
     double minTemp;
 
+    map[xf][yf]=9;
 
     int xmin;
     int ymin;
@@ -72,7 +73,15 @@ void Espectro::A(int xi, int yi, int xf, int yf){
         int parentPos=open.getPos(to_string(xmin)+";"+to_string(ymin));
         open.deletePos(parentPos);
         close.addLast(to_string(xmin)+";"+to_string(ymin));
-
+/**
+        map[xmin][ymin]=3;
+        for(int u=0;u<100;u++){
+            for(int p=0;p<100;p++){
+                std::cout<<map[u][p];
+            }
+            std::cout<<"\n";
+        }
+*/
         //Si es el penultimo nodo entonces se termina el programa y se actualiza el mapa con el path
         if(abs(xmin-xf)<2 &&abs(ymin-yf)<2){
             string path= paths.getNodoPos(parentPos)->getValue()+";";
@@ -88,10 +97,16 @@ void Espectro::A(int xi, int yi, int xf, int yf){
 
                 path=path.substr(indexPos+1, path.length()-indexPos);
 
-                map[xtemp][ytemp]= 2;
+                //map[xtemp][ytemp]= 2;
+                open = *new TList<string>;
             }
-
-        } else{
+           /** for(int u=0;u<100;u++){
+                for(int p=0;p<100;p++){
+                    std::cout<<map[u][p];
+                }
+                std::cout<<"\n";
+            }*/
+        }else{
             string nodeText;
             //Se analiza el vecindario del escogido
             //Los ifs verifican que no se haya salido de la cuadricula
@@ -114,6 +129,7 @@ void Espectro::A(int xi, int yi, int xf, int yf){
                                                   + ";" + nodeText);
                                     //Se agregan los steps que se llevan sumando los del padre
                                     steps.addLast(to_string(thisParentSteps));
+                                    map[xmin + i][ymin+j]=2;
                                 }
                             }
                         }
@@ -149,13 +165,13 @@ void Espectro::breadcumbing(int xi, int yi){
                             nextTrace=tracesMap[xi + i][yi + j];
                             nx=xi+i;
                             ny=yi+j;
-                            nextX.addLast(nx);
-                            nextY.addLast(ny);
                         }
                     }
                 }
             }
         }
+        nextX.addLast(nx);
+        nextY.addLast(ny);
     }else{
         perseguirA();
     }
