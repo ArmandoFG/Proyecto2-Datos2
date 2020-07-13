@@ -37,8 +37,8 @@ void Chuchu::movimiento(){
     move.Iniciar(GetPosX(),GetPosY(), false);
     setPos(move.getx(), move.gety());
 
-    json.WRITE("Personajes",0, "posx",to_string(GetPosX()));
-    json.WRITE("Personajes",0, "posy",to_string(GetPosY()));
+    json.WRITE(0, "posx",to_string(GetPosX()));
+    json.WRITE(0, "posy",to_string(GetPosY()));
     
 }
 
