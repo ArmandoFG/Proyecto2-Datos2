@@ -11,11 +11,11 @@ using namespace std;
 int getPos(string name){
     if(name.compare("Player")==0){
         return 0;
-    }else if(name.compare("Gris1")==0){
+    }else if(name.compare("01")==0){
         return 1;
-    }else if(name.compare("Gris2")==0){
+    }else if(name.compare("02")==0){
         return 2;
-    }else if(name.compare("Gris3")==0){
+    }else if(name.compare("03")==0){
         return 3;
     }else if(name.compare("Ojo1")==0){
         return 4;
@@ -29,17 +29,17 @@ int getPos(string name){
         return 8;
     }else if(name.compare("Chuchu")==0){
         return 9;
-    }else if(name.compare("Rojo1")==0){
+    }else if(name.compare("21")==0){
         return 10;
-    }else if(name.compare("Rojo2")==0){
+    }else if(name.compare("22")==0){
         return 11;
-    }else if(name.compare("Rojo3")==0){
+    }else if(name.compare("23")==0){
         return 12;
-    }else if(name.compare("Azul1")==0){
+    }else if(name.compare("11")==0){
         return 13;
-    }else if(name.compare("Azul1")==0){
+    }else if(name.compare("11")==0){
         return 14;
-    }else if(name.compare("Azul1")==0){
+    }else if(name.compare("11")==0){
         return 15;
     }else if(name.compare("EnemigoFinal")==0){
         return 16;
@@ -57,6 +57,8 @@ void Templo::startCiclo(){
         nivel++;
         lvl= this->getNivel();
     }
+
+    this->setPersonajes();
 
     Jugador j=*Jugador::getJugador();
     j.setvida(stoi(op->read(getPos("Nivel"), "vidas")));
@@ -121,7 +123,7 @@ void Templo::startCiclo(){
         }
     }
 
-    if(op->read(chuchus->largo+espectros->largo, "zonasegura")=="true"){
+    if(op->read(getPos("Nivel"), "personaje_zona_segura")=="true"){
         persiguiendo=false;
     }
 
@@ -129,7 +131,7 @@ void Templo::startCiclo(){
         Espectro* e = espectros->getNodoPos(i)->getValue();
         e->setVivo(op->read(getPos(to_string(e->getColor())+to_string(i+1)), "vivo")=="true");
         if(e->isVivo()){
-
+        //Quitar el !!!
             std::pair<int, int> posicionReal= Matrix::toMatrixPosition(stof(op->read(getPos(to_string(e->getColor())+to_string(i+1)), "posx")),
                     stof(op->read(getPos(to_string(e->getColor())+to_string(i+1)), "posy")), nivel, lvl.getMap());
             e->setX(posicionReal.first);
@@ -193,6 +195,9 @@ bool Templo::ratonCerca(int x, int y, int vision){
 
 void Templo::nextNivel(){
     nivel+=1;
+}
+
+void Templo::setPersonajes(){
     Nivel lvl =getNivel();
     ratones=lvl.getRatones();
     ojos=lvl.getOjos();

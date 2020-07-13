@@ -36,6 +36,8 @@ public:
 
 public:
     void startCiclo();
+
+    void setPersonajes();
 };
 
 

@@ -43,10 +43,10 @@ int** Matrix::generateMatrix1() {
     float stepY=(float )-(0.9060332+posY)/y;
 
 
-    xMin[0]=posXini;
-    xMax[0]=1.945722;
-    yMin[0]=-0.9060332;
-    yMax[0]=posY;
+    xMin[0]=posXini*10;
+    xMax[0]=1.945722*10;
+    yMin[0]=-0.9060332*10;
+    yMax[0]=posY*10;
 
     int **map= new int * [x];
 
