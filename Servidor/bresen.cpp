@@ -46,9 +46,9 @@ void bresen::Iniciar(int Bx1, int By1, bool listo){
        y2 = y;
        cout << "Esta es la direccion: " << direccion << endl;
        if(direccion == 0){
-       if(map[y2][x2 + 1] == 0){
+       if(map[y2][x2 + 1] == 0 && lineasEnMap >= y2 >= 0 && columnasEnMap >= x2 >= 0){
            
-           while(map[x2 + 1][y2] != 1 && contador != contadorAux){
+           while(map[x2 + 1][y2] != 1 && contador != contadorAux && lineasEnMap >= y2 >= 0 && columnasEnMap >= x2 >= 0){
                x2++;
                contadorAux++;
            }
@@ -61,9 +61,9 @@ void bresen::Iniciar(int Bx1, int By1, bool listo){
        }
        }
        if(direccion == 1){
-       if(map[y2 + 1][x2 + 1] == 0 ){
+       if(map[y2 + 1][x2 + 1] == 0 && lineasEnMap >= y2 >= 0 && columnasEnMap >= x2 >= 0){
 
-           while(map[y2 + 1][x2 + 1] != 1 && contador != contadorAux){
+           while(map[y2 + 1][x2 + 1] != 1 && contador != contadorAux && lineasEnMap >= y2 >= 0 && columnasEnMap >= x2 >= 0){
                x2++;
                y2++;
                 contadorAux++;
@@ -78,10 +78,10 @@ void bresen::Iniciar(int Bx1, int By1, bool listo){
        }
        }
        if(direccion == 2){
-       if(map[y2 + 1][x2] == 0){
+       if(map[y2 + 1][x2] == 0 && lineasEnMap >= y2 >= 0 && columnasEnMap >= x2 >= 0){
            
            
-           while(map[y2 + 1][x2] != 1 && contador != contadorAux){
+           while(map[y2 + 1][x2] != 1 && contador != contadorAux && lineasEnMap >= y2 >= 0 && columnasEnMap >= x2 >= 0){
                y2++;
                contadorAux++;
            }
@@ -94,9 +94,9 @@ void bresen::Iniciar(int Bx1, int By1, bool listo){
        }
        }
        if(direccion == 3){
-       if(map[y2 + 1][x2 - 1] == 0){
+       if(map[y2 + 1][x2 - 1] == 0 && lineasEnMap >= y2 >= 0 && columnasEnMap >= x2 >= 0){
           
-           while(map[y2 + 1][x2 - 1] != 1 && contador != contadorAux){
+           while(map[y2 + 1][x2 - 1] != 1 && contador != contadorAux && lineasEnMap >= y2 >= 0 && columnasEnMap >= x2 >= 0){
                y2++;
                x2--;  
                contadorAux++;             
@@ -110,9 +110,9 @@ void bresen::Iniciar(int Bx1, int By1, bool listo){
        }
        }
        if(direccion == 4){
-       if(map[y2][x2 - 1] == 0){
+       if(map[y2][x2 - 1] == 0 && lineasEnMap >= y2 >= 0 && columnasEnMap >= x2 >= 0){
           
-           while(map[y2][x2 - 1] != 1 && contador != contadorAux){
+           while(map[y2][x2 - 1] != 1 && contador != contadorAux && lineasEnMap >= y2 >= 0 && columnasEnMap >= x2 >= 0){
                 x2--;
                 contadorAux++;
            }
@@ -124,9 +124,9 @@ void bresen::Iniciar(int Bx1, int By1, bool listo){
        }
        }
        if(direccion == 5){
-       if(map[y2 - 1][x2 - 1] == 0){
+       if(map[y2 - 1][x2 - 1] == 0 && lineasEnMap >= y2 >= 0 && columnasEnMap >= x2 >= 0){
            
-           while(map[y2 - 1][x2 - 1] != 1 && contador != contadorAux){
+           while(map[y2 - 1][x2 - 1] != 1 && contador != contadorAux && lineasEnMap >= y2 >= 0 && columnasEnMap >= x2 >= 0){
                y2--;
                x2--;
                contadorAux++;
@@ -139,9 +139,9 @@ void bresen::Iniciar(int Bx1, int By1, bool listo){
        }
        }
        if(direccion == 6){
-       if(map[y2 - 1][x2] == 0){
+       if(map[y2 - 1][x2] == 0 && lineasEnMap >= y2 >= 0 && columnasEnMap >= x2 >= 0){
            
-           while(map[y2 - 1][x2] != 1 && contador != contadorAux){
+           while(map[y2 - 1][x2] != 1 && contador != contadorAux && lineasEnMap >= y2 >= 0 && columnasEnMap >= x2 >= 0){
                 y2--;
                 contadorAux++;
            }
@@ -153,9 +153,9 @@ void bresen::Iniciar(int Bx1, int By1, bool listo){
        }
        }
        if(direccion == 7){
-       if(map[y2 - 1][x2 + 1] == 0){
+       if(map[y2 - 1][x2 + 1] == 0 && lineasEnMap >= y2 >= 0 && columnasEnMap >= x2 >= 0){
            
-           while(map[y2 - 1][x2 + 1] != 1 && contador != contadorAux){
+           while(map[y2 - 1][x2 + 1] != 1 && contador != contadorAux && lineasEnMap >= y2 >= 0 && columnasEnMap >= x2 >= 0){
                y2--;
                x2++;
                contadorAux++;
