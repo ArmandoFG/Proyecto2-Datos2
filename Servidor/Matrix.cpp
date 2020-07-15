@@ -107,70 +107,7 @@ int** Matrix::generateMatrix1() {
         posY+=stepY;
     }
 
-    for(int i = 22; i < 31; i++){
-        map[9][i] = 2;
-    }
-    map[13][26] = 2;
-
-    int i = 10;
-    for(int j = 23; map[i][j] != 2; j++){
-        map[i][j] = 2;
-        i++;
-    }
-    i = 12;
-    for(int j = 27; map[i][j] != 2; j++){
-        map[i][j] = 2;
-        i--;
-    }
-
-    map[33][5] = 3;
-    map[33][19] = 3;
-    map[39][19] = 3;
-    map[39][5] = 3;
-
-    i = 33;
-    for(int j = 6; map[i][j] != 3; j++){
-        map[i][j] = 3;  
-    }
-    int j = 19;
-    for(int  i = 34; map[i][j] != 3; i++){
-        map[i][j] = 3;  
-    }
-    i = 39;
-    for(int j = 18; map[i][j] != 3; j--){
-        map[i][j] = 3;  
-    }
-    j = 5;
-    for(int  i = 38; map[i][j] != 3; i--){
-        map[i][j] = 3;  
-    }
-
-    map[33][41] = 4;
-    map[37][37] = 4;
-    map[41][41] = 4;
-    map[37][45] = 4;
-
-    i = 34;
-    for(int j = 40; map[i][j] != 4; j--){
-        map[i][j] = 4; 
-        i++; 
-    }
-    i = 38;
-    for(int j = 38; map[i][j] != 4; j++){
-        map[i][j] = 4; 
-        i++; 
-    }
-    i = 40;
-    for(int j = 42; map[i][j] != 4; j++){
-        map[i][j] = 4; 
-        i--; 
-    }
-    i = 36;
-    for(int j = 44; map[i][j] != 4; j--){
-        map[i][j] = 4; 
-        i--; 
-    }
-
+    
     return map;
 }
 
@@ -640,6 +577,75 @@ void Matrix::print(int** matrix) {
         }
         cout<<"\n";
     }
+}
+
+int** Matrix::rutasMatrix1(){
+    int **map = generateMatrix1();
+    for(int i = 22; i < 31; i++){
+        map[9][i] = 2;
+    }
+    map[13][26] = 2;
+
+    int i = 10;
+    for(int j = 23; map[i][j] != 2; j++){
+        map[i][j] = 2;
+        i++;
+    }
+    i = 12;
+    for(int j = 27; map[i][j] != 2; j++){
+        map[i][j] = 2;
+        i--;
+    }
+
+    map[33][5] = 3;
+    map[33][19] = 3;
+    map[39][19] = 3;
+    map[39][5] = 3;
+
+    i = 33;
+    for(int j = 6; map[i][j] != 3; j++){
+        map[i][j] = 3;  
+    }
+    int j = 19;
+    for(int  i = 34; map[i][j] != 3; i++){
+        map[i][j] = 3;  
+    }
+    i = 39;
+    for(int j = 18; map[i][j] != 3; j--){
+        map[i][j] = 3;  
+    }
+    j = 5;
+    for(int  i = 38; map[i][j] != 3; i--){
+        map[i][j] = 3;  
+    }
+
+    map[33][41] = 4;
+    map[37][37] = 4;
+    map[41][41] = 4;
+    map[37][45] = 4;
+
+    i = 34;
+    for(int j = 40; map[i][j] != 4; j--){
+        map[i][j] = 4; 
+        i++; 
+    }
+    i = 38;
+    for(int j = 38; map[i][j] != 4; j++){
+        map[i][j] = 4; 
+        i++; 
+    }
+    i = 40;
+    for(int j = 42; map[i][j] != 4; j++){
+        map[i][j] = 4; 
+        i--; 
+    }
+    i = 36;
+    for(int j = 44; map[i][j] != 4; j--){
+        map[i][j] = 4; 
+        i--; 
+    }
+
+    return map;
 }
 
 
