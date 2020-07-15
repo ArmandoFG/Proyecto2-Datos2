@@ -19,14 +19,11 @@ Templo* templo=new Templo;
  * @return void
  * Method to manage the messages send by the client
  */
-void manageCalls(int server_fd, struct sockaddr_in address, int addrlen){
-    int socket;
-    socket = accept(server_fd, (struct sockaddr *)&address,(socklen_t*)&addrlen);
-
+void manageCalls(int socket,int server_fd, struct sockaddr_in address, int addrlen){
     std::ofstream outfile ("datos.json",std::ofstream::binary);
-    char buffer[2048];
+    char buffer[4096];
     string message;
-    read(socket, buffer, 2048);
+    read(socket, buffer, 4096);
     message = buffer;
     int len = message.length();
     outfile.write(buffer, len);
@@ -82,8 +79,13 @@ int main()
         perror("Listening has failed");
         exit(EXIT_FAILURE);
     }
-    while (true) {
-        manageCalls(server_fd, address, addrlen);
+    int socket;
+    while(true) {
+        socket = accept(server_fd, (struct sockaddr *) &address, (socklen_t *) &addrlen);
+        templo=new Templo;
+        while (true) {
+            manageCalls(socket, server_fd, address, addrlen);
+        }
     }
     return 0;
 }

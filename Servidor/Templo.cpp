@@ -68,7 +68,6 @@ void Templo::startCiclo(){
     float x=stof(op->read(getPos("Player"), "posx"));
     float y=stof(op->read( getPos("Player"),"posy"));
 
-
     j->ubicacion(Matrix::toMatrixPosition(x,y,this->nivel, lvl.getMap()));
 
     if(j->getVida()==0){
@@ -128,8 +127,17 @@ void Templo::startCiclo(){
 
     if(op->read(getPos("Nivel"), "personaje_zona_segura")=="true"){
         persiguiendo=false;
+    }else{
+        for(int i=0; i<espectros->largo;i++){
+            Espectro* e = espectros->getNodoPos(i)->getValue();
+            if(e->checkearVision() && !persiguiendo){
+                persiguiendo=true;
+                e->setProceso(PersiguiendoBread);
+                e->visited=j->getTraces()->largo-2;
+                break;
+            }
+        }
     }
-
     for(int i=0; i<espectros->largo;i++){
         Espectro* e = espectros->getNodoPos(i)->getValue();
         e->setVivo(op->read(getPos(to_string(e->getColor())+to_string(i+1)), "vivo")=="true");
@@ -139,7 +147,7 @@ void Templo::startCiclo(){
             e->setX(posicionReal.first);
             e->setY(posicionReal.second);
 
-            persiguiendo=true;
+
             if (persiguiendo) {
                 if (e->getProceso() != PersiguiendoBread && e->getProceso() != PersiguiendoA) {
                     e->setProceso(PersiguiendoA);
@@ -159,6 +167,10 @@ void Templo::startCiclo(){
                     to_string(point.first));
             op->WRITE(getPos(to_string(e->getColor())+to_string(i+1)), "posy",
                     to_string(point.second));
+            op->WRITE(getPos(to_string(e->getColor())+to_string(i+1)), "velocidad",
+                      to_string(1));
+            op->WRITE(getPos(to_string(e->getColor())+to_string(i+1)), "velocidad",
+                      to_string(1));
         }
     }
     for(int i=0; i<ratones->largo;i++){
@@ -184,6 +196,18 @@ void Templo::startCiclo(){
             //        "posy",to_string(point.second));
         }
     }
+
+   /** for(int i=0; i<espectros->largo;i++) {
+        Espectro *e = espectros->getNodoPos(i)->getValue();
+        lvl.getMap()[e->getX()][e->getY()]=(i+2);
+    }
+    lvl.getMap()[j->getX()][j->getY()]=9;
+    Matrix::print(lvl.getMap());
+    lvl.getMap()[j->getX()][j->getY()]=0;
+    for(int i=0; i<espectros->largo;i++) {
+        Espectro *e = espectros->getNodoPos(i)->getValue();
+        lvl.getMap()[e->getX()][e->getY()]=0;
+    }*/
 
 }
 
@@ -213,27 +237,22 @@ Nivel Templo::restartNivel(){
     Jugador* j=Jugador::getJugador();
     switch (nivel) {
         case 1:
-            j->setTracesMap(Matrix::generateMatrix1());
             lvl= new Nivel1;
             nivel1=lvl;
             break;
         case 2:
-            j->setTracesMap(Matrix::generateMatrix2());
             lvl= new Nivel2;
             nivel2=lvl;
             break;
         case 3:
-            j->setTracesMap(Matrix::generateMatrix3());
             lvl= new Nivel3;
             nivel3=lvl;
             break;
         case 4:
-            j->setTracesMap(Matrix::generateMatrix4());
             lvl= new Nivel4;
             nivel4=lvl;
             break;
         case 5:
-            j->setTracesMap(Matrix::generateMatrix5());
             lvl= new Nivel5;
             nivel5=lvl;
             break;
@@ -242,6 +261,7 @@ Nivel Templo::restartNivel(){
     ojos=lvl->getOjos();
     chuchus=lvl->getChuchus();
     espectros=lvl->getEspectros();
+
     return *lvl;
 }
 

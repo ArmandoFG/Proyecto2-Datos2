@@ -36,7 +36,7 @@ void Operaciones_Json::WRITE(int fila, string dato, string valor){
     reader.parse(ifs, obj); 
     ifs.close();
     obj[fila][dato]= valor;
-    Json::StyledWriter SW;
+    Json::FastWriter SW;
     ofstream OS;
     OS.open("datos.json");
     OS << SW.write(obj);

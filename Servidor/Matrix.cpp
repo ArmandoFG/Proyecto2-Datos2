@@ -636,7 +636,7 @@ std::pair<int, int> Matrix::toMatrixPosition(float x, float y, int matrixNumber,
 void Matrix::print(int** matrix) {
     for(int i=0;i<SIZEX;i++){
         for(int j=0;j<SIZEY;j++){
-            cout<<matrix[i][j];
+            cout<<to_string(matrix[i][j])+" ";
         }
         cout<<"\n";
     }

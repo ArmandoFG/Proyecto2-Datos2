@@ -15,12 +15,12 @@ using namespace std;
 Jugador::Jugador() {
     vida = 5;
     movementNum=2;
+    traces=new TList<std::pair<int, int>>;
 }
 
 Jugador* Jugador::getJugador(){
     if(instance== nullptr){
         instance = new Jugador();
-        instance->setTracesMap(Matrix::generateMatrix1());
     }
     return instance;
 }
@@ -51,12 +51,16 @@ int Jugador::getVida(){
 void Jugador::ubicacion(std::pair<int, int> ubicacion){
     this->x = ubicacion.first;
     this->y = ubicacion.second;
-    movementNum++;
-    if(tracesMap[x][y]==movementNum-1){
-        movementNum--;
+    if(traces->largo>0){
+        if(x!=traces->getNodoPos(traces->largo-1)->getValue().first||
+                    y!=traces->getNodoPos(traces->largo-1)->getValue().second){
+            traces->addLast(make_pair(x, y));
+            movementNum++;
+        }
     }else{
-        tracesMap[x][y]=movementNum;
-    };
+        traces->addLast(make_pair(x, y));
+        movementNum++;
+    }
 }
 
 void Jugador::setX(int x) {
@@ -67,16 +71,17 @@ void Jugador::setY(int y) {
     Jugador::y = y;
 }
 
-int **Jugador::getTracesMap() const {
-    return tracesMap;
-}
 
-void Jugador::setTracesMap(int **tracesMap) {
-    this->tracesMap = tracesMap;
-}
-
-int Jugador::getMovementNum() const {
+int Jugador::getMovementNum() {
     return movementNum;
+}
+
+TList<std::pair<int, int>> *Jugador::getTraces() {
+    return traces;
+}
+
+void Jugador::setTraces(TList<pair<int, int>> *traces) {
+    Jugador::traces = traces;
 }
 
 

@@ -151,39 +151,47 @@ void Espectro::perseguirA() {
     A(x, y, Jugador::getJugador()->getX(), Jugador::getJugador()->getY());
     nextX->deletePos(0);
     nextY->deletePos(0);
+
+    cout<<"Persiguiendo " + to_string(getEspectro())<<endl;
 }
 
-void Espectro::breadcumbing(int xi, int yi){
-    int nextTrace=std::numeric_limits<int>::max();
-    int nx;
-    int ny;
-    int** tracesMap=Jugador::getJugador()->getTracesMap();
-    if(tracesMap[xi][yi] >1){
-        for (int i=-1;i<2;i++){
-            if(xi+i<Matrix::SIZEX && xi+i>-1){
-                for(int j=-1;j<2;j++){
-                    if(yi+j<Matrix::SIZEY && yi+j>-1 ){
-                        if(tracesMap[xi + i][yi + j] < nextTrace){
-                            nextTrace=tracesMap[xi + i][yi + j];
-                            nx=xi+i;
-                            ny=yi+j;
-                        }
-                    }
-                }
+void Espectro::breadcumbing(int attemp){
+    TList<std::pair<int, int>>* traces=Jugador::getJugador()->getTraces();
+
+    int nx=-1;
+    int ny=-1;
+
+    for(int i=0;i<traces->largo;i++){
+        std::pair<int, int> p =traces->getNodoPos(i)->getValue();
+        if(p.first==x && p.second==y){
+            if(i>visited) {
+                visited = i;
+                cout<<"Visited" + to_string(i);
+                cout<<"; Total"+to_string(traces->largo);
             }
         }
-        nextX->addLast(nx);
-        nextY->addLast(ny);
-    }else{
-        perseguirA();
     }
+
+    if(visited<traces->largo-1){
+        std::pair<int, int> p =traces->getNodoPos(visited+1)->getValue();
+        nx=p.first;
+        ny=p.second;
+        cout<<"Jugadorx: "+to_string(Jugador::getJugador()->getX())+" E: "+ to_string(nx);
+    }else{
+        nx=x;
+        ny=y;
+    }
+
+    nextX->addLast(nx);
+    nextY->addLast(ny);
+
 }
 
 void Espectro::perseguirBread() {
     nextX=new TList<int>;
     nextY=new TList<int>;
     this->proceso=PersiguiendoBread;
-    breadcumbing(x, y);
+    breadcumbing(4);
 }
 
 /**
@@ -396,8 +404,6 @@ Espectro::Espectro(ColorEspectro color, int velocidadRuta, int velocidadPersecus
     this->vision=vision;
     this->x=x;
     this->y=y;
-    vistax=0;
-    vistay=1;
     this->map=map;
     this->mapPatrullaje=mapPatrullaje;
     espectro=numEspectro;

@@ -36,8 +36,6 @@ protected:
     int y;
     int lx{-1};
     int ly{-1};
-    int vistax;
-    int vistay;
     int espectro;
     int** map;
     int** mapPatrullaje;
@@ -45,7 +43,7 @@ protected:
     TList<int>* nextY;
 private:
     void A(int xi, int yi, int xf, int yf);
-    void breadcumbing(int xi, int yi );
+    void breadcumbing(int attempt );
     void volverBacktrAux(int xi, int yi, int xf, int yf, int step, bool *done);
     void perseguirBread();
     void perseguirA();
@@ -69,6 +67,8 @@ public:
     void nextStep();
     void mover();
     virtual void habilidad(int x, int y);
+
+    int visited{-1};
 };
 
 

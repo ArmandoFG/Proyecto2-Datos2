@@ -8,6 +8,7 @@
 #ifndef JUGADOR_H
 #define	JUGADOR_H
 #include <utility>
+#include "TList.h"
 using namespace std;
 
 class Jugador {
@@ -19,14 +20,15 @@ public:
     int getVida();
     int getX();
     int getY();
+
+    TList<std::pair<int, int>> *getTraces() ;
+
+    void setTraces(TList<pair<int, int>> *traces);
+
     void ubicacion(std::pair<int, int> ubicacion);
-    int** tracesMap;
+    TList<std::pair<int, int>>* traces;
     int movementNum;
-
-    int getMovementNum() const;
-
-    int **getTracesMap() const;
-    void setTracesMap(int **tracesMap);
+    int getMovementNum();
 
 private:
     Jugador();
