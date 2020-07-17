@@ -574,7 +574,7 @@ std::pair<int, int> Matrix::toMatrixPosition(float x, float y, int matrixNumber,
 
 int** Matrix::rutasMatrix1(){
     int **map = generateMatrix1();
-    for(int i = 22; i < 31; i++){
+    for(int i = 24; i < 29; i++){
         map[9][i] = 2;
     }
     map[13][26] = 2;
@@ -585,7 +585,7 @@ int** Matrix::rutasMatrix1(){
         i++;
     }
     i = 12;
-    for(int j = 27; map[i][j] != 2; j++){
+    for(int j = 27; j != 30; j++){
         map[i][j] = 2;
         i--;
     }
@@ -611,6 +611,10 @@ int** Matrix::rutasMatrix1(){
     for(int  i = 38; map[i][j] != 3; i--){
         map[i][j] = 3;  
     }
+    map[33][5] = 0;
+    map[33][19] = 0;
+    map[39][19] = 0;
+    map[39][5] = 0;
 
     map[33][41] = 4;
     map[37][37] = 4;
@@ -651,7 +655,7 @@ void Matrix::print(int** matrix) {
 
 int** Matrix::rutasMatrix2(){
     int **map = generateMatrix2();
-    for(int i = 22; i < 31; i++){
+    for(int i = 24; i < 29; i++){
         map[10][i] = 2;
     }
     map[14][26] = 2;
@@ -662,7 +666,7 @@ int** Matrix::rutasMatrix2(){
         i++;
     }
     i = 13;
-    for(int j = 27; map[i][j] != 2; j++){
+    for(int j = 27; j != 30; j++){
         map[i][j] = 2;
         i--;
     }
@@ -691,7 +695,10 @@ int** Matrix::rutasMatrix2(){
         map[i][j] = 3;  
     }
 
-    
+     map[33][3] = 0;
+    map[33][13] = 0;
+    map[39][13] = 0;
+    map[39][3] = 0;
 
     map[29][41] = 4;
     map[33][37] = 4;
@@ -724,7 +731,7 @@ int** Matrix::rutasMatrix2(){
 
 int** Matrix::rutasMatrix3(){
     int **map = generateMatrix3();
-    for(int i = 12; i < 21; i++){
+    for(int i = 14; i < 19; i++){
         map[10][i] = 2;
     }
     map[14][16] = 2;
@@ -735,14 +742,11 @@ int** Matrix::rutasMatrix3(){
         i++;
     }
     i = 13;
-    for(int j = 17; map[i][j] != 2; j++){
+    for(int j = 17; j != 20; j++){
         map[i][j] = 2;
         i--;
     }
 
-    
-
-    
 
     map[23][33] = 3;
     map[23][43] = 3;
@@ -765,6 +769,11 @@ int** Matrix::rutasMatrix3(){
     for(int  i = 28; map[i][j] != 3; i--){
         map[i][j] = 3;  
     }
+
+    map[23][33] = 0;
+    map[23][43] = 0;
+    map[29][43] = 0;
+    map[29][33] = 0;
 
     map[39][27] = 4;
     map[43][23] = 4;
@@ -797,7 +806,7 @@ int** Matrix::rutasMatrix3(){
 
 int** Matrix::rutasMatrix4(){
     int **map = generateMatrix4();
-    for(int i = 20; i < 30; i++){
+    for(int i = 22; i < 28; i++){
         map[4][i] = 2;
     }
     map[8][25] = 2;
@@ -808,7 +817,7 @@ int** Matrix::rutasMatrix4(){
         i++;
     }
     i = 7;
-    for(int j = 26; map[i][j] != 2; j++){
+    for(int j = 26; j != 29; j++){
         map[i][j] = 2;
         i--;
     }
@@ -835,6 +844,10 @@ int** Matrix::rutasMatrix4(){
     for(int  i = 28; map[i][j] != 3; i--){
         map[i][j] = 3;  
     }
+    map[23][38] = 0;
+    map[23][48] = 0;
+    map[29][48] = 0;
+    map[29][38] = 0;
 
     map[39][27] = 4;
     map[43][23] = 4;
