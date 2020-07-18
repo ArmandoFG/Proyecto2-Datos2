@@ -34,8 +34,12 @@ protected:
     int vision;
     int x;
     int y;
-    int lx{-1};
-    int ly{-1};
+    int px;
+    int py;
+    int lx;
+    int ly;
+    int llx;
+    int lly;
     int espectro;
     int** map;
     int** mapPatrullaje;

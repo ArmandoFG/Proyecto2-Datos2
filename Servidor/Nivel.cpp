@@ -22,13 +22,16 @@ Nivel::Nivel() {
 Nivel1::Nivel1():Nivel() {
     g->Iniciar_Poblacion();
     map=Matrix::generateMatrix1();
-    mapPatrullaje=Matrix::generateMatrix1();
+    mapPatrullaje=Matrix::rutasMatrix1();
     espectros->addLast(EspectroFactory::Get(Gris,    g->retornarGen(0,0)
-        ,g->retornarGen(0,1), 9, 8,9,1, map, mapPatrullaje));
+        ,g->retornarGen(0,1), 9, 9,23 ,1, map, mapPatrullaje));
     espectros->addLast(EspectroFactory::Get(Gris,    g->retornarGen(0,0)
-            ,g->retornarGen(0,1), 9, 8,9,2, map, mapPatrullaje));
+            ,g->retornarGen(0,1), 9, 33,5,2, map, mapPatrullaje));
     espectros->addLast(EspectroFactory::Get(Gris,    g->retornarGen(0,0)
-            ,g->retornarGen(0,1), 9, 8,9,3, map, mapPatrullaje));
+            ,g->retornarGen(0,1), 9, 33,41,3, map, mapPatrullaje));
+    ratones->addLast(new Raton(1));
+    ratones->addLast(new Raton(2));
+    ojos->addLast(new Ojo(7,7,4));
 }
 
 

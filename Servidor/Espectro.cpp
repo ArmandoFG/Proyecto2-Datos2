@@ -158,8 +158,8 @@ void Espectro::perseguirA() {
 void Espectro::breadcumbing(int attemp){
     TList<std::pair<int, int>>* traces=Jugador::getJugador()->getTraces();
 
-    int nx=-1;
-    int ny=-1;
+    int nx;
+    int ny;
 
     for(int i=0;i<traces->largo;i++){
         std::pair<int, int> p =traces->getNodoPos(i)->getValue();
@@ -178,8 +178,8 @@ void Espectro::breadcumbing(int attemp){
         ny=p.second;
         cout<<"Jugadorx: "+to_string(Jugador::getJugador()->getX())+" E: "+ to_string(nx);
     }else{
-        nx=x;
-        ny=y;
+        nx=Jugador::getJugador()->getX();
+        ny=Jugador::getJugador()->getY();
     }
 
     nextX->addLast(nx);
@@ -282,7 +282,7 @@ void Espectro::devolverse(){
     nextY=new TList<int>;
     bool* done = new bool(false) ;
     //Note: Steps starts from 3 because 1 and 2 are taken for walls and final path
-    volverBacktrAux(x, y, 3, 3,3, done);
+    volverBacktrAux(x, y, px, py,3, done);
     nextX->deletePos(0);
     nextY->deletePos(0);
 
@@ -318,13 +318,38 @@ void Espectro::patrullar(){
         if (x + i < Matrix::SIZEX && x + i > -1) {
             for (int j = -1; j < 2; j++) {
                 if (y + j < Matrix::SIZEY && y + j > -1) {
-                    if (mapPatrullaje[x + i][y + j] == (espectro+1) && (lx!=(x + i) || ly!=(y + j)) &&(i!=0||j!=0) ) {
+                    bool condition;
+                    if(x!=lx || y!=ly){
+                        condition =(lx!=x+i ||ly!=y+j);
+                    }else{
+                        condition =(llx!=x+i ||lly!=y+j);
+                    }
+                    if(mapPatrullaje[x][y]!=espectro+1){
+                        x=lx;
+                        y=ly;
+                    }
+                    if (mapPatrullaje[x + i][y + j] == (espectro+1) && condition && (j!=0||i!=0)) {
+                        if(this->getEspectro()==1){
+                            int u=0;
+                            cout<<"llx:"+to_string(llx)+";lly:"+to_string(lly)<<endl;
+                            cout<<"lx:"+to_string(lx)+";ly:"+to_string(ly)<<endl;
+                            cout<<"x:"+to_string(x)+";y:"+to_string(y)<<endl;
+                            cout<<"i:"+to_string(i)+";j:"+to_string(j)<<endl;
+                        }
+                        if(lx!=llx || ly!=lly){
+                            if(x!=lx || y!=ly){
+                                llx=lx;
+                                lly=ly;
+                            }
+                        }
+
                         lx=x;
                         ly=y;
-                        x += i;
-                        y += j;
-                        nextX->addLast(x);
-                        nextY->addLast(y);
+
+                        x=x+i;
+                        y=y+j;
+
+                        return;
                     }
                 }
             }
@@ -338,7 +363,7 @@ void Espectro::mover() {
         patrullar();
     } else if(proceso==Volviendo){
         devolverse();
-    }else if( nextX->largo>0) {
+    }else if( nextX->largo>0 && (x=!px || y!=py)) {
         x = nextX->getFirst()->getValue();
         nextX->deletePos(0);
         y = nextY->getFirst()->getValue();
@@ -346,6 +371,8 @@ void Espectro::mover() {
     }else{
         if(proceso==Volviendo){
             proceso=Normal;
+            lx=-100;
+            ly=-100;
         }
     }
 }
@@ -372,7 +399,6 @@ void Espectro::nextStep() {
         nextX=new TList<int>;
         nextY=new TList<int>;
         this->perseguirA();
-
     }else{
         mover();
     }
@@ -433,11 +459,33 @@ void Espectro::setProceso(Proceso proceso) {
 
 EspectroGris::EspectroGris(int velocidadRuta, int velocidadPersecusion,
         int vision, int x, int y, int numEspectro, int** map, int** mapPatrullaje)
-        : Espectro(Gris, velocidadRuta, velocidadPersecusion, vision, x, y, numEspectro, map, mapPatrullaje) {}
+        : Espectro(Gris, velocidadRuta, velocidadPersecusion, vision, x, y, numEspectro, map, mapPatrullaje) {
+    px=x;
+    py=y;
+    lx=x;
+    ly=y;
+    llx=x;
+    lly=y;
+}
 
 EspectroRojo::EspectroRojo(int velocidadRuta, int velocidadPersecusion,
                            int vision, int x, int y, int numEspectro, int** map, int** mapPatrullaje)
-        : Espectro(Rojo, velocidadRuta, velocidadPersecusion, vision, x, y, numEspectro, map, mapPatrullaje) {}
+        : Espectro(Rojo, velocidadRuta, velocidadPersecusion, vision, x, y, numEspectro, map, mapPatrullaje) {
+    px=x;
+    py=y;
+    lx=x;
+    ly=y;
+    llx=x;
+    lly=y;
+}
 EspectroAzul::EspectroAzul(int velocidadRuta, int velocidadPersecusion,
                            int vision, int x, int y, int numEspectro, int** map, int** mapPatrullaje)
-        : Espectro(Azul, velocidadRuta, velocidadPersecusion, vision, x, y, numEspectro, map, mapPatrullaje) {}
+        : Espectro(Azul, velocidadRuta, velocidadPersecusion, vision, x, y, numEspectro, map, mapPatrullaje) {
+
+    px=x;
+    py=y;
+    lx=x;
+    ly=y;
+    llx=x;
+    lly=y;
+}

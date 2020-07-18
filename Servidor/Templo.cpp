@@ -51,6 +51,11 @@ int getPos(string name){
 void Templo::startCiclo(){
 
 
+    auto p1=Matrix::toPoint(9,23,1);
+    auto p2=Matrix::toPoint(33,5,1);
+    auto p3=Matrix::toPoint(33,41,1);
+
+
     Nivel lvl=getNivel();
     auto* op=new Operaciones_Json;
     cout<<op->read(getPos("Nivel"), "level").substr(6)<<endl;
@@ -214,7 +219,7 @@ void Templo::startCiclo(){
 bool Templo::ratonCerca(int x, int y, int vision){
     for(int i=0; i<ratones->largo;i++){
         if(ratones->getNodoPos(i)->getValue()->checkearVision(x, y, vision)){
-            return true;
+            //return true;
         }
     }
     return false;
@@ -282,4 +287,5 @@ Nivel Templo::getNivel(){
 
 Templo::Templo() {
     nivel=1;
+    persiguiendo= false;
 }
