@@ -130,7 +130,7 @@ void Templo::startCiclo(){
         }
     }
 
-    if(op->read(getPos("Nivel"), "personaje_zona_segura")=="true"){
+    if(false){//op->read(getPos("Nivel"), "personaje_zona_segura")=="true"){
         persiguiendo=false;
     }else{
         for(int i=0; i<espectros->largo;i++){
@@ -138,7 +138,9 @@ void Templo::startCiclo(){
             if(e->checkearVision() && !persiguiendo){
                 persiguiendo=true;
                 e->setProceso(PersiguiendoBread);
-                e->visited=j->getTraces()->largo-2;
+                e->setVistox(Jugador::getJugador()->getX());
+                e->setVistoy(Jugador::getJugador()->getY());
+                e->visited=-1;
                 break;
             }
         }

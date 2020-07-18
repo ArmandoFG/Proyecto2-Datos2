@@ -40,7 +40,15 @@ protected:
     int ly;
     int llx;
     int lly;
+    int vistox;
+    int vistoy;
     int espectro;
+public:
+    void setVistox(int vistox);
+
+    void setVistoy(int vistoy);
+
+protected:
     int** map;
     int** mapPatrullaje;
     TList<int>* nextX;

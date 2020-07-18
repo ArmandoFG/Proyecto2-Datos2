@@ -100,6 +100,8 @@ void Espectro::A(int xi, int yi, int xf, int yf){
                 //map[xtemp][ytemp]= 2;
                 open = *new TList<string>;
             }
+            nextY->addLast(yf);
+            nextX->addLast(xf);
            /** for(int u=0;u<100;u++){
                 for(int p=0;p<100;p++){
                     std::cout<<map[u][p];
@@ -151,8 +153,6 @@ void Espectro::perseguirA() {
     A(x, y, Jugador::getJugador()->getX(), Jugador::getJugador()->getY());
     nextX->deletePos(0);
     nextY->deletePos(0);
-
-    cout<<"Persiguiendo " + to_string(getEspectro())<<endl;
 }
 
 void Espectro::breadcumbing(int attemp){
@@ -161,30 +161,29 @@ void Espectro::breadcumbing(int attemp){
     int nx;
     int ny;
 
-    for(int i=0;i<traces->largo;i++){
+    for(int i=visited+1;i<traces->largo;i++){
         std::pair<int, int> p =traces->getNodoPos(i)->getValue();
         if(p.first==x && p.second==y){
             if(i>visited) {
                 visited = i;
-                cout<<"Visited" + to_string(i);
-                cout<<"; Total"+to_string(traces->largo);
             }
         }
     }
 
-    if(visited<traces->largo-1){
+    if(visited<traces->largo-1 && visited>=0){
         std::pair<int, int> p =traces->getNodoPos(visited+1)->getValue();
         nx=p.first;
         ny=p.second;
         cout<<"Jugadorx: "+to_string(Jugador::getJugador()->getX())+" E: "+ to_string(nx);
-    }else{
-        nx=Jugador::getJugador()->getX();
-        ny=Jugador::getJugador()->getY();
+    }else if(visited==-1){
+        nx=vistox;
+        ny=vistoy;
+    } else{
+        nx=x;
+        ny=y;
     }
-
     nextX->addLast(nx);
     nextY->addLast(ny);
-
 }
 
 void Espectro::perseguirBread() {
@@ -362,18 +361,22 @@ void Espectro::mover() {
     if(proceso==Normal) {
         patrullar();
     } else if(proceso==Volviendo){
-        devolverse();
-    }else if( nextX->largo>0 && (x=!px || y!=py)) {
+        if(x==px && y==py){
+            proceso=Normal;
+            lx=px;
+            ly=py;
+            llx=px;
+            lly=py;
+        }else{
+            devolverse();
+        }
+    }else if( nextX->largo>0) {
         x = nextX->getFirst()->getValue();
         nextX->deletePos(0);
         y = nextY->getFirst()->getValue();
         nextY->deletePos(0);
     }else{
-        if(proceso==Volviendo){
-            proceso=Normal;
-            lx=-100;
-            ly=-100;
-        }
+
     }
 }
 
@@ -455,6 +458,14 @@ void Espectro::habilidad(int x, int y) {
 
 void Espectro::setProceso(Proceso proceso) {
     Espectro::proceso = proceso;
+}
+
+void Espectro::setVistox(int vistox) {
+    Espectro::vistox = vistox;
+}
+
+void Espectro::setVistoy(int vistoy) {
+    Espectro::vistoy = vistoy;
 }
 
 EspectroGris::EspectroGris(int velocidadRuta, int velocidadPersecusion,
