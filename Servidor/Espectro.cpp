@@ -291,7 +291,6 @@ void Espectro::devolverse(){
     bool* done = new bool(false) ;
     //Note: Steps starts from 3 because 1 and 2 are taken for walls and final path
     volverBacktrAux(x, y, px, py,3, done);
-    Matrix::print(map);
     delete map;
     this->map=Matrix::generateMatrix1();
     nextX->deletePos(0);
