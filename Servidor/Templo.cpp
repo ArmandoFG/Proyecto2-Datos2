@@ -51,7 +51,7 @@ int getPos(string name){
 void Templo::startCiclo(){
 
 
-    auto p1=Matrix::toPoint(9,23,1);
+    auto p1=Matrix::toMatrixPosition(-6.608,9.412, 1, getNivel().getMap());
     auto p2=Matrix::toPoint(33,5,1);
     auto p3=Matrix::toPoint(33,41,1);
 
@@ -59,6 +59,7 @@ void Templo::startCiclo(){
     Nivel lvl=getNivel();
     auto* op=new Operaciones_Json;
     cout<<op->read(getPos("Nivel"), "level").substr(6)<<endl;
+
     if(nivel!=stoi(op->read(getPos("Nivel"), "level").substr(6))){
         this->nextNivel();
         nivel++;
@@ -73,12 +74,13 @@ void Templo::startCiclo(){
     float x=stof(op->read(getPos("Player"), "posx"));
     float y=stof(op->read( getPos("Player"),"posy"));
 
-    j->ubicacion(Matrix::toMatrixPosition(x,y,this->nivel, lvl.getMap()));
-
     if(j->getVida()==0){
         lvl=restartNivel();
         j->setvida(5);
         j->setmarcador(0);}
+
+    j->ubicacion(Matrix::toMatrixPosition(x,y,this->nivel, lvl.getMap()));
+
     for(int i=0; i<chuchus->largo;i++){
         Chuchu* c =chuchus->getNodoPos(i)->getValue();
         c->setVivo(op->read(getPos("Chuchu"), "vivo")=="true");
@@ -135,7 +137,9 @@ void Templo::startCiclo(){
     }else{
         for(int i=0; i<espectros->largo;i++){
             Espectro* e = espectros->getNodoPos(i)->getValue();
-            if(e->checkearVision() && !persiguiendo){
+            if(/**op->read(getPos(to_string(e->getColor())+to_string(i+1)), "radiovision")=="true"
+            &&*/ !persiguiendo && e->isVivo()
+            && e->checkearVision() ){
                 persiguiendo=true;
                 e->setProceso(PersiguiendoBread);
                 e->setVistox(Jugador::getJugador()->getX());
@@ -175,9 +179,11 @@ void Templo::startCiclo(){
             op->WRITE(getPos(to_string(e->getColor())+to_string(i+1)), "posy",
                     to_string(point.second));
             op->WRITE(getPos(to_string(e->getColor())+to_string(i+1)), "velocidad",
-                      to_string(1));
+                      to_string(3));
             op->WRITE(getPos(to_string(e->getColor())+to_string(i+1)), "velocidad",
-                      to_string(1));
+                      to_string(3));
+            op->WRITE(getPos(to_string(e->getColor())+to_string(i+1)), "tamanoradio",
+                      to_string(e->getVision()));
         }
     }
     for(int i=0; i<ratones->largo;i++){
@@ -194,7 +200,6 @@ void Templo::startCiclo(){
                              "posy")),
                     nivel, lvl.getMap());
             r->setPos(ubicacion.first,ubicacion.second);
-
             //r->movimiento();
             //std::pair<float,float> point = Matrix::toPoint(r->GetPosX(),r->GetPosY(), nivel);
             //op->WRITE("Personajes",chuchus->largo+espectros->largo+ojos->largo,
@@ -221,7 +226,7 @@ void Templo::startCiclo(){
 bool Templo::ratonCerca(int x, int y, int vision){
     for(int i=0; i<ratones->largo;i++){
         if(ratones->getNodoPos(i)->getValue()->checkearVision(x, y, vision)){
-            //return true;
+        //    return
         }
     }
     return false;

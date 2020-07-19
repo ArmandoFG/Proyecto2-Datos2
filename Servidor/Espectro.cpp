@@ -11,7 +11,7 @@
 
 
 
-bool Espectro::checkearVision() const{
+bool Espectro::checkearVision() {
     Jugador j=*Jugador::getJugador();
     return sqrt(pow(x - j.getX(), 2) + pow(y - j.getY(), 2)) < vision;
 }
@@ -232,9 +232,7 @@ void mark(int xi, int yi, int** map, int mark, int step){
  */
 int Espectro::volverBacktrAux(int xi, int yi, int xf, int yf, int step, bool* done)
 {
-
     //If object is on goal, exists
-
     if (xi==xf && yi==yf) {
         *done = true;
         return step;
@@ -248,6 +246,7 @@ int Espectro::volverBacktrAux(int xi, int yi, int xf, int yf, int step, bool* do
         int pos=nextX->largo;
         nextX->addLast(xi);
         nextY->addLast(yi);
+        //Matrix::print(map);
         mark(xi, yi, map, step, step);
         int biggestStep=step;
         //Object tries every possible path
@@ -277,8 +276,8 @@ int Espectro::volverBacktrAux(int xi, int yi, int xf, int yf, int step, bool* do
         //mark(xi, yi, map, 0, step);
         nextX->deletePos(pos);
         nextY->deletePos(pos);
+        return step;
     }
-    return step;
 }
 
 
@@ -286,24 +285,24 @@ void Espectro::devolverse(){
     //Test Map (1's are walls)
     //Calling backtracking
     this->proceso=Volviendo;
-    nextX=new TList<int>;
-    nextY=new TList<int>;
-    bool* done = new bool(false) ;
-    //Note: Steps starts from 3 because 1 and 2 are taken for walls and final path
-    volverBacktrAux(x, y, px, py,3, done);
-    delete map;
-    this->map=Matrix::generateMatrix1();
-    nextX->deletePos(0);
-    nextY->deletePos(0);
-
-    /**for(int u=0;u<Matrix::SIZEX;u++){
-        for(int p=0;p<Matrix::SIZEY;p++){
-            std::cout<<map[u][p];
-        }
-        std::cout<<"\n";
+    if(nextY->largo==0){
+        bool* done = new bool(false);
+        //Note: Steps starts from 3 because 1 and 2 are taken for walls and final path
+        volverBacktrAux(x, y, px, py,3, done);
+        delete map;
+        this->map=Matrix::generateMatrix1();
+        nextX->deletePos(0);
+        nextY->deletePos(0);
+        lx=x;
+        ly=y;
     }
-     */
-
+    for(int i=0;i<nextX->largo;i++){
+        map[nextX->getNodoPos(i)->getValue()][nextY->getNodoPos(i)->getValue()]=(2+i);
+    }
+    Matrix::print(map);
+    for(int i=0;i<nextX->largo;i++){
+        map[nextX->getNodoPos(i)->getValue()][nextY->getNodoPos(i)->getValue()]=0;
+    }
     //The results on the map are asigned to the espectro
 }
 
@@ -365,19 +364,36 @@ void Espectro::mover() {
     if(proceso==Normal) {
         patrullar();
     }else if( nextX->largo>0) {
-        x = nextX->getFirst()->getValue();
-        nextX->deletePos(0);
-        y = nextY->getFirst()->getValue();
-        nextY->deletePos(0);
+        if(proceso==Volviendo){
+            if(lx!=x||ly!=y ||(x == nextX->getFirst()->getValue() && y == nextY->getFirst()->getValue())) {
+                nextX->deletePos(0);
+                nextY->deletePos(0);
+            }
+            lx=x;
+            ly=y;
+        }
+        if(nextX->largo>0){
+            x = nextX->getFirst()->getValue();
+            y = nextY->getFirst()->getValue();
+        } else{
+            proceso=Normal;
+            lx=px;
+            ly=py;
+            llx=px;
+            lly=py;
+        }
+    } else if(proceso == Volviendo){
+        proceso=Normal;
+        lx=px;
+        ly=py;
+        llx=px;
+        lly=py;
     }
 }
 
 void Espectro::nextStep() {
-    bool found = false;
-
     switch (proceso) {
         case Normal:
-            found = checkearVision();
             break;
         case Volviendo:
             if(x==px && y==py){
@@ -397,14 +413,7 @@ void Espectro::nextStep() {
             this->perseguirBread();
             break;
     }
-
-    if(found){
-        nextX=new TList<int>;
-        nextY=new TList<int>;
-        this->perseguirA();
-    }else{
-        mover();
-    }
+    mover();
 }
 
 Proceso Espectro::getProceso()  {
@@ -457,6 +466,10 @@ void Espectro::habilidad(int x, int y) {
 }
 
 void Espectro::setProceso(Proceso proceso) {
+    if(proceso==Volviendo){
+        nextX=new TList<int>;
+        nextY=new TList<int>;
+    }
     Espectro::proceso = proceso;
 }
 

@@ -12,6 +12,34 @@ using namespace std;
 #include "Matrix.h"
 
 #define PORT 12345
+
+#include <poll.h>          // For poll()
+
+bool is_client_closed(int cs)
+{
+    pollfd pfd;
+    pfd.fd = cs;
+    pfd.events = POLLIN | POLLHUP | POLLRDNORM;
+    pfd.revents = 0;
+    while(pfd.revents == 0)
+    {
+        // call poll with a timeout of 100 ms
+        if(poll(&pfd, 1, 100) > 0)
+        {
+            // if result > 0, this means that there is either data available on the
+            // socket, or the socket has been closed
+            char buffer[32];
+            if(recv(cs, buffer, sizeof(buffer), MSG_PEEK | MSG_DONTWAIT) == 0)
+            {
+                // if recv returns zero, that means the connection has been closed:
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+
 int strf(char **rbuf);
 string DatosEnviar;
 Templo* templo=new Templo;
@@ -34,6 +62,7 @@ void manageCalls(int socket,int server_fd, struct sockaddr_in address, int addrl
     char *rbuf;
     int len2 = strf(&rbuf);
     send(socket, rbuf, len2, 0);
+
 }
 
 

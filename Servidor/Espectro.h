@@ -70,7 +70,7 @@ public:
     void setProceso(Proceso proceso);
 
     int getVision();
-    bool checkearVision() const;
+    bool checkearVision();
     Proceso getProceso() ;
     void setY(int y);
     void setX(int x);

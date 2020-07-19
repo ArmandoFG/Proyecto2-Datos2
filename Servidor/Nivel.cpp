@@ -31,7 +31,7 @@ Nivel1::Nivel1():Nivel() {
             ,g->retornarGen(0,1), 9, 33,41,3, map, mapPatrullaje));
     ratones->addLast(new Raton(1));
     ratones->addLast(new Raton(2));
-    ojos->addLast(new Ojo(7,7,4));
+    chuchus->addLast(new Chuchu(1,map, 14,12));
 }
 
 
