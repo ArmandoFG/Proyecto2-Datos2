@@ -70,8 +70,8 @@ void Genetico::Iniciar_Poblacion(){
     
     for(int i=0; i < individuos; i++){
         individuo = i;
-        int gene1 = 1+rand()%4;
-        int gene2 = 1+rand()%4;
+        int gene1 = rand()%11;
+        int gene2 = rand()%11;
         int gene3 = rand()%11;
         int gene4 = rand()%11;
         int fitness = gene1 + gene2 + gene3 + gene4;
@@ -141,11 +141,10 @@ void agrega_atributo(Tnodo &aux, Tatributo &nuevo, int *Atbt)
 
 void Genetico::insertar_atributo(int ATRIBUTO, int individuo)
 {      
-    int *Atbt = new int[2]; //Puntero del peso de la arista
-    Tatributo nuevo=new struct atributos;    //Se crea la variable de la nueva arista
+    int *Atbt = new int[2]; 
+    Tatributo nuevo=new struct atributos;    
     Tnodo aux, aux2;
 
-    //Si no hay nodos no puede ingresar la arista
     if(POBLACION==NULL)
      {
 
@@ -156,7 +155,6 @@ void Genetico::insertar_atributo(int ATRIBUTO, int individuo)
     *Atbt = ATRIBUTO;
     aux=POBLACION;
     aux2=POBLACION;
-    //Se recorre los nodos para verificar que existan y para agregarle la arista
     
     while(aux!=NULL)
     {
@@ -178,7 +176,6 @@ void Genetico::seleccion(){
   Tnodo Temp = POBLACION;
   int fitness = *Temp->fitness;
    int pareja = 0; 
-  
        if(*Temp->fitness > *Temp->sgte->fitness){
            
            Padre = *Temp->individuo;
@@ -263,6 +260,29 @@ void cruce(){
         ptr = ptr->sgte;
         
     }
+    int probabilidad = rand()%101;
+    srand(time(NULL));
+
+
+    if(20 <= probabilidad && probabilidad <= 30){
+        int gen = rand()%4;
+        if(Genes[gen] != 10){
+            Genes[gen] += 1; 
+            cout << "se dio mutacion" << endl;
+
+        }
+    }
+    if(2 <= probabilidad && probabilidad <= 9){
+        int numGenes1 = rand()%4;
+        int numGenes2 = rand()%4;
+        Genes[numGenes1] =  10 - Genes[numGenes1];
+        Genes[numGenes2] =  10 - Genes[numGenes2];
+        cout << "se dio lo otro" << endl;
+    }
+            cout << "No se dio nada: "<< probabilidad << endl;
+
+
+
     
     
     int fitness = Genes[0] + Genes[1] + Genes[2]+ Genes[3];
