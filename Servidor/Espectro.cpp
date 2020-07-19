@@ -230,21 +230,26 @@ void mark(int xi, int yi, int** map, int mark, int step){
  * @param done Boolean pointer that indicates if the goal has been reached
  * @return
  */
-void Espectro::volverBacktrAux(int xi, int yi, int xf, int yf, int step, bool* done)
+int Espectro::volverBacktrAux(int xi, int yi, int xf, int yf, int step, bool* done)
 {
 
     //If object is on goal, exists
+
     if (xi==xf && yi==yf) {
         *done = true;
-        return;
+        return step;
     } else if(map[xi][yi]==1){
-        return;
+        nextX->addLast(xi);
+        nextY->addLast(yi);
+        return step-1;
     }else{
         //The possible steps from here are marked so that they won't be
         //reached by future calls
+        int pos=nextX->largo;
         nextX->addLast(xi);
         nextY->addLast(yi);
         mark(xi, yi, map, step, step);
+        int biggestStep=step;
         //Object tries every possible path
         for (int i=-1;i<2;i++)
         {
@@ -252,24 +257,28 @@ void Espectro::volverBacktrAux(int xi, int yi, int xf, int yf, int step, bool* d
             if(xi+i<Matrix::SIZEX && xi+i>-1){
                 for(int j=-1;j<2;j++){
                     //Checking for border, checking it's not gonna enter walls or previous marks
+                    if (xi+i==xf && yi+j==yf) {
+                        map[xf][yf]=step;
+                    }
                     if((yi+j<Matrix::SIZEY && yi+j>-1)&&map[xi+i][yi+j]==step){
-                        volverBacktrAux(xi+i, yi+j, xf, yf, step+1, done);
+                        biggestStep=volverBacktrAux(xi+i, yi+j, xf, yf, biggestStep+1, done);
                         if(*done){
                             //Unmarks all marks made by this step because of success
-                            mark(xi, yi, map, 0, step);
-                            nextX->deletePos(nextX->largo-1);
-                            nextY->deletePos(nextY->largo-1);
+                            //mark(xi, yi, map, 0, step);
                             //Marks the right path with a 2
                             //map[xi][yi]=2;
-                            return;
+                            return step;
                         }
                     }
                 }
             }
         }
         //Unmarks all marks made by this step because it failed
-        mark(xi, yi, map, 0, step);
+        //mark(xi, yi, map, 0, step);
+        nextX->deletePos(pos);
+        nextY->deletePos(pos);
     }
+    return step;
 }
 
 
@@ -282,6 +291,9 @@ void Espectro::devolverse(){
     bool* done = new bool(false) ;
     //Note: Steps starts from 3 because 1 and 2 are taken for walls and final path
     volverBacktrAux(x, y, px, py,3, done);
+    Matrix::print(map);
+    delete map;
+    this->map=Matrix::generateMatrix1();
     nextX->deletePos(0);
     nextY->deletePos(0);
 
@@ -328,13 +340,6 @@ void Espectro::patrullar(){
                         y=ly;
                     }
                     if (mapPatrullaje[x + i][y + j] == (espectro+1) && condition && (j!=0||i!=0)) {
-                        if(this->getEspectro()==1){
-                            int u=0;
-                            cout<<"llx:"+to_string(llx)+";lly:"+to_string(lly)<<endl;
-                            cout<<"lx:"+to_string(lx)+";ly:"+to_string(ly)<<endl;
-                            cout<<"x:"+to_string(x)+";y:"+to_string(y)<<endl;
-                            cout<<"i:"+to_string(i)+";j:"+to_string(j)<<endl;
-                        }
                         if(lx!=llx || ly!=lly){
                             if(x!=lx || y!=ly){
                                 llx=lx;
@@ -360,23 +365,11 @@ void Espectro::patrullar(){
 void Espectro::mover() {
     if(proceso==Normal) {
         patrullar();
-    } else if(proceso==Volviendo){
-        if(x==px && y==py){
-            proceso=Normal;
-            lx=px;
-            ly=py;
-            llx=px;
-            lly=py;
-        }else{
-            devolverse();
-        }
     }else if( nextX->largo>0) {
         x = nextX->getFirst()->getValue();
         nextX->deletePos(0);
         y = nextY->getFirst()->getValue();
         nextY->deletePos(0);
-    }else{
-
     }
 }
 
@@ -388,7 +381,15 @@ void Espectro::nextStep() {
             found = checkearVision();
             break;
         case Volviendo:
-            found = checkearVision();
+            if(x==px && y==py){
+                proceso=Normal;
+                lx=px;
+                ly=py;
+                llx=px;
+                lly=py;
+            }else{
+                devolverse();
+            }
             break;
         case PersiguiendoA:
             this->perseguirA();

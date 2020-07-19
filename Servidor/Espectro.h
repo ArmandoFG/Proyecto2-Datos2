@@ -56,7 +56,7 @@ protected:
 private:
     void A(int xi, int yi, int xf, int yf);
     void breadcumbing(int attempt );
-    void volverBacktrAux(int xi, int yi, int xf, int yf, int step, bool *done);
+    int volverBacktrAux(int xi, int yi, int xf, int yf, int step, bool *done);
     void perseguirBread();
     void perseguirA();
     void devolverse();

@@ -100,9 +100,7 @@ int** Matrix::generateMatrix1() {
                 }
             }
             posX+=stepX;
-            std::cout<<map[i][j];
         }
-        std::cout<<"\n";
         posX=posXini;
         posY+=stepY;
     }

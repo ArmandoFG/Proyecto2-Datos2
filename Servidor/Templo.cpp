@@ -130,7 +130,7 @@ void Templo::startCiclo(){
         }
     }
 
-    if(false){//op->read(getPos("Nivel"), "personaje_zona_segura")=="true"){
+    if(op->read(getPos("Nivel"), "personaje_zona_segura")=="true"){
         persiguiendo=false;
     }else{
         for(int i=0; i<espectros->largo;i++){
@@ -165,7 +165,7 @@ void Templo::startCiclo(){
                 }
             }
 
-            if(!ratonCerca(e->getX(),e->getY(), e->getVision())){
+            if(!ratonCerca(e->getX(),e->getY(), e->getVision())) {
                 e->nextStep();
             }
 
