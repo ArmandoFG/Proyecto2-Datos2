@@ -10,9 +10,7 @@
 #include "Jugador.h"
 #include "math.h"
 
-Ojo::Ojo(int x, int y, int ojo) {
-    posX=x;
-    posY=y;
+Ojo::Ojo( int ojo) {
     this->ojo=ojo;
     vivo=true;
 }

@@ -10,7 +10,7 @@
 
 class Ojo {
 public:
-    Ojo(int x, int y, int ojo);
+    Ojo(int ojo);
     void setPos(int x, int y);
     int GetPosX();
     int GetPosY();
@@ -20,8 +20,8 @@ private:
     int vision;
     bool vivo;
     int ojo;
-    int posX;
-    int posY;
+    int posX{0};
+    int posY{0};
 public:
     int getOjo() const;
 

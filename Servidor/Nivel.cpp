@@ -45,6 +45,10 @@ Nivel2::Nivel2():Nivel() {
             ,g->retornarGen(0,1), g->retornarGen(0,2), 33,4,2, map, mapPatrullaje));
     espectros->addLast(EspectroFactory::Get(Rojo,    g->retornarGen(0,0)
             ,g->retornarGen(0,1), g->retornarGen(0,2), 30,40,3, map, mapPatrullaje));
+    ratones->addLast(new Raton(1));
+    ratones->addLast(new Raton(2));
+    chuchus->addLast(new Chuchu(1,map, 33,23));
+    ojos->addLast(new Ojo(1));
 }
 
 Nivel3::Nivel3() {
@@ -57,25 +61,35 @@ Nivel3::Nivel3() {
             ,g->retornarGen(0,1), g->retornarGen(0,2), 23,34,2, map, mapPatrullaje));
     espectros->addLast(EspectroFactory::Get(Azul,    g->retornarGen(0,0)
             ,g->retornarGen(0,1), g->retornarGen(0,2), 40,26,3, map, mapPatrullaje));
-    ojos->addLast(new Ojo(9,9,1));
+    ojos->addLast(new Ojo(1));
+    ojos->addLast(new Ojo(2));
+    ojos->addLast(new Ojo(3));
+    ratones->addLast(new Raton(1));
+    chuchus->addLast(new Chuchu(1,map, 35,15));
+
 }
 
 Nivel4::Nivel4():Nivel() {
     map=Matrix::generateMatrix4();
     mapPatrullaje=Matrix::generateMatrix4();
     g->seleccion();
-    espectros->addLast(EspectroFactory::Get(Azul,    g->retornarGen(0,0)
-            ,g->retornarGen(0,1), g->retornarGen(0,2), 4,23,1, map, mapPatrullaje));
     espectros->addLast(EspectroFactory::Get(Gris,    g->retornarGen(0,0)
+            ,g->retornarGen(0,1), g->retornarGen(0,2), 4,23,1, map, mapPatrullaje));
+    espectros->addLast(EspectroFactory::Get(Azul,    g->retornarGen(0,0)
             ,g->retornarGen(0,1), g->retornarGen(0,2), 23,39,2, map, mapPatrullaje));
     espectros->addLast(EspectroFactory::Get(Rojo,    g->retornarGen(0,0)
             ,g->retornarGen(0,1), g->retornarGen(0,2), 40,26,3, map, mapPatrullaje));
+    ojos->addLast(new Ojo(1));
+    ojos->addLast(new Ojo(2));
+    ratones->addLast(new Raton(1));
+    chuchus->addLast(new Chuchu(1,map, 31,40));
+
 }
 
 Nivel5::Nivel5(): Nivel(){
     map=Matrix::generateMatrix5();
     mapPatrullaje=Matrix::generateMatrix5();
-    espectros->addLast(EspectroFactory::Get(Azul,1000,1500, 50, 8,9,0, map, mapPatrullaje));
+    espectros->addLast(EspectroFactory::Get(Gris,6,6, 10, 8,9,0, map, mapPatrullaje));
 }
 
 TList<Raton*>* Nivel::getRatones() {

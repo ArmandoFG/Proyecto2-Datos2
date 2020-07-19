@@ -51,7 +51,6 @@ int getPos(string name){
 void Templo::startCiclo(){
 
 
-    auto p1=Matrix::toMatrixPosition(-6.608,9.412, 1, getNivel().getMap());
     auto p2=Matrix::toPoint(33,5,1);
     auto p3=Matrix::toPoint(33,41,1);
 
