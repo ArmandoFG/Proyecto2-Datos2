@@ -137,9 +137,9 @@ void Templo::startCiclo(){
     }else{
         for(int i=0; i<espectros->largo;i++){
             Espectro* e = espectros->getNodoPos(i)->getValue();
-            if(/**op->read(getPos(to_string(e->getColor())+to_string(i+1)), "radiovision")=="true"
-            &&*/ !persiguiendo && e->isVivo()
-            && e->checkearVision() ){
+            if(op->read(getPos(to_string(e->getColor())+to_string(i+1)), "radiovision")=="true"
+            && !persiguiendo && e->isVivo()){
+            //&& e->checkearVision() ){
                 persiguiendo=true;
                 e->setProceso(PersiguiendoBread);
                 e->setVistox(Jugador::getJugador()->getX());

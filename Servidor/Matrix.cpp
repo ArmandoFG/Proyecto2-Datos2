@@ -124,10 +124,10 @@ int** Matrix::generateMatrix2() {
     float stepX=(float )(2.543712-posX)/x;
     float stepY=(float )-(3.435781+posY)/y;
 
-    xMin[1]=posXini;
-    xMax[1]=2.543712;
-    yMin[1]=-3.435781;
-    yMax[1]=posY;
+    xMin[1]=posXini*5;
+    xMax[1]=2.543712*5;
+    yMin[1]=-3.435781*5;
+    yMax[1]=posY*5;
 
     int **map= new int * [x];
 
@@ -228,10 +228,10 @@ int** Matrix::generateMatrix3() {
     float stepX=(float )(2.501808+0.1563845/2-posX)/x;
     float stepY=(float )-(3.294635+0.2907293/2+posY)/y;
 
-    xMin[2]=posXini;
-    xMax[2]=2.501808+0.1563845/2;
-    yMin[2]=-3.294635-0.2907293/2;
-    yMax[2]=posY;
+    xMin[2]=posXini*5;
+    xMax[2]=(2.501808+0.1563845/2)*5;
+    yMin[2]=(-3.294635-0.2907293/2)*5;
+    yMax[2]=posY*5;
 
     int **map= new int * [x];
 
@@ -300,10 +300,10 @@ int** Matrix::generateMatrix4() {
     float stepX=(float )(2.426883-posX)/x;
     float stepY=(float )-(3.098883+posY)/y;
 
-    xMin[3]=posXini;
-    xMax[3]=2.426883;
-    yMin[3]=-3.098883;
-    yMax[3]=posY;
+    xMin[3]=posXini*5;
+    xMax[3]=2.426883*5;
+    yMin[3]=-3.098883*5;
+    yMax[3]=posY*5;
 
 
     for ( size_t i = 0; i < x; i++ ) {
@@ -422,10 +422,10 @@ int** Matrix::generateMatrix5() {
     float stepX=(float )(2.559765+0.04047036/2-posX)/x;
     float stepY=(float )-(3.413362+0.05327725/2+posY)/y;
 
-    xMin[4]=posXini;
-    xMax[4]=2.559765+0.04047036/2;
-    yMin[4]=-3.413362-0.05327725/2;
-    yMax[4]=posY;
+    xMin[4]=posXini*5;
+    xMax[4]=2.559765+0.04047036/2*5;
+    yMin[4]=-3.413362-0.05327725/2*5;
+    yMax[4]=posY*5;
 
 
     int **map= new int * [x];

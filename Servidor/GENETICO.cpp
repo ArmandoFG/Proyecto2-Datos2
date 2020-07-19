@@ -70,8 +70,8 @@ void Genetico::Iniciar_Poblacion(){
     
     for(int i=0; i < individuos; i++){
         individuo = i;
-        int gene1 = rand()%11;
-        int gene2 = rand()%11;
+        int gene1 = 1+rand()%4;
+        int gene2 = 1+rand()%4;
         int gene3 = rand()%11;
         int gene4 = rand()%11;
         int fitness = gene1 + gene2 + gene3 + gene4;
