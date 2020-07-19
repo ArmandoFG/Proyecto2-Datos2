@@ -62,6 +62,10 @@ private:
     void devolverse();
     void patrullar();
 public:
+    int getVelocidadRuta() const;
+
+    int getVelocidadPersecusion() const;
+
     bool isVivo() const;
     void setVivo(bool vivo);
     int getEspectro() const;

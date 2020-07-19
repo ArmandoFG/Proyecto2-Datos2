@@ -13,6 +13,7 @@
 Ojo::Ojo( int ojo) {
     this->ojo=ojo;
     vivo=true;
+    vision=3;
 }
 
 void Ojo::setPos(int x, int y){
@@ -52,6 +53,10 @@ int Ojo::getOjo() const {
 
 void Ojo::setOjo(int ojo) {
     Ojo::ojo = ojo;
+}
+
+int Ojo::getVision() const {
+    return vision;
 }
 
 

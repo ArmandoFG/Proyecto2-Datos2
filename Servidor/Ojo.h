@@ -13,6 +13,9 @@ public:
     Ojo(int ojo);
     void setPos(int x, int y);
     int GetPosX();
+
+    int getVision() const;
+
     int GetPosY();
     void movimiento();
     bool checkearVision();

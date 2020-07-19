@@ -481,6 +481,14 @@ void Espectro::setVistoy(int vistoy) {
     Espectro::vistoy = vistoy;
 }
 
+int Espectro::getVelocidadRuta() const {
+    return velocidadRuta;
+}
+
+int Espectro::getVelocidadPersecusion() const {
+    return velocidadPersecusion;
+}
+
 EspectroGris::EspectroGris(int velocidadRuta, int velocidadPersecusion,
         int vision, int x, int y, int numEspectro, int** map, int** mapPatrullaje)
         : Espectro(Gris, velocidadRuta, velocidadPersecusion, vision, x, y, numEspectro, map, mapPatrullaje) {

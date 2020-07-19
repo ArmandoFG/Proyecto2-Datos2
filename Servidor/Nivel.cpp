@@ -89,7 +89,8 @@ Nivel4::Nivel4():Nivel() {
 Nivel5::Nivel5(): Nivel(){
     map=Matrix::generateMatrix5();
     mapPatrullaje=Matrix::generateMatrix5();
-    espectros->addLast(EspectroFactory::Get(Gris,6,6, 10, 8,9,0, map, mapPatrullaje));
+    espectros->addLast(EspectroFactory::Get(Gris,6,6, 10, 41,41,
+            4, map, mapPatrullaje));
 }
 
 TList<Raton*>* Nivel::getRatones() {

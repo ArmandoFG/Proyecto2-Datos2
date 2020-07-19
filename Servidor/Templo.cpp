@@ -109,24 +109,29 @@ void Templo::startCiclo(){
         Ojo* ojo =ojos->getNodoPos(i)->getValue();
         string name="ojo"+to_string(ojo->getOjo());
         ojo->setVivo(op->read(getPos("Ojo"+to_string(i+1)), "vivo")=="true");
-
+        op->WRITE(getPos("Ojo"+to_string(i+1)), "tamanoradio",
+                  to_string(ojo->getVision()));
         if(ojo->isVivo()){
             std::pair<int, int> ubicacion=Matrix::toMatrixPosition(stof(op->read(getPos("Ojo"+to_string(i+1)),"posx"))
                     , stof(op->read(getPos("Ojo"+to_string(i+1)),"posy"))
                     ,this->nivel, lvl.getMap());
            ojo->setPos(ubicacion.first, ubicacion.second);
-            if(ojo->checkearVision()){
+            if(op->read(getPos("Ojo"+to_string(i+1)), "radiovision")=="true" ){
+                //ojo->checkearVision()){
                 persiguiendo= true;
-
-               /**  Nota: Esto podria no ser necesario porque ta esta resuelto del lado del client
                     for(int m=0; m<espectros->largo;m++){
-                    e=espectros->getNodoPos(m)->getValue();
-                    if(e->getColor()==Azul){
-                        e->setX(ojo.GetPosX());
-                        e->setY(ojo.GetPosY());
-                        op->WRITE("espectro"+to_string(e->getEspectro()), "teletransporte", "true");
-                    }
-                }*/
+                        Espectro* e=espectros->getNodoPos(m)->getValue();
+                        if(e->getColor()==Azul){
+                            e->setX(ojo->GetPosX());
+                            e->setY(ojo->GetPosY());
+                            op->WRITE(getPos(to_string(e->getColor())+to_string(i+1)), "teletransporte", "true");
+                            std::pair<float,float> point = Matrix::toPoint(e->getX(), e->getY(), nivel);
+                            op->WRITE(getPos(to_string(e->getColor())+to_string(i+1)), "posx",
+                                      to_string(point.first));
+                            op->WRITE(getPos(to_string(e->getColor())+to_string(i+1)), "posy",
+                                      to_string(point.second));
+                        }
+                }
             }
         }
     }
@@ -162,10 +167,14 @@ void Templo::startCiclo(){
                 if (e->getProceso() != PersiguiendoBread && e->getProceso() != PersiguiendoA) {
                     e->setProceso(PersiguiendoA);
                 }
+                op->WRITE(getPos(to_string(e->getColor())+to_string(i+1)), "velocidad",
+                          to_string(e->getVelocidadPersecusion()));
             } else{
                 if(e->getProceso() == PersiguiendoBread || e->getProceso() == PersiguiendoA){
                     e->setProceso(Volviendo);
                 }
+                op->WRITE(getPos(to_string(e->getColor())+to_string(i+1)), "velocidad",
+                          to_string(e->getVelocidadRuta()));
             }
 
             if(!ratonCerca(e->getX(),e->getY(), e->getVision())) {
@@ -177,10 +186,6 @@ void Templo::startCiclo(){
                     to_string(point.first));
             op->WRITE(getPos(to_string(e->getColor())+to_string(i+1)), "posy",
                     to_string(point.second));
-            op->WRITE(getPos(to_string(e->getColor())+to_string(i+1)), "velocidad",
-                      to_string(3));
-            op->WRITE(getPos(to_string(e->getColor())+to_string(i+1)), "velocidad",
-                      to_string(3));
             op->WRITE(getPos(to_string(e->getColor())+to_string(i+1)), "tamanoradio",
                       to_string(e->getVision()));
         }
