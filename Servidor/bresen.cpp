@@ -15,14 +15,28 @@
 #include "Matrix.h"
 using namespace std;
 
+
+
 void Iniciar(int Bx1, int By1);
 
 int x;
 int y;
+/**
+ * @brief Construct a new bresen::bresen object
+ * 
+ * @param map Nivel del juego
+ */
 
 bresen::bresen(int **map) {
     this->map=map;
 }
+/**
+ * @brief Inicia el algoritmo
+ * 
+ * @param Bx1 Posicion x del chuchu
+ * @param By1 Posicion y del chuchu
+ * @param listo booleano 
+ */
 
 void bresen::Iniciar(int Bx1, int By1, bool listo){
     //srand(time(NULL));
@@ -37,7 +51,8 @@ void bresen::Iniciar(int Bx1, int By1, bool listo){
    int x2;
    int y2;
    
-   
+   //Verifica que si ya encontró una posicion
+    
    if(listo != true){
        int contador = 4;
        int contadorAux = 0;
@@ -47,7 +62,8 @@ void bresen::Iniciar(int Bx1, int By1, bool listo){
        int lineasEnMap = Matrix::SIZEX;
        int columnasEnMap = Matrix::SIZEY;
 
-       cout << "Esta es la direccion: " << direccion << endl;
+       //Direccion a la que irá
+
        if(direccion == 0){
        if(map[y2][x2 + 1] == 0 && lineasEnMap >= y2 >= 0 && columnasEnMap >= x2 >= 0){
            
@@ -55,7 +71,6 @@ void bresen::Iniciar(int Bx1, int By1, bool listo){
                x2++;
                contadorAux++;
            }
-            cout << "Encontre un muro aqui o limite" << endl;
 
             return Iniciar(x2, y2, true);
            
@@ -171,7 +186,6 @@ void bresen::Iniciar(int Bx1, int By1, bool listo){
        }
        }
    }
-   cout << "YA CAMINO" << endl;
  
 }
 
