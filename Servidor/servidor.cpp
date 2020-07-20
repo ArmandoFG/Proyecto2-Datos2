@@ -110,8 +110,6 @@ int main()
     }
     int socket;
     while(true) {
-        auto p1=Matrix::toMatrixPosition(0,0, 5, Matrix::generateMatrix5());
-
         socket = accept(server_fd, (struct sockaddr *) &address, (socklen_t *) &addrlen);
         templo=new Templo;
         while (true) {

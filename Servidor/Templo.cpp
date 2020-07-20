@@ -37,9 +37,9 @@ int getPos(string name){
         return 12;
     }else if(name.compare("11")==0){
         return 13;
-    }else if(name.compare("11")==0){
+    }else if(name.compare("12")==0){
         return 14;
-    }else if(name.compare("11")==0){
+    }else if(name.compare("13")==0){
         return 15;
     }else if(name.compare("EnemigoFinal")==0){
         return 16;
@@ -51,9 +51,6 @@ int getPos(string name){
 void Templo::startCiclo(){
 
 
-    auto p2=Matrix::toPoint(33,5,1);
-    auto p3=Matrix::toPoint(33,41,1);
-
 
     Nivel lvl=getNivel();
     auto* op=new Operaciones_Json;
@@ -61,7 +58,6 @@ void Templo::startCiclo(){
 
     if(nivel!=stoi(op->read(getPos("Nivel"), "level").substr(6))){
         this->nextNivel();
-        nivel++;
         lvl= this->getNivel();
     }
 
@@ -76,7 +72,8 @@ void Templo::startCiclo(){
     if(j->getVida()==0){
         lvl=restartNivel();
         j->setvida(5);
-        j->setmarcador(0);}
+        j->setmarcador(0);
+    }
 
     j->ubicacion(Matrix::toMatrixPosition(x,y,this->nivel, lvl.getMap()));
 
@@ -162,6 +159,9 @@ void Templo::startCiclo(){
             e->setX(posicionReal.first);
             e->setY(posicionReal.second);
 
+            int**map2=Matrix::rutasMatrix2();
+            map2[e->getX()][e->getY()]=9;
+            Matrix::print(map2);
 
             if (persiguiendo) {
                 if (e->getProceso() != PersiguiendoBread && e->getProceso() != PersiguiendoA) {

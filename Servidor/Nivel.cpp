@@ -24,11 +24,11 @@ Nivel1::Nivel1():Nivel() {
     map=Matrix::generateMatrix1();
     mapPatrullaje=Matrix::rutasMatrix1();
     espectros->addLast(EspectroFactory::Get(Gris,    g->retornarGen(0,0)
-        ,g->retornarGen(0,1), 9, 9,23 ,1, map, mapPatrullaje));
+        ,g->retornarGen(0,1), 4, 9,23 ,1, map, mapPatrullaje));
     espectros->addLast(EspectroFactory::Get(Gris,    g->retornarGen(0,0)
-            ,g->retornarGen(0,1), 9, 33,5,2, map, mapPatrullaje));
+            ,g->retornarGen(0,1), 4, 33,5,2, map, mapPatrullaje));
     espectros->addLast(EspectroFactory::Get(Gris,    g->retornarGen(0,0)
-            ,g->retornarGen(0,1), 9, 33,41,3, map, mapPatrullaje));
+            ,g->retornarGen(0,1), 4, 33,41,3, map, mapPatrullaje));
     ratones->addLast(new Raton(1));
     ratones->addLast(new Raton(2));
     chuchus->addLast(new Chuchu(1,map, 14,12));

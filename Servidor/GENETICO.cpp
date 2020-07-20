@@ -72,8 +72,8 @@ void Genetico::Iniciar_Poblacion(){
         individuo = i;
         int gene1 = 1+rand()%4;
         int gene2 = 1+rand()%4;
-        int gene3 = rand()%11;
-        int gene4 = rand()%11;
+        int gene3 = rand()%3;
+        int gene4 = rand()%3;
         int fitness = gene1 + gene2 + gene3 + gene4;
         insertar_individuo(individuo, fitness);
         insertar_atributo(gene1, individuo);
