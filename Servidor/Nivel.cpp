@@ -8,9 +8,20 @@
 
 Genetico* Nivel::g=new Genetico;
 
+/**
+ * @brief Retorna el mapa del nivel
+ * 
+ * @return int** 
+ */
+
 int** Nivel::getMap() {
    return (int **) (this->map);
 }
+
+/**
+ * @brief Construct a new Nivel:: Nivel object
+ * 
+ */
 
 Nivel::Nivel() {
     espectros=new TList<Espectro*>;
@@ -18,6 +29,11 @@ Nivel::Nivel() {
     chuchus=new TList<Chuchu*>;
     ojos=new TList<Ojo*>;
 }
+
+/**
+ * @brief Construct a new Nivel 1:: Nivel 1 object
+ * 
+ */
 
 Nivel1::Nivel1():Nivel() {
     g->Iniciar_Poblacion();
@@ -34,6 +50,10 @@ Nivel1::Nivel1():Nivel() {
     chuchus->addLast(new Chuchu(1,map, 14,12));
 }
 
+/**
+ * @brief Construct a new Nivel 2:: Nivel 2 object
+ * 
+ */
 
 Nivel2::Nivel2():Nivel() {
     map=Matrix::generateMatrix2();
@@ -50,7 +70,10 @@ Nivel2::Nivel2():Nivel() {
     chuchus->addLast(new Chuchu(1,map, 33,23));
     ojos->addLast(new Ojo(1));
 }
-
+/**
+ * @brief Construct a new Nivel 3:: Nivel 3 object
+ * 
+ */
 Nivel3::Nivel3() {
     map=Matrix::generateMatrix3();
     mapPatrullaje=Matrix::generateMatrix3();
@@ -68,6 +91,10 @@ Nivel3::Nivel3() {
     chuchus->addLast(new Chuchu(1,map, 35,15));
 
 }
+/**
+ * @brief Construct a new Nivel 4:: Nivel 4 object
+ * 
+ */
 
 Nivel4::Nivel4():Nivel() {
     map=Matrix::generateMatrix4();
@@ -85,6 +112,10 @@ Nivel4::Nivel4():Nivel() {
     chuchus->addLast(new Chuchu(1,map, 31,40));
 
 }
+/**
+ * @brief Construct a new Nivel 5:: Nivel 5 object
+ * 
+ */
 
 Nivel5::Nivel5(): Nivel(){
     map=Matrix::generateMatrix5();
@@ -93,17 +124,37 @@ Nivel5::Nivel5(): Nivel(){
             4, map, mapPatrullaje));
 }
 
+/**
+ * @brief Ratones del nivel
+ * 
+ * @return TList<Raton*>* 
+ */
+
 TList<Raton*>* Nivel::getRatones() {
     return ratones;
 }
+/**
+ * @brief Obtener ojos del juego
+ * 
+ * @return TList<Ojo*>* 
+ */
 
 TList<Ojo*>* Nivel::getOjos() {
     return ojos;
 }
-
+/**
+ * @brief Obtener chuchu del juego
+ * 
+ * @return TList<Chuchu*>* 
+ */
 TList<Chuchu*>* Nivel::getChuchus() {
     return chuchus;
 }
+/**
+ * @brief Obtener espectros del juego
+ * 
+ * @return TList<Espectro*>* 
+ */
 
 TList<Espectro*>* Nivel::getEspectros() {
     return espectros;

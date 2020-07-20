@@ -280,6 +280,10 @@ int Espectro::volverBacktrAux(int xi, int yi, int xf, int yf, int step, bool* do
     }
 }
 
+/**
+ * @brief Devuelve al espectro a su ruta con backtracking
+ * 
+ */
 
 void Espectro::devolverse(){
     //Test Map (1's are walls)
@@ -305,18 +309,37 @@ void Espectro::devolverse(){
     }
     //The results on the map are asigned to the espectro
 }
+/**
+ * @brief Cambiar posicion x del espectro
+ * 
+ * @param x Entero
+ */
 
 void Espectro::setX(int x){
     this->x=x;
 }
+/**
+ * @brief Cambiar posicion y del espectro
+ * 
+ * @param y Entero
+ */
 
 void Espectro::setY(int y){
     this->y=y;
 }
-
+/**
+ * @brief Obtener posicion x del espectro
+ * 
+ * @return int 
+ */
 int Espectro::getX(){
     return x;
 }
+/**
+ * @brief Obtener posicion y del espectro
+ * 
+ * @return int 
+ */
 
 int Espectro::getY(){
     return y;
@@ -419,19 +442,42 @@ void Espectro::nextStep() {
 Proceso Espectro::getProceso()  {
     return proceso;
 }
-
+/**
+ * @brief Retorna vision del espectro
+ * 
+ * @return int 
+ */
 int Espectro::getVision()  {
     return vision;
 }
+/**
+ * @brief Retorna color del espectro
+ * 
+ * @return ColorEspectro 
+ */
 
 ColorEspectro Espectro::getColor() const {
     return color;
 }
 
+
 void EspectroAzul::habilidad(int x, int y) {
     this->x=x;
     this->y=y;
 }
+/**
+ * @brief Construct a new Espectro:: Espectro object
+ * 
+ * @param color Color del espectro
+ * @param velocidadRuta Velocidad de ruta del espectro
+ * @param velocidadPersecusion Velocidad de persecucion del espectro
+ * @param vision rango de vision del espectro
+ * @param x Posicion en x del espectro
+ * @param y Posicion en y del espectro
+ * @param numEspectro id del espectro
+ * @param map mapa del nivel
+ * @param mapPatrullaje mapa con la ruta del espectro
+ */
 
 Espectro::Espectro(ColorEspectro color, int velocidadRuta, int velocidadPersecusion, int vision
                 ,int x, int y, int numEspectro, int** map, int** mapPatrullaje) {
@@ -448,15 +494,30 @@ Espectro::Espectro(ColorEspectro color, int velocidadRuta, int velocidadPersecus
     nextX=new TList<int>;
     nextY=new TList<int>;
 }
-
+/**
+ * @brief Obtiene al espectro
+ * 
+ * @return int 
+ */
 int Espectro::getEspectro() const {
     return espectro;
 }
+/**
+ * @brief Retorna el estado de vida
+ * 
+ * @return true 
+ * @return false 
+ */
 
 bool Espectro::isVivo() const {
     return vivo;
 }
 
+/**
+ * @brief Cambiar estado de vida del espectro
+ * 
+ * @param vivo 
+ */
 void Espectro::setVivo(bool vivo) {
     Espectro::vivo = vivo;
 }
@@ -465,6 +526,7 @@ void Espectro::habilidad(int x, int y) {
 
 }
 
+
 void Espectro::setProceso(Proceso proceso) {
     if(proceso==Volviendo){
         nextX=new TList<int>;
@@ -472,23 +534,53 @@ void Espectro::setProceso(Proceso proceso) {
     }
     Espectro::proceso = proceso;
 }
+/**
+ * @brief Cambiar vista en x
+ * 
+ * @param vistox 
+ */
 
 void Espectro::setVistox(int vistox) {
     Espectro::vistox = vistox;
 }
+/**
+ * @brief Cambiar vista en y
+ * 
+ * @param vistoy 
+ */
 
 void Espectro::setVistoy(int vistoy) {
     Espectro::vistoy = vistoy;
 }
-
+/**
+ * @brief Obtener velocidad de ruta del espectro
+ * 
+ * @return int 
+ */
 int Espectro::getVelocidadRuta() const {
     return velocidadRuta;
 }
+/**
+ * @brief Obtener velocidad del espectro
+ * 
+ * @return int 
+ */
 
 int Espectro::getVelocidadPersecusion() const {
     return velocidadPersecusion;
 }
-
+/**
+ * @brief Construct a new Espectro Gris:: Espectro Gris object
+ * 
+ * @param velocidadRuta Entero velocidad de ruta
+ * @param velocidadPersecusion Entero velocidad de persecución
+ * @param vision Entero rango de vision
+ * @param x Posicion en x
+ * @param y Posicion en y
+ * @param numEspectro id del espectro
+ * @param map Mapa del nivel
+ * @param mapPatrullaje Mapa con rutas de patrullaje
+ */
 EspectroGris::EspectroGris(int velocidadRuta, int velocidadPersecusion,
         int vision, int x, int y, int numEspectro, int** map, int** mapPatrullaje)
         : Espectro(Gris, velocidadRuta, velocidadPersecusion, vision, x, y, numEspectro, map, mapPatrullaje) {
@@ -499,7 +591,18 @@ EspectroGris::EspectroGris(int velocidadRuta, int velocidadPersecusion,
     llx=x;
     lly=y;
 }
-
+/**
+ * @brief Construct a new Espectro Rojo:: Espectro Rojo object
+ * 
+ * @param velocidadRuta Entero velocidad de ruta
+ * @param velocidadPersecusion Entero velocidad de persecución
+ * @param vision Entero rango de vision
+ * @param x Posicion en x
+ * @param y Posicion en y
+ * @param numEspectro id del espectro
+ * @param map Mapa del nivel
+ * @param mapPatrullaje Mapa con rutas de patrullaje
+ */
 EspectroRojo::EspectroRojo(int velocidadRuta, int velocidadPersecusion,
                            int vision, int x, int y, int numEspectro, int** map, int** mapPatrullaje)
         : Espectro(Rojo, velocidadRuta, velocidadPersecusion, vision, x, y, numEspectro, map, mapPatrullaje) {
@@ -510,6 +613,18 @@ EspectroRojo::EspectroRojo(int velocidadRuta, int velocidadPersecusion,
     llx=x;
     lly=y;
 }
+/**
+ * @brief Construct a new Espectro Azul:: Espectro Azul object
+ * 
+ * @param velocidadRuta Entero velocidad de ruta
+ * @param velocidadPersecusion Entero velocidad de persecución
+ * @param vision Entero rango de vision
+ * @param x Posicion en x
+ * @param y Posicion en y
+ * @param numEspectro id del espectro
+ * @param map Mapa del nivel
+ * @param mapPatrullaje Mapa con rutas de patrullaje 
+ */
 EspectroAzul::EspectroAzul(int velocidadRuta, int velocidadPersecusion,
                            int vision, int x, int y, int numEspectro, int** map, int** mapPatrullaje)
         : Espectro(Azul, velocidadRuta, velocidadPersecusion, vision, x, y, numEspectro, map, mapPatrullaje) {
