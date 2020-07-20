@@ -18,7 +18,7 @@ enum Proceso{
 };
 
 enum ColorEspectro{
-    Gris, Azul, Rojo
+    Gris, Rojo, Azul
 };
 
 class Espectro {

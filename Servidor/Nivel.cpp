@@ -38,7 +38,7 @@ Nivel1::Nivel1():Nivel() {
 Nivel2::Nivel2():Nivel() {
     map=Matrix::generateMatrix2();
     g->seleccion();
-    mapPatrullaje=Matrix::generateMatrix2();
+    mapPatrullaje=Matrix::rutasMatrix2();
     espectros->addLast(EspectroFactory::Get(Rojo,    g->retornarGen(0,0)
             ,g->retornarGen(0,1), g->retornarGen(0,2), 10,25,1, map, mapPatrullaje));
     espectros->addLast(EspectroFactory::Get(Rojo,    g->retornarGen(0,0)
@@ -53,7 +53,7 @@ Nivel2::Nivel2():Nivel() {
 
 Nivel3::Nivel3() {
     map=Matrix::generateMatrix3();
-    mapPatrullaje=Matrix::generateMatrix3();
+    mapPatrullaje=Matrix::rutasMatrix3();
     g->seleccion();
     espectros->addLast(EspectroFactory::Get(Azul,    g->retornarGen(0,0)
             ,g->retornarGen(0,1), g->retornarGen(0,2), 10,15,1, map, mapPatrullaje));
@@ -71,7 +71,7 @@ Nivel3::Nivel3() {
 
 Nivel4::Nivel4():Nivel() {
     map=Matrix::generateMatrix4();
-    mapPatrullaje=Matrix::generateMatrix4();
+    mapPatrullaje=Matrix::rutasMatrix4();
     g->seleccion();
     espectros->addLast(EspectroFactory::Get(Gris,    g->retornarGen(0,0)
             ,g->retornarGen(0,1), g->retornarGen(0,2), 4,23,1, map, mapPatrullaje));

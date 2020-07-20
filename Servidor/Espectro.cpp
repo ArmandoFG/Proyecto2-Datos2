@@ -151,8 +151,13 @@ void Espectro::perseguirA() {
     nextY=new TList<int>;
 
     A(x, y, Jugador::getJugador()->getX(), Jugador::getJugador()->getY());
-    nextX->deletePos(0);
-    nextY->deletePos(0);
+    if(nextX->largo==0){
+        nextX->addLast(x);
+        nextY->addLast(y);
+    }else {
+        nextX->deletePos(0);
+        nextY->deletePos(0);
+    }
 }
 
 void Espectro::breadcumbing(int attemp){
@@ -174,7 +179,6 @@ void Espectro::breadcumbing(int attemp){
         std::pair<int, int> p =traces->getNodoPos(visited+1)->getValue();
         nx=p.first;
         ny=p.second;
-        cout<<"Jugadorx: "+to_string(Jugador::getJugador()->getX())+" E: "+ to_string(nx);
     }else if(visited==-1){
         nx=vistox;
         ny=vistoy;
@@ -289,19 +293,17 @@ void Espectro::devolverse(){
         bool* done = new bool(false);
         //Note: Steps starts from 3 because 1 and 2 are taken for walls and final path
         volverBacktrAux(x, y, px, py,3, done);
-        delete map;
-        this->map=Matrix::generateMatrix1();
+        for(int i=0;i<Matrix::SIZEX;i++){
+            for(int j=0;j<Matrix::SIZEY;j++){
+                if(map[i][j]!=1){
+                    map[i][j]=0;
+                }
+            }
+        }
         nextX->deletePos(0);
         nextY->deletePos(0);
         lx=x;
         ly=y;
-    }
-    for(int i=0;i<nextX->largo;i++){
-        map[nextX->getNodoPos(i)->getValue()][nextY->getNodoPos(i)->getValue()]=(2+i);
-    }
-    Matrix::print(map);
-    for(int i=0;i<nextX->largo;i++){
-        map[nextX->getNodoPos(i)->getValue()][nextY->getNodoPos(i)->getValue()]=0;
     }
     //The results on the map are asigned to the espectro
 }
