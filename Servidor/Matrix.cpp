@@ -733,27 +733,27 @@ int** Matrix::rutasMatrix2(){
     map[39][13] = 0;
     map[39][3] = 0;
 
-    map[29][41] = 4;
-    map[33][37] = 4;
-    map[37][41] = 4;
-    map[33][45] = 4;
+    map[25][41] = 4;
+    map[29][37] = 4;
+    map[33][41] = 4;
+    map[29][45] = 4;
 
-    i = 30;
+    i = 26;
     for(int j = 40; map[i][j] != 4; j--){
         map[i][j] = 4; 
         i++; 
     }
-    i = 34;
+    i = 30;
     for(int j = 38; map[i][j] != 4; j++){
         map[i][j] = 4; 
         i++; 
     }
-    i = 36;
+    i = 32;
     for(int j = 42; map[i][j] != 4; j++){
         map[i][j] = 4; 
         i--; 
     }
-    i = 32;
+    i = 28;
     for(int j = 44; map[i][j] != 4; j--){
         map[i][j] = 4; 
         i--; 

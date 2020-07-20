@@ -64,7 +64,7 @@ Nivel2::Nivel2():Nivel() {
     espectros->addLast(EspectroFactory::Get(Rojo,    g->retornarGen(0,0)
             ,g->retornarGen(0,1), g->retornarGen(0,2), 33,4,2, map, mapPatrullaje));
     espectros->addLast(EspectroFactory::Get(Rojo,    g->retornarGen(0,0)
-            ,g->retornarGen(0,1), g->retornarGen(0,2), 30,40,3, map, mapPatrullaje));
+            ,g->retornarGen(0,1), g->retornarGen(0,2), 25,41,3, map, mapPatrullaje));
     ratones->addLast(new Raton(1));
     ratones->addLast(new Raton(2));
     chuchus->addLast(new Chuchu(1,map, 33,23));
