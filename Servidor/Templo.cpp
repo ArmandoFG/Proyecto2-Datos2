@@ -210,6 +210,8 @@ void Templo::startCiclo(){
 
 }
 
+
+
 bool Templo::ratonCerca(int x, int y, int vision){
     for(int i=0; i<ratones->largo;i++){
         if(ratones->getNodoPos(i)->getValue()->checkearVision(x, y, vision)){
@@ -218,12 +220,21 @@ bool Templo::ratonCerca(int x, int y, int vision){
     }
     return false;
 }
+/**
+ * @brief Siguiente nivel del juego
+ * 
+ */
 
 void Templo::nextNivel(){
     Jugador::getJugador()->setTraces(new TList<std::pair<int, int>>);
     persiguiendo=false;
     nivel+=1;
 }
+
+/**
+ * @brief Cambia los personajes del nivel
+ * 
+ */
 
 void Templo::setPersonajes(){
     Nivel lvl =getNivel();
@@ -232,6 +243,12 @@ void Templo::setPersonajes(){
     chuchus=lvl.getChuchus();
     espectros=lvl.getEspectros();
 }
+
+/**
+ * @brief Reinicia nivel del juego
+ * 
+ * @return Nivel 
+ */
 
 Nivel Templo::restartNivel(){
     Nivel* lvl= nullptr;
@@ -266,6 +283,12 @@ Nivel Templo::restartNivel(){
     return *lvl;
 }
 
+/**
+ * @brief Obtiene los niveles del juego
+ * 
+ * @return Nivel 
+ */
+
 Nivel Templo::getNivel(){
     switch (nivel) {
         case 1:
@@ -280,6 +303,11 @@ Nivel Templo::getNivel(){
             return *nivel5;
     }
 }
+
+/**
+ * @brief Construct a new Templo:: Templo object
+ * 
+ */
 
 Templo::Templo() {
     nivel=1;

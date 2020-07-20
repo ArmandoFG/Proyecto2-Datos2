@@ -25,6 +25,8 @@ double sumatoria = 0;
 
 using namespace std;
 
+//Lista de la poblacion
+
 struct poblacion
 {
     int* individuo = new int[10];
@@ -32,6 +34,8 @@ struct poblacion
      struct atributos *ady;
      int* fitness = new int[10];
 };
+
+//Lista de los genes
 struct atributos{
     int* datos = new int[10];
     struct atributos *sgte;  
@@ -63,10 +67,16 @@ void cruce();
 void Modificar_Atributo(int gen1,  int gen2, int gen3, int gen4, Tnodo &aux);
 void modificar_Poblacion(int muerto, int fitness, int gen1,  int gen2, int gen3, int gen4);
 
+/**
+ * @brief Espectros iniciales
+ * 
+ */
 
 void Genetico::Iniciar_Poblacion(){
     srand(time(NULL));
     int individuo;
+
+    //Genes aleatorios de los espectros
     
     for(int i=0; i < individuos; i++){
         individuo = i;
@@ -86,26 +96,31 @@ void Genetico::Iniciar_Poblacion(){
 
 
 
+/**
+ * @brief Inserta el espectro
+ * 
+ * @param num Id del espectro
+ * @param fit fitness del espectro
+ */
 
 
 void Genetico::insertar_individuo(int num, int fit)
 {
     Tnodo t,nuevo=new struct poblacion;
 
-    *nuevo->individuo = num;    //Se le asigna el nombre del nodo al puntero
+    *nuevo->individuo = num;    
     *nuevo->fitness = fit;
     nuevo->sgte = NULL;
     nuevo->ady=NULL;
 
-    if(POBLACION==NULL) //Si p es igual a nulo, no hay ningun nodo almacenado
+    if(POBLACION==NULL) 
      {
-        POBLACION = nuevo;  // Se ingresa el nodo
+        POBLACION = nuevo;  
 
       }
     else
      {
-        t = POBLACION;  //Se le asigna el puntero a cabecera a t
-        //Mientras el siguiente nodo de t sea diferente a null recorrera todos los nodos ecistentes
+        t = POBLACION;  
         while(t->sgte!=NULL)
          {
             t = t->sgte;
@@ -117,15 +132,22 @@ void Genetico::insertar_individuo(int num, int fit)
 
  }
 
+ /**
+  * @brief Agrega los genes al espectro
+  * 
+  * @param aux Espectro
+  * @param nuevo Genes 
+  * @param Atbt Int
+  */
+
 void agrega_atributo(Tnodo &aux, Tatributo &nuevo, int *Atbt)
 {
-    Tatributo q;  //Arista auxiliar
-    //Si el nodo no tiene arista la ingresa
+    Tatributo q;  
     if(aux->ady==NULL)
     {   aux->ady=nuevo;
         *nuevo->datos= *Atbt;
 
-    } // si no esta vac�a recorre todas las aristas hasta llegar a null
+    } 
     else
     {   q=aux->ady;
         while(q->sgte!=NULL)
@@ -138,6 +160,13 @@ void agrega_atributo(Tnodo &aux, Tatributo &nuevo, int *Atbt)
     }
 
 }
+
+/**
+ * @brief Atributos de los espectros
+ * 
+ * @param ATRIBUTO  Genes
+ * @param individuo Espectro
+ */
 
 void Genetico::insertar_atributo(int ATRIBUTO, int individuo)
 {      
@@ -156,7 +185,7 @@ void Genetico::insertar_atributo(int ATRIBUTO, int individuo)
     *Atbt = ATRIBUTO;
     aux=POBLACION;
     aux2=POBLACION;
-    //Se recorre los nodos para verificar que existan y para agregarle la arista
+    //Se recorre los nodos para verificar que existan y para agregarle los genes
     
     while(aux!=NULL)
     {
@@ -172,13 +201,19 @@ void Genetico::insertar_atributo(int ATRIBUTO, int individuo)
     }
 }
 
+/**
+ * @brief Escoge a los dos mejores espectros
+ * 
+ */
 
 void Genetico::seleccion(){
 
   Tnodo Temp = POBLACION;
   int fitness = *Temp->fitness;
    int pareja = 0; 
-  
+    
+    //Compara el fitness de cada espectro
+
        if(*Temp->fitness > *Temp->sgte->fitness){
            
            Padre = *Temp->individuo;
@@ -212,8 +247,13 @@ void Genetico::seleccion(){
     
 }
 
+/**
+ * @brief Crea al nuevo espectro
+ * 
+ */
 void cruce(){
     srand(time(NULL));
+    //Escoge al azar el numero de genes del padre y la madre
     int genPadre = rand()%5;
     int genMadre = 4 - genPadre;
     Tnodo ptr;
@@ -264,8 +304,11 @@ void cruce(){
         
     }
     
+    //Calcula el fitness
     
     int fitness = Genes[0] + Genes[1] + Genes[2]+ Genes[3];
+
+    //Agrega el nuevo individuo y elimina al mas debil
     modificar_Poblacion(Muerto, fitness, Genes[0], Genes[1], Genes[2], Genes[3]);
 
     
@@ -276,6 +319,17 @@ void cruce(){
     
     
 }
+
+/**
+ * @brief Agrega al nuevo espectro
+ * 
+ * @param muerto Espectro mas debil
+ * @param fitness Fitnes del nuevo espectro
+ * @param gen1 int gen
+ * @param gen2 int gen
+ * @param gen3 int gen
+ * @param gen4int gen
+ */
 
 void modificar_Poblacion(int muerto, int fitness, int gen1,  int gen2, int gen3, int gen4){
     Tnodo ptr;
@@ -292,9 +346,16 @@ void modificar_Poblacion(int muerto, int fitness, int gen1,  int gen2, int gen3,
    
     
 }
+/**
+ * @brief Agrega los nuevos genes del espectro
+ * @param gen1 int gen
+ * @param gen2 int gen
+ * @param gen3 int gen
+ * @param gen4 int gen
+ * @param aux nodo espectro
+ */
 void Modificar_Atributo(int gen1,  int gen2, int gen3, int gen4, Tnodo &aux){
-    Tatributo q;  //Arista auxiliar
-    //Si el nodo no tiene arista la ingresa
+    Tatributo q;  
     
        q=aux->ady;
        int i = 1;
@@ -319,7 +380,13 @@ void Modificar_Atributo(int gen1,  int gen2, int gen3, int gen4, Tnodo &aux){
 }
 
 
-
+/**
+ * @brief Obtener genes de los espectros
+ * 
+ * @param individuo id individuo
+ * @param gen int gen
+ * @return int 
+ */
 
 int Genetico::retornarGen(int individuo, int gen)
 {   Tnodo ptr;
@@ -353,7 +420,11 @@ int Genetico::retornarGen(int individuo, int gen)
     }
     return GEN;
 }
-void Genetico::mostrar_grafo()
+/**
+ * @brief Muestra la población
+ * 
+ */
+void Genetico::mostrar_poblacion()
 {   Tnodo ptr;
     Tatributo ar;
     ptr=POBLACION;

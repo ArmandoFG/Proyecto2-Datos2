@@ -21,7 +21,11 @@ float Matrix::yMin[5];
 //                                    {5,5,5}};
 //}
 
-
+/**
+ * @brief Genera matriz del nivel 1
+ * 
+ * @return int** Matriz
+ */
 int** Matrix::generateMatrix1() {
     float maxX=1.865802;
     float minX=-1.346433;
@@ -108,7 +112,11 @@ int** Matrix::generateMatrix1() {
     
     return map;
 }
-
+/**
+ * @brief Genera matriz del nivel 2
+ * 
+ * @return int** Matriz
+ */
 int** Matrix::generateMatrix2() {
 
     float posX;
@@ -213,7 +221,11 @@ int** Matrix::generateMatrix2() {
 
     return map;
 }
-
+/**
+ * @brief Genera matriz del nivel 3
+ * 
+ * @return int** Matriz
+ */
 int** Matrix::generateMatrix3() {
     float posX;
     float posY;
@@ -283,7 +295,11 @@ int** Matrix::generateMatrix3() {
 
     return map;
 }
-
+/**
+ * @brief Genera matriz del nivel 4
+ * 
+ * @return int** Matriz
+ */
 int** Matrix::generateMatrix4() {
     float posX;
     float posY;
@@ -407,6 +423,11 @@ int** Matrix::generateMatrix4() {
     }
     return map;
 }
+/**
+ * @brief Genera matriz del nivel 5
+ * 
+ * @return int** Matriz
+ */
 
 int** Matrix::generateMatrix5() {
     float posX;
@@ -521,7 +542,14 @@ int** Matrix::generateMatrix5() {
 
     return map;
 }
-
+/**
+ * @brief Genera coordenadas para el cliente
+ * 
+ * @param x Posicion x de la matriz
+ * @param y Posicion y de la matriz
+ * @param matrixNumber Numero de la matriz
+ * @return std::pair<float, float> 
+ */
 std::pair<float, float> Matrix::toPoint(int x, int y, int matrixNumber) {
     int temp=x;
     x=y;
@@ -531,6 +559,9 @@ std::pair<float, float> Matrix::toPoint(int x, int y, int matrixNumber) {
     float xfinal=xMin[n]+stepx/2+stepx*(float)(x);
     float stepy=(yMax[n]-yMin[n])/(SIZEY);
     float yfinal=yMax[n]-stepy/2-stepy*(float)(y);
+    cout << xfinal << endl;
+    cout << yfinal << endl;
+
     return {xfinal, yfinal};
 }
 
@@ -568,9 +599,16 @@ std::pair<int, int> Matrix::toMatrixPosition(float x, float y, int matrixNumber,
     return {yfinal,xfinal};
 }
 
-
+/**
+ * @brief Matris nivel 1 con rutas de espectros
+ * 
+ * @return int** Matriz
+ */
 
 int** Matrix::rutasMatrix1(){
+    //Genera matriz 1
+
+    //Genera las rutas
     int **map = generateMatrix1();
     for(int i = 24; i < 29; i++){
         map[9][i] = 2;
@@ -651,7 +689,15 @@ void Matrix::print(int** matrix) {
     }
 }
 
+/**
+ * @brief Matris nivel 2 con rutas de espectros
+ * 
+ * @return int** Matriz
+ */
 int** Matrix::rutasMatrix2(){
+    //Genera matriz nivel 2
+
+    // Traza las rutas
     int **map = generateMatrix2();
     for(int i = 24; i < 29; i++){
         map[10][i] = 2;
@@ -726,8 +772,16 @@ int** Matrix::rutasMatrix2(){
 
     return map;
 }
+/**
+ * @brief Matris nivel 3 con rutas de espectros
+ * 
+ * @return int** Matriz
+ */
 
 int** Matrix::rutasMatrix3(){
+    //Genera mapa nivel 3 
+
+    //Traza las rutas
     int **map = generateMatrix3();
     for(int i = 14; i < 19; i++){
         map[10][i] = 2;
@@ -802,7 +856,16 @@ int** Matrix::rutasMatrix3(){
     return map;
 }
 
+/**
+ * @brief Matris nivel 4 con rutas de espectros
+ * 
+ * @return int** 
+ */
+
 int** Matrix::rutasMatrix4(){
+    //Genera mapa nivel 4
+
+    //Traza las rutas
     int **map = generateMatrix4();
     for(int i = 22; i < 28; i++){
         map[4][i] = 2;
