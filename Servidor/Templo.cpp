@@ -41,7 +41,7 @@ int getPos(string name){
         return 14;
     }else if(name.compare("23")==0){
         return 15;
-    }else if(name.compare("EnemigoFinal")==0){
+    }else if(name.compare("31")==0){
         return 16;
     }else if(name.compare("Nivel")==0){
         return 17;
@@ -56,7 +56,10 @@ void Templo::startCiclo(){
     auto* op=new Operaciones_Json;
 
     if(nivel!=stoi(op->read(getPos("Nivel"), "level").substr(6))){
-        this->nextNivel();
+        Jugador::getJugador()->setTraces(new TList<std::pair<int, int>>);
+        persiguiendo=false;
+        this->restartNivel();
+        nivel=stoi(op->read(getPos("Nivel"), "level").substr(6));
         lvl= this->getNivel();
     }
 
@@ -219,16 +222,6 @@ bool Templo::ratonCerca(int x, int y, int vision){
         }
     }
     return false;
-}
-/**
- * @brief Siguiente nivel del juego
- * 
- */
-
-void Templo::nextNivel(){
-    Jugador::getJugador()->setTraces(new TList<std::pair<int, int>>);
-    persiguiendo=false;
-    nivel+=1;
 }
 
 /**

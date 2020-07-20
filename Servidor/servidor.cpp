@@ -73,9 +73,7 @@ void manageCalls(int socket,int server_fd, struct sockaddr_in address, int addrl
 int main()
 {
 
-    auto p=Matrix::toPoint(10,25, 2);
-     p=Matrix::toPoint(33,4, 2);
-
+    auto p= Matrix::toMatrixPosition(0,0,5, Matrix::generateMatrix5());
     int server_fd;
     struct sockaddr_in address;
     int opt = 1;

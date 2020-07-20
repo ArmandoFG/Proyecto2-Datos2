@@ -18,10 +18,14 @@ enum Proceso{
 };
 
 enum ColorEspectro{
-    Gris, Rojo, Azul
+    Gris, Rojo, Azul, Final
 };
 
 class Espectro {
+protected:
+public:
+    void setColor(ColorEspectro color);
+
 protected:
     Espectro(ColorEspectro color, int velocidadRuta, int velocidadPersecusion, int vision, int x, int y,
              int numEspectro, int** map, int** mapPatrullaje);

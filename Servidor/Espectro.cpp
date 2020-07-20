@@ -571,6 +571,11 @@ int Espectro::getVelocidadRuta() const {
 int Espectro::getVelocidadPersecusion() const {
     return velocidadPersecusion;
 }
+
+void Espectro::setColor(ColorEspectro color) {
+    Espectro::color = color;
+}
+
 /**
  * @brief Construct a new Espectro Gris:: Espectro Gris object
  * 
