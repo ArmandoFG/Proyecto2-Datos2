@@ -225,6 +225,8 @@ void Templo::startCiclo(){
         }
     }
 
+
+
 }
 
 

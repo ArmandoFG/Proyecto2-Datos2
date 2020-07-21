@@ -303,7 +303,25 @@ void cruce(){
         ptr = ptr->sgte;
         
     }
-    
+
+    int probabilidad = rand()%101;
+    srand(time(NULL));
+
+
+    if(20 <= probabilidad && probabilidad <= 30){
+        int gen = rand()%4;
+        if(Genes[gen] != 10){
+            Genes[gen] += 1;
+
+        }
+    }
+    if(2 <= probabilidad && probabilidad <= 9){
+        int numGenes1 = rand()%4;
+        int numGenes2 = rand()%4;
+        Genes[numGenes1] =  10 - Genes[numGenes1];
+        Genes[numGenes2] =  10 - Genes[numGenes2];
+    }
+
     //Calcula el fitness
     
     int fitness = Genes[0] + Genes[1] + Genes[2]+ Genes[3];

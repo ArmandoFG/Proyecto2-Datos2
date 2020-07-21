@@ -38,6 +38,7 @@ void manageCalls(int socket,int server_fd, struct sockaddr_in address, int addrl
 
     char *rbuf;
     int len2 = strf(&rbuf);
+    cout<<rbuf<<endl;
     send(socket, rbuf, len2, 0);
 
 }
