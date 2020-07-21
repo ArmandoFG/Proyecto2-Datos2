@@ -86,7 +86,7 @@ void Raton::movimiento(int** map){
  * @return false 
  */
 bool Raton::checkearVision(int x, int y, int vision){
-    return sqrt(pow(posY - x, 2) + pow(posY - y, 2)) < vision;
+    return sqrt(pow(posX - x, 2) + pow(posY - y, 2)) < vision;
 }
 /**
  * @brief Estado de la vida
