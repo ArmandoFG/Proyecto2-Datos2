@@ -29,19 +29,19 @@ int getPos(string name){
         return 8;
     }else if(name.compare("Chuchu")==0){
         return 9;
-    }else if(name.compare("21")==0){
-        return 10;
-    }else if(name.compare("22")==0){
-        return 11;
-    }else if(name.compare("23")==0){
-        return 12;
     }else if(name.compare("11")==0){
-        return 13;
+        return 10;
     }else if(name.compare("12")==0){
-        return 14;
+        return 11;
     }else if(name.compare("13")==0){
+        return 12;
+    }else if(name.compare("21")==0){
+        return 13;
+    }else if(name.compare("22")==0){
+        return 14;
+    }else if(name.compare("23")==0){
         return 15;
-    }else if(name.compare("EnemigoFinal")==0){
+    }else if(name.compare("31")==0){
         return 16;
     }else if(name.compare("Nivel")==0){
         return 17;
@@ -54,10 +54,12 @@ void Templo::startCiclo(){
 
     Nivel lvl=getNivel();
     auto* op=new Operaciones_Json;
-    cout<<op->read(getPos("Nivel"), "level").substr(6)<<endl;
 
     if(nivel!=stoi(op->read(getPos("Nivel"), "level").substr(6))){
-        this->nextNivel();
+        Jugador::getJugador()->setTraces(new TList<std::pair<int, int>>);
+        persiguiendo=false;
+        this->restartNivel();
+        nivel=stoi(op->read(getPos("Nivel"), "level").substr(6));
         lvl= this->getNivel();
     }
 
@@ -159,10 +161,6 @@ void Templo::startCiclo(){
             e->setX(posicionReal.first);
             e->setY(posicionReal.second);
 
-            int**map2=Matrix::rutasMatrix2();
-            map2[e->getX()][e->getY()]=9;
-            Matrix::print(map2);
-
             if (persiguiendo) {
                 if (e->getProceso() != PersiguiendoBread && e->getProceso() != PersiguiendoA) {
                     e->setProceso(PersiguiendoA);
@@ -204,26 +202,14 @@ void Templo::startCiclo(){
                              "posy")),
                     nivel, lvl.getMap());
             r->setPos(ubicacion.first,ubicacion.second);
-            //r->movimiento();
-            //std::pair<float,float> point = Matrix::toPoint(r->GetPosX(),r->GetPosY(), nivel);
-            //op->WRITE("Personajes",chuchus->largo+espectros->largo+ojos->largo,
-            //        "posx",to_string(point.first));
-            //op->WRITE("Personajes",chuchus->largo+espectros->largo+ojos->largo,
-            //        "posy",to_string(point.second));
+            r->movimiento(lvl.getMap());
+            std::pair<float,float> point = Matrix::toPoint(r->GetPosX(),r->GetPosY(), nivel);
+            op->WRITE(getPos("Rata"+to_string(i+1)),
+                    "posx",to_string(point.first));
+            op->WRITE(getPos("Rata"+to_string(i+1)),
+                    "posy",to_string(point.second));
         }
     }
-
-   /** for(int i=0; i<espectros->largo;i++) {
-        Espectro *e = espectros->getNodoPos(i)->getValue();
-        lvl.getMap()[e->getX()][e->getY()]=(i+2);
-    }
-    lvl.getMap()[j->getX()][j->getY()]=9;
-    Matrix::print(lvl.getMap());
-    lvl.getMap()[j->getX()][j->getY()]=0;
-    for(int i=0; i<espectros->largo;i++) {
-        Espectro *e = espectros->getNodoPos(i)->getValue();
-        lvl.getMap()[e->getX()][e->getY()]=0;
-    }*/
 
 }
 
@@ -232,18 +218,10 @@ void Templo::startCiclo(){
 bool Templo::ratonCerca(int x, int y, int vision){
     for(int i=0; i<ratones->largo;i++){
         if(ratones->getNodoPos(i)->getValue()->checkearVision(x, y, vision)){
-        //    return
+           return true;
         }
     }
     return false;
-}
-/**
- * @brief Siguiente nivel del juego
- * 
- */
-
-void Templo::nextNivel(){
-    nivel+=1;
 }
 
 /**
