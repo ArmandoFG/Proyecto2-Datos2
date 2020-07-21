@@ -115,15 +115,13 @@ void Templo::startCiclo(){
                     , stof(op->read(getPos("Ojo"+to_string(i+1)),"posy"))
                     ,this->nivel, lvl.getMap());
            ojo->setPos(ubicacion.first, ubicacion.second);
-            if(op->read(getPos("Ojo"+to_string(i+1)), "radiovision")=="true" ){
-                //ojo->checkearVision()){
+            if(ojo->checkearVision()){
                 persiguiendo= true;
                     for(int m=0; m<espectros->largo;m++){
                         Espectro* e=espectros->getNodoPos(m)->getValue();
                         if(e->getColor()==Azul){
                             e->setX(ojo->GetPosX());
                             e->setY(ojo->GetPosY());
-                            op->WRITE(getPos(to_string(e->getColor())+to_string(i+1)), "teletransporte", "true");
                             std::pair<float,float> point = Matrix::toPoint(e->getX(), e->getY(), nivel);
                             op->WRITE(getPos(to_string(e->getColor())+to_string(i+1)), "posx",
                                       to_string(point.first));
@@ -208,6 +206,20 @@ void Templo::startCiclo(){
                     "posx",to_string(point.first));
             op->WRITE(getPos("Rata"+to_string(i+1)),
                     "posy",to_string(point.second));
+        }
+    }
+
+    for(int i=0; i<ojos->largo;i++){
+        Ojo* ojo =ojos->getNodoPos(i)->getValue();
+        if(ojo->isVivo()){
+            if(ojo->checkearVision() ){
+                for(int m=0; m<espectros->largo;m++){
+                    Espectro* e=espectros->getNodoPos(m)->getValue();
+                    if(e->getColor()==Azul){
+                        op->WRITE(getPos(to_string(e->getColor())+to_string(i+1)), "velocidad", "10000000000000");
+                    }
+                }
+            }
         }
     }
 

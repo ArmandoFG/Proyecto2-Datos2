@@ -548,8 +548,6 @@ std::pair<float, float> Matrix::toPoint(int x, int y, int matrixNumber) {
     float xfinal=xMin[n]+stepx/2+stepx*(float)(x);
     float stepy=(yMax[n]-yMin[n])/(SIZEY);
     float yfinal=yMax[n]-stepy/2-stepy*(float)(y);
-    cout << xfinal << endl;
-    cout << yfinal << endl;
 
     return {xfinal, yfinal};
 }
