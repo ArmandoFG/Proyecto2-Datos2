@@ -1,2 +1,4 @@
 # Proyecto2-Datos2
-Por cuestiones de tamño de almacemineto y comunicicon entre Unity y GitHub el codigo del cliente como la interfaz grafica se encuntra en el siguiete link: https://drive.google.com/file/d/11rkQ66Tmri-YcNr7djcmhwIYSwe2cHsV/view?usp=sharing
+Este es el Segundo Proyecto del Curso de Algoritmos y Estrcturas de Datos II del ITCR.
+
+El juego se encuentra en el archivo Spirit Tower
