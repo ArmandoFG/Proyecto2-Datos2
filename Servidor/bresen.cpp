@@ -39,7 +39,8 @@ bresen::bresen(int **map) {
  */
 
 void bresen::Iniciar(int Bx1, int By1, bool listo){
-    //srand(time(NULL));
+    //srand(time(NULL))
+
     int direccion = rand()%8;
      Matrix::SIZEX;
      Matrix::SIZEY;
@@ -47,6 +48,9 @@ void bresen::Iniciar(int Bx1, int By1, bool listo){
    x=Bx1;
 
    y=By1;
+
+ 
+
  
    int x2;
    int y2;

@@ -10,6 +10,12 @@
 #include "Operaciones_Json.h"
 int posX;
 int posY;
+int posXB;
+int posYB;
+
+void setPosB(int x, int y);
+int getPosxB();
+int getPosyB();
 
 /**
  * @brief Construct a new Chuchu:: Chuchu object
@@ -22,7 +28,7 @@ int posY;
 Chuchu::Chuchu(int chuchu, int** map, int x, int y) {
     this->chuchu=chuchu;
     this->map=map;
-    setPos(x, y);
+    setPosB(x,y);
 }
 
 /**
@@ -34,6 +40,10 @@ Chuchu::Chuchu(int chuchu, int** map, int x, int y) {
 void Chuchu::setPos(int x, int y){
     posX = x;
     posY = y;
+}
+void setPosB(int x, int y){
+    posXB = x;
+    posYB = y;
 }
 /**
  * @brief Obtener posicion x
@@ -61,8 +71,9 @@ int Chuchu::GetPosY(){
 void Chuchu::movimiento(){
     bresen move = *new bresen(map);
     Operaciones_Json json = *new Operaciones_Json();
-    move.Iniciar(GetPosX(),GetPosY(), false);
+    move.Iniciar(getPosxB(),getPosyB(), false);
     setPos(move.getx(), move.gety()); 
+    
 }
 /**
  * @brief Verifica si el chuchu está vivo
@@ -98,6 +109,14 @@ int Chuchu::getChuchu() const {
 void Chuchu::setChuchu(int chuchu) {
     Chuchu::chuchu = chuchu;
 }
+int getPosxB(){
+    return posXB;
+}
+int getPosyB(){
+    return posYB;
+
+}
+
 
 
 
