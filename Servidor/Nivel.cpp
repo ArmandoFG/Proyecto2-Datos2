@@ -48,6 +48,7 @@ Nivel1::Nivel1():Nivel() {
     ratones->addLast(new Raton(1));
     ratones->addLast(new Raton(2));
     chuchus->addLast(new Chuchu(1,map, 14,12));
+    ojos->addLast(new Ojo(1));
 }
 
 /**

@@ -19,7 +19,7 @@
 Ojo::Ojo( int ojo) {
     this->ojo=ojo;
     vivo=true;
-    vision=3;
+    vision=8;
 }
 /**
  * @brief Cambiar posicion del ojo
@@ -31,6 +31,7 @@ Ojo::Ojo( int ojo) {
 void Ojo::setPos(int x, int y){
     posX = x;
     posY = y;
+    vision=6;
 }
 
 /**
@@ -49,8 +50,8 @@ int Ojo::GetPosX(){
  * @return false 
  */
 bool Ojo::checkearVision(){
-    Jugador j= * Jugador::getJugador();
-    return sqrt(pow(posY - j.getX(), 2) + pow(posY - j.getY(), 2)) < vision;
+    Jugador* j=  Jugador::getJugador();
+    return sqrt(pow(posX - j->getX(), 2) + pow(posY - j->getY(), 2)) < vision;
 }
 /**
  * @brief Obtener posicion y
@@ -90,7 +91,7 @@ void Ojo::setVivo(bool vivo) {
     Ojo::vivo = vivo;
 }
 /**
- * @brief Obtener ojo 
+ * @brief Obtener numero de ojo
  * 
  * @return int 
  */
@@ -98,7 +99,7 @@ void Ojo::setVivo(bool vivo) {
 int Ojo::getOjo() const {
     return ojo;
 }/**
- * @brief Cambiar ojo
+ * @brief Cambiar numero de ojo
  * 
  * @param ojo 
  */

@@ -6,6 +6,7 @@
  */
 
 #include <cstdlib>
+#include <random>
 #include "Raton.h"
 #include "bresen.h"
 #include "math.h"
@@ -53,9 +54,11 @@ int Raton::GetPosY(){
  * 
  * @param map Nivel del juego
  */
+std::default_random_engine generator=*new std::default_random_engine;
+std::uniform_int_distribution<int> distribution(0,4);
 void Raton::movimiento(int** map){
-    int newposX=posX-2+ rand() % 5;
-    int newposY=posY-2+ rand() % 5;
+    int newposX=posX-2+ distribution(generator);
+    int newposY=posY-2+distribution(generator);
     if((lx!=posX||ly!=posY)||(ldx==posX||ldy==posY) ){
         if(posY>=0 && posY<Matrix::SIZEY && posX>=0 && posX<Matrix::SIZEX){
             if(map[newposX][newposY]==0){

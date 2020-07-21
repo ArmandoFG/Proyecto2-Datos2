@@ -10,16 +10,35 @@
 #include "Matrix.h"
 
 
-
+/**
+ * Funcion para chequear la vision del espectro
+ * @return True si ve al jugador
+ */
 bool Espectro::checkearVision() {
     Jugador j=*Jugador::getJugador();
     return sqrt(pow(x - j.getX(), 2) + pow(y - j.getY(), 2)) < vision;
 }
 
+/**
+ * Funcion heuristica para calcular peso minimo de ruta optima
+ * @param xi Posicion actual x
+ * @param yi Posicion actual y
+ * @param xf Posicion final x
+ * @param yf Posicion final y
+ * @param currentSteps NUmero de pasos dados
+ * @return Peso minimo teorico
+ */
 double f(int xi, int yi, int xf, int yf, float currentSteps){
     return currentSteps+sqrt(pow(xf-xi,2) +pow(yf-yi,2));
 }
 
+/**
+ * Funcion A*
+ * @param xi Posicion inicial X
+ * @param yi Posicion inicial Y
+ * @param xf Posicion final X
+ * @param yf Posicion final Y
+ */
 void Espectro::A(int xi, int yi, int xf, int yf){
     double min =std::numeric_limits<double>::max();
     double minTemp;
@@ -145,6 +164,9 @@ void Espectro::A(int xi, int yi, int xf, int yf){
     }
 }
 
+/**
+ * Funcion para perseguir al jugador con A*
+ */
 void Espectro::perseguirA() {
     this->proceso=PersiguiendoA;
     nextX=new TList<int>;
@@ -159,7 +181,10 @@ void Espectro::perseguirA() {
         nextY->deletePos(0);
     }
 }
-
+/**
+ * Funcion para hacer breadcumbing al jugador
+ * @param attemp Numero de intento
+ */
 void Espectro::breadcumbing(int attemp){
     TList<std::pair<int, int>>* traces=Jugador::getJugador()->getTraces();
 
@@ -346,7 +371,9 @@ int Espectro::getX(){
 int Espectro::getY(){
     return y;
 }
-
+/**
+ * Funcion para patrullar
+ */
 void Espectro::patrullar(){
     for (int i = -1; i < 2; i++) {
         if (x + i < Matrix::SIZEX && x + i > -1) {
@@ -384,7 +411,9 @@ void Espectro::patrullar(){
     }
 }
 
-
+/**
+ * Funcion que mueve al espectro
+ */
 void Espectro::mover() {
     if(proceso==Normal) {
         patrullar();
@@ -415,7 +444,9 @@ void Espectro::mover() {
         lly=py;
     }
 }
-
+/**
+ * Funcion que decide que calcular proximamente
+ */
 void Espectro::nextStep() {
     switch (proceso) {
         case Normal:

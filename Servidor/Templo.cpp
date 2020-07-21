@@ -8,6 +8,12 @@
 #include "iostream"
 #include "string"
 using namespace std;
+
+/**
+ * Funcion que indica la posicion del personaje en el json
+ * @param name Nombre del personaje
+ * @return Posicion en json
+ */
 int getPos(string name){
     if(name.compare("Player")==0){
         return 0;
@@ -48,6 +54,9 @@ int getPos(string name){
     }
 }
 
+/**
+ * Funcion que se llama una vez cada nivel
+ */
 void Templo::startCiclo(){
 
 
@@ -115,15 +124,13 @@ void Templo::startCiclo(){
                     , stof(op->read(getPos("Ojo"+to_string(i+1)),"posy"))
                     ,this->nivel, lvl.getMap());
            ojo->setPos(ubicacion.first, ubicacion.second);
-            if(op->read(getPos("Ojo"+to_string(i+1)), "radiovision")=="true" ){
-                //ojo->checkearVision()){
+            if(ojo->checkearVision()){
                 persiguiendo= true;
                     for(int m=0; m<espectros->largo;m++){
                         Espectro* e=espectros->getNodoPos(m)->getValue();
                         if(e->getColor()==Azul){
                             e->setX(ojo->GetPosX());
                             e->setY(ojo->GetPosY());
-                            op->WRITE(getPos(to_string(e->getColor())+to_string(i+1)), "teletransporte", "true");
                             std::pair<float,float> point = Matrix::toPoint(e->getX(), e->getY(), nivel);
                             op->WRITE(getPos(to_string(e->getColor())+to_string(i+1)), "posx",
                                       to_string(point.first));
@@ -211,10 +218,30 @@ void Templo::startCiclo(){
         }
     }
 
+    for(int i=0; i<ojos->largo;i++){
+        Ojo* ojo =ojos->getNodoPos(i)->getValue();
+        if(ojo->isVivo()){
+            if(ojo->checkearVision() ){
+                for(int m=0; m<espectros->largo;m++){
+                    Espectro* e=espectros->getNodoPos(m)->getValue();
+                    if(e->getColor()==Azul){
+                        op->WRITE(getPos(to_string(e->getColor())+to_string(i+1)), "velocidad", "10000000000000");
+                    }
+                }
+            }
+        }
+    }
+
 }
 
 
-
+/**
+ * Devuelve true si hay un raton cerca al espector
+ * @param x X del expectro
+ * @param y Y del espectro
+ * @param vision Vision del espectro
+ * @return True si esta cerca
+ */
 bool Templo::ratonCerca(int x, int y, int vision){
     for(int i=0; i<ratones->largo;i++){
         if(ratones->getNodoPos(i)->getValue()->checkearVision(x, y, vision)){
