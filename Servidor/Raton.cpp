@@ -54,17 +54,26 @@ int Raton::GetPosY(){
  * @param map Nivel del juego
  */
 void Raton::movimiento(int** map){
-    int newposX=posX-1+ rand() % 3;
-    int newposY=posY-1+ rand() % 3;
-    if(posY>=0 && posY<=Matrix::SIZEY && posX>=0 && posX<=Matrix::SIZEX){
-        if(map[newposX][newposY]!=0){
-            posX=newposX;
-            posY=newposY;
-        } else{
+    int newposX=posX-2+ rand() % 5;
+    int newposY=posY-2+ rand() % 5;
+    if((lx!=posX||ly!=posY)||(ldx==posX||ldy==posY) ){
+        if(posY>=0 && posY<Matrix::SIZEY && posX>=0 && posX<Matrix::SIZEX){
+            if(map[newposX][newposY]==0){
+                lx=posX;
+                ly=posY;
+                posX=newposX;
+                posY=newposY;
+                ldx=posX;
+                ldy=posY;
+            } else{
+                this->movimiento(map);
+            }
+        }else{
             this->movimiento(map);
         }
-    }else{
-        this->movimiento(map);
+    } else{
+        posX=ldx;
+        posY=ldy;
     }
 }
 /**

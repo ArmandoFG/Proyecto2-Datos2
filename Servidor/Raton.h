@@ -14,6 +14,10 @@ private:
     int raton;
     int posX;
     int posY;
+    int lx{0};
+    int ly{0};
+    int ldx{0};
+    int ldy{0};
 public:
     Raton(int raton);
 

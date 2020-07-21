@@ -202,12 +202,12 @@ void Templo::startCiclo(){
                              "posy")),
                     nivel, lvl.getMap());
             r->setPos(ubicacion.first,ubicacion.second);
-            //r->movimiento();
-            //std::pair<float,float> point = Matrix::toPoint(r->GetPosX(),r->GetPosY(), nivel);
-            //op->WRITE("Personajes",chuchus->largo+espectros->largo+ojos->largo,
-            //        "posx",to_string(point.first));
-            //op->WRITE("Personajes",chuchus->largo+espectros->largo+ojos->largo,
-            //        "posy",to_string(point.second));
+            r->movimiento(lvl.getMap());
+            std::pair<float,float> point = Matrix::toPoint(r->GetPosX(),r->GetPosY(), nivel);
+            op->WRITE(getPos("Rata"+to_string(i+1)),
+                    "posx",to_string(point.first));
+            op->WRITE(getPos("Rata"+to_string(i+1)),
+                    "posy",to_string(point.second));
         }
     }
 
@@ -218,7 +218,7 @@ void Templo::startCiclo(){
 bool Templo::ratonCerca(int x, int y, int vision){
     for(int i=0; i<ratones->largo;i++){
         if(ratones->getNodoPos(i)->getValue()->checkearVision(x, y, vision)){
-        //    return
+           return true;
         }
     }
     return false;
