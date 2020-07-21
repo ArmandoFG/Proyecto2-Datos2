@@ -55,10 +55,10 @@ int Raton::GetPosY(){
  * @param map Nivel del juego
  */
 std::default_random_engine generator=*new std::default_random_engine;
-std::uniform_int_distribution<int> distribution(0,4);
+std::uniform_int_distribution<int> distribution(0,2);
 void Raton::movimiento(int** map){
-    int newposX=posX-2+ distribution(generator);
-    int newposY=posY-2+distribution(generator);
+    int newposX=posX-1+ distribution(generator);
+    int newposY=posY-1+distribution(generator);
     if((lx!=posX||ly!=posY)||(ldx==posX||ldy==posY) ){
         if(posY>=0 && posY<Matrix::SIZEY && posX>=0 && posX<Matrix::SIZEX){
             if(map[newposX][newposY]==0){
@@ -68,13 +68,10 @@ void Raton::movimiento(int** map){
                 posY=newposY;
                 ldx=posX;
                 ldy=posY;
-            } else{
-                this->movimiento(map);
             }
-        }else{
-            this->movimiento(map);
         }
-    } else{
+    }
+        else{
         posX=ldx;
         posY=ldy;
     }

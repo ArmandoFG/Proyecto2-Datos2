@@ -117,7 +117,7 @@ void Templo::startCiclo(){
                     , stof(op->read(getPos("Ojo"+to_string(i+1)),"posy"))
                     ,this->nivel, lvl.getMap());
            ojo->setPos(ubicacion.first, ubicacion.second);
-            if(ojo->checkearVision() &&(ubicacion.first!=32 || ubicacion.second!=21 ) ||(j->getX()!=32||j->getY()!=21)){
+            if(ojo->checkearVision() &&((ubicacion.first!=32 || ubicacion.second!=21 ) ||(j->getX()!=32||j->getY()!=21))){
                 persiguiendo= true;
                     for(int m=0; m<espectros->largo;m++){
                         Espectro* e=espectros->getNodoPos(m)->getValue();
