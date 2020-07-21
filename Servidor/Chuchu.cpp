@@ -27,7 +27,7 @@ Chuchu::Chuchu(int chuchu, int** map, int x, int y) {
     this->chuchu=chuchu;
     this->map=map;
     this->posXB = x;
-    this->posYB = y
+    this->posYB = y;
     
 
 }
@@ -108,11 +108,11 @@ int Chuchu::getChuchu() const {
 void Chuchu::setChuchu(int chuchu) {
     Chuchu::chuchu = chuchu;
 }
-int getPosxB(){
-    return Chuchu::posXB;
+int Chuchu::getPosxB(){
+    return posXB;
 }
-int getPosyB(){
-    return Chuchu::posYB;
+int Chuchu::getPosyB(){
+    return posYB;
 
 }
 

@@ -30,6 +30,10 @@ public:
     int getChuchu() const;
 
     void setChuchu(int chuchu);
+
+    int getPosxB();
+
+    int getPosyB();
 };
 
 #endif	/* CHUCHU_H */

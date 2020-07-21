@@ -92,13 +92,6 @@ void Templo::startCiclo(){
         Chuchu* c =chuchus->getNodoPos(i)->getValue();
         c->setVivo(op->read(getPos("Chuchu"), "vivo")=="true");
         if(c->isVivo()){
-            std::pair<int, int> ubicacion = Matrix::toMatrixPosition(
-                    stof(op->read(getPos("Chuchu"),
-                                  "posx")),
-                    stof(op->read(getPos("Chuchu"),
-                                  "posy")),
-                                    nivel, lvl.getMap());
-            c->setPos(ubicacion.first,ubicacion.second);
             c->movimiento();
             std::pair<float,float> point = Matrix::toPoint(c->GetPosX(), c->GetPosY(), nivel);
             op->WRITE(getPos("Chuchu"),"posx", to_string(point.first));
