@@ -91,7 +91,7 @@ void Ojo::setVivo(bool vivo) {
     Ojo::vivo = vivo;
 }
 /**
- * @brief Obtener ojo 
+ * @brief Obtener numero de ojo
  * 
  * @return int 
  */
@@ -99,7 +99,7 @@ void Ojo::setVivo(bool vivo) {
 int Ojo::getOjo() const {
     return ojo;
 }/**
- * @brief Cambiar ojo
+ * @brief Cambiar numero de ojo
  * 
  * @param ojo 
  */

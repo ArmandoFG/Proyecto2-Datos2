@@ -537,7 +537,7 @@ int** Matrix::generateMatrix5() {
  * @param x Posicion x de la matriz
  * @param y Posicion y de la matriz
  * @param matrixNumber Numero de la matriz
- * @return std::pair<float, float> 
+ * @return std::pair<float, float> Posicion del objeto en el juego
  */
 std::pair<float, float> Matrix::toPoint(int x, int y, int matrixNumber) {
     int temp=x;
@@ -551,7 +551,14 @@ std::pair<float, float> Matrix::toPoint(int x, int y, int matrixNumber) {
 
     return {xfinal, yfinal};
 }
-
+/**
+ * Convierte de posicion en juego a posicion en matriz
+ * @param x Posicion en juego x
+ * @param y Posicion en juego y
+ * @param matrixNumber Numero de nivel
+ * @param matrix Matriz
+ * @return Posicion del objeto en matriz
+ */
 std::pair<int, int> Matrix::toMatrixPosition(float x, float y, int matrixNumber, int** matrix) {
     int n=matrixNumber-1;
     float xfinalf=(x-xMin[n])*(SIZEX)/(xMax[n]-xMin[n]);

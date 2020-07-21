@@ -8,6 +8,12 @@
 #include "iostream"
 #include "string"
 using namespace std;
+
+/**
+ * Funcion que indica la posicion del personaje en el json
+ * @param name Nombre del personaje
+ * @return Posicion en json
+ */
 int getPos(string name){
     if(name.compare("Player")==0){
         return 0;
@@ -48,6 +54,9 @@ int getPos(string name){
     }
 }
 
+/**
+ * Funcion que se llama una vez cada nivel
+ */
 void Templo::startCiclo(){
 
 
@@ -226,7 +235,13 @@ void Templo::startCiclo(){
 }
 
 
-
+/**
+ * Devuelve true si hay un raton cerca al espector
+ * @param x X del expectro
+ * @param y Y del espectro
+ * @param vision Vision del espectro
+ * @return True si esta cerca
+ */
 bool Templo::ratonCerca(int x, int y, int vision){
     for(int i=0; i<ratones->largo;i++){
         if(ratones->getNodoPos(i)->getValue()->checkearVision(x, y, vision)){
