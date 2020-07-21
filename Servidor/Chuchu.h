@@ -22,6 +22,10 @@ public:
 private:
     int chuchu;
     int** map;
+    int posX;
+    int posY;
+    int posXB;
+    int posYB;
 public:
     int getChuchu() const;
 

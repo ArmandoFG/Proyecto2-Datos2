@@ -10,8 +10,6 @@
 #include "Operaciones_Json.h"
 int posX;
 int posY;
-int posXB;
-int posYB;
 
 void setPosB(int x, int y);
 int getPosxB();
@@ -28,7 +26,10 @@ int getPosyB();
 Chuchu::Chuchu(int chuchu, int** map, int x, int y) {
     this->chuchu=chuchu;
     this->map=map;
-    setPosB(x,y);
+    this->posXB = x;
+    this->posYB = y
+    
+
 }
 
 /**
@@ -40,11 +41,9 @@ Chuchu::Chuchu(int chuchu, int** map, int x, int y) {
 void Chuchu::setPos(int x, int y){
     posX = x;
     posY = y;
+   
 }
-void setPosB(int x, int y){
-    posXB = x;
-    posYB = y;
-}
+
 /**
  * @brief Obtener posicion x
  * 
@@ -110,10 +109,10 @@ void Chuchu::setChuchu(int chuchu) {
     Chuchu::chuchu = chuchu;
 }
 int getPosxB(){
-    return posXB;
+    return Chuchu::posXB;
 }
 int getPosyB(){
-    return posYB;
+    return Chuchu::posYB;
 
 }
 
