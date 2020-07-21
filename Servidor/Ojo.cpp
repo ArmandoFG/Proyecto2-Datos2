@@ -19,7 +19,7 @@
 Ojo::Ojo( int ojo) {
     this->ojo=ojo;
     vivo=true;
-    vision=8;
+    vision=6;
 }
 /**
  * @brief Cambiar posicion del ojo

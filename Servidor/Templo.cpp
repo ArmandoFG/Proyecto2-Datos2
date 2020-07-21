@@ -117,7 +117,7 @@ void Templo::startCiclo(){
                     , stof(op->read(getPos("Ojo"+to_string(i+1)),"posy"))
                     ,this->nivel, lvl.getMap());
            ojo->setPos(ubicacion.first, ubicacion.second);
-            if(ojo->checkearVision()){
+            if(ojo->checkearVision() &&(ubicacion.first!=32 || ubicacion.second!=21 ) ||(j->getX()!=32||j->getY()!=21)){
                 persiguiendo= true;
                     for(int m=0; m<espectros->largo;m++){
                         Espectro* e=espectros->getNodoPos(m)->getValue();
@@ -218,7 +218,7 @@ void Templo::startCiclo(){
                 for(int m=0; m<espectros->largo;m++){
                     Espectro* e=espectros->getNodoPos(m)->getValue();
                     if(e->getColor()==Azul){
-                        op->WRITE(getPos(to_string(e->getColor())+to_string(i+1)), "velocidad", "10000000000000");
+                        op->WRITE(getPos(to_string(e->getColor())+to_string(i+1)), "velocidad", "10000000000000000000000");
                     }
                 }
             }
